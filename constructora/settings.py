@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
+from django.core.urlresolvers import reverse_lazy
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -39,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #importado de los diferentes modulos
     'apps.almacenes',
-    'apps.kardex',
+    'apps.personal',
     'apps.seguimiento',
 ]
 
@@ -133,3 +134,8 @@ STATIC_URL = '/static/'
 MEDIA_URL="/media/"
 MEDIA_ROOT=os.path.join(BASE_DIR,"media")
 STATICFILES_DIRS=(os.path.join(BASE_DIR,"static"),)
+
+LOGIN_REDIRECT_URL = reverse_lazy('personal:main')
+LOGIN_URL = reverse_lazy('personal:login')
+LOGOUT_URL = reverse_lazy('personal:logout')
+LOGOUT_REDIRECT_URL = reverse_lazy('personal:login')
