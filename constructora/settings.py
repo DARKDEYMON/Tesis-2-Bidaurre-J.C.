@@ -135,6 +135,7 @@ MEDIA_URL="/media/"
 MEDIA_ROOT=os.path.join(BASE_DIR,"media")
 STATICFILES_DIRS=(os.path.join(BASE_DIR,"static"),)
 
+#configuracion de logeo de django para el redireccionamiento
 LOGIN_REDIRECT_URL = reverse_lazy('personal:main')
 LOGIN_URL = reverse_lazy('personal:login')
 LOGOUT_URL = reverse_lazy('personal:logout')

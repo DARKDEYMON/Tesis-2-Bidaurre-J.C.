@@ -11,7 +11,7 @@ def validate_file_extension(value):
   ext = os.path.splitext(value.name)[1]
   valid_extensions = ['.pdf','.doc','.docx']
   if not ext in valid_extensions:
-    raise ValidationError(u'Tipo de Archibo no soportado!')
+    raise ValidationError(u'Tipo de Archibo no Soportado!')
 
 class kardex(models.Model):
 	user = models.OneToOneField(User)
@@ -20,35 +20,47 @@ class kardex(models.Model):
 		null=False, 
 		blank=False, 
 		unique=True, 
-		validators=[[
+		validators=[
+			# validadores de filas
 			RegexValidator(
-				regex='[0-9]{7}[a-zA-Z]{0,2}', 
+				regex=r'[0-9]{7}[a-zA-Z]{0,2}', 
 				message='El ci Tiene un Maximo de 7 Digitos', 
 				code='Numero Invalido'
 			)
-		]]
+		]
 	)
 	telefono_fijo = models.PositiveIntegerField(
 		null=False, 
 		blank=False, 
-		validators=[[
+		validators=[
 			RegexValidator(
-				regex='^[0-9]{7,8}$', 
-				message='El celular tiene un maximo de 8 dijitos', 
+				regex=r'^[0-9]{7,8}$', 
+				message='El telefono tiene un maximo de 8 dijitos', 
 				code='Numero Invalido'
 				)
-		]]
+		]
 	)
 	celular = models.PositiveIntegerField(
 		null=False, 
 		blank=False, 
-		validators=[[
+		validators=[
 			RegexValidator(
-				regex='^[0-9]{8}$', 
+				regex=r'^[0-9]{8}$',
 				message='El celular tiene un maximo de 8 dijitos', 
 				code='Numero Invalido'
 				)
-		]]
+		]
+	)
+	direccion = models.CharField(
+		max_length=50,
+		null=False,
+		blank=False
+	)
+	nivel_de_confiabilidad = models.PositiveIntegerField(
+		null=False, 
+		blank=False, 
+		default=0, 
+		choices=((0,0),(1,1),(2,2),(3,3),(4,4),(5,5))
 	)
 	curriculum = models.FileField(
 		upload_to='curriculums/', 

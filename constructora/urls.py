@@ -16,7 +16,11 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
+from django.views.generic import RedirectView
+from django.core.urlresolvers import reverse_lazy
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^personal/', include('apps.personal.urls', namespace='personal')),
+    url(r'^$', RedirectView.as_view(url=reverse_lazy('personal:main')), name='home'),
 ]
