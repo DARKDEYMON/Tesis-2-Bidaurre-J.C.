@@ -22,6 +22,7 @@ from django.contrib.auth.decorators import login_required
 urlpatterns = [
     #login_required metodo de forsado de login
     url(r'^$', login_required(main_page), name='main'),
+    url(r'^nuevousuario/$', login_required(crearUsuario.as_view()), name='nuevousuario'),
     #login_required metodo de forsado de login, logout_then_login metodos de logeo de django
     url(r'^login/$',login,{'template_name':'personal/login.html'}, name='login'),
     url(r'^logout/$',logout_then_login, name='logout'),

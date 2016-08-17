@@ -1,79 +1,67 @@
-{% extends "base/index.html" %}
+{% extends "base/baseform.html" %}	
 
-{% block body %}
-	
-	<div id="cn-overlay" class="cn-overlay"></div>	
-	
-
-		{% block content %}
-
-		<div class="col-sm-4">
+	{% block legend %}
+		<legend>Login</legend>
+	{% endblock legend %}	
 			
-		</div>
-		<div class="col-sm-4">
-			<div class="well bs-component">
-			
-			<legend>Login</legend>
-		    
-			{% if form.errors %}
-			<p>Tu nombre de usuario o password no se an Encontrado. Intente Denuebo</p>
-			{% endif %}
+	{% block errores %}
+		{% if form.errors %}
+				<p>Tu nombre de usuario o password no se an Encontrado. Intente Denuebo</p>
+		{% endif %}
 
-			{% if next %}
-			    {% if user.is_authenticated %}
+		{% if next %}
+			{% if user.is_authenticated %}
 			    <p>Tu cuenta no tiene acceso a esta pagina. Para continuar,
 			    logeese con una cuenta q cuente con los permisos nesesarios.</p>
-			    {% else %}
+			{% else %}
 			    <p>Porfabor Logeate Para ver esta pagina.</p>
-			    {% endif %}
 			{% endif %}
+		{% endif %}	
+	{% endblock errores %}		
 			
+	{% block urlEnvio %}
+		{% url 'personal:login' %}
+	{% endblock urlEnvio %}	    
 			
-			<form method="post" action="{% url 'personal:login' %}" class="form-horizontal">
-				<fieldset>
-					{% csrf_token %}
-					<div class="form-group">
-				      <label for="username" class="col-lg-2 control-label">Username</label>
-				      <div class="col-lg-10">
-				        <input type="text" class="form-control" placeholder="Username" name="username">
-				      </div>
+	{% block formulario %}
+		<fieldset>
+			{% csrf_token %}
+			<div class="form-group">
+				    <label for="username" class="col-lg-2 control-label">Username</label>
+				    <div class="col-lg-10">
+				      <input type="text" class="form-control" placeholder="Username" name="username">
 				    </div>
+				  </div>
 
-					<div class="form-group">
-				      <label for="password" class="col-lg-2 control-label">Password</label>
-				      <div class="col-lg-10">
-				        <input type="password" class="form-control" placeholder="password" name="password">
-				      </div>
+			<div class="form-group">
+				    <label for="password" class="col-lg-2 control-label">Password</label>
+				    <div class="col-lg-10">
+				      <input type="password" class="form-control" placeholder="password" name="password">
 				    </div>
+				  </div>
 
-					<input type="hidden" name="next" value="{{ next }}" />
+			<input type="hidden" name="next" value="{{ next }}" />
 					
-				    <div class="col-lg-10 col-lg-offset-2">
-				    	<a href="">Lost password?</a>
-				        <button type="reset" class="btn btn-default">Cancel</button>
-				        <button type="submit" value="login" class="btn btn-primary">Submit</button>
-				    </div>
-				</fieldset>
-			</form>
-			</div>
-
-		</div>
-		<div class="col-sm-4">
-		</div>
-		{% endblock %}
-	
-	<div class="row">
-		<div class="col-sm-8">
-			<div class="jumbotron">
-				<div class="container">
-					<h1>Empresa J. Vidaurre</h1>
-					<p>Sistema de Seguimiento de Proyectos</p>
+				  <div class="col-lg-10 col-lg-offset-2">
+				   <a href="">Perdio su contraseña?</a>
+				      <button type="reset" class="btn btn-default">Reset</button>
+				      <button type="submit" value="login" class="btn btn-primary">Login</button>
+				  </div>
+		</fieldset>	
+	{% endblock formulario %}		
+			
+	{% block añadidos %}
+		<div class="row">
+			<div class="col-sm-8">
+				<div class="jumbotron">
+					<div class="container">
+						<h1>Empresa J. Vidaurre</h1>
+						<p>Sistema de Seguimiento de Proyectos</p>
+					</div>
 				</div>
 			</div>
+			<div class="col-sm-4">
+				
+			</div>
 		</div>
-		<div class="col-sm-4">
-			
-		</div>
-	</div>
-	
-{% endblock body %}
+	{% endblock añadidos %}

@@ -1,0 +1,25 @@
+{% extends "base/baseform.html" %}	
+	{% block nav %}
+		{% include "base/nav.html" %}
+	{% endblock nav %}
+
+	
+	{% block formulario %}
+
+	<fieldset>
+		{% csrf_token %}
+		{{ form }}
+		{{ form2 }}
+
+		<div class="row">
+			<div class="col-lg-6">	
+				<button type="reset" class="btn btn-default center-block">Reset</button>
+			</div>
+			<div class="col-lg-6">
+				<button type="submit" value="login" class="btn btn-primary center-block">Login</button>
+			</div>
+		</div>
+			
+		
+	</fieldset>
+	{% endblock formulario %}
