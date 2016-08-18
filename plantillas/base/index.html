@@ -10,8 +10,14 @@
 	<link href="{% static "css/cssconf.css"%} " rel="stylesheet">
 </head>
 <body>
-	{% block body %}
+	{% block nav %}
 		{% include "base/nav.html" %}
+	{% endblock nav %}
+	{% block foto %}
+		<div id="cn-overlay" class="cn-overlay"></div>
+	{% endblock foto %}
+	{% block body %}
+		
 	{% endblock body %}
 	<!-- jQuery -->
     <script src="{% static "js/jquery-3.1.0.min.js"%}"></script>

@@ -6,6 +6,7 @@ from django.core.urlresolvers import reverse_lazy
 
 from apps.personal.forms import crearUsuarioKardexForm, crearUsuarioUserForm
 from apps.personal.models import *
+from django.contrib.auth.models import User
 
 # Create your views here.
 def main_page(request):
@@ -27,14 +28,17 @@ class crearUsuario(CreateView):
 		self.object = self.get_object	
 		form = self.form_class(request.POST)
 		form2 = self.second_form_class(request.POST,request.FILES)
-		print (form.is_valid())
-		print (form2.is_valid())
+		#print (form.is_valid())
+		#print (form2.is_valid())
 		if form.is_valid() and form2.is_valid():
-			print ("paso")
+			#print ("paso")
 			form2Save = form2.save(commit=False)
 			form2Save.user = form.save()
 			form2Save.save()
 			return  HttpResponseRedirect(self.succes_url)
 		else:
-			print ("paso2")
+			#print ("paso2")
 			return self.render_to_response(self.get_context_data(form=form, form2=form2))
+class listaUsuario(ListView):
+	model = User
+	template_name='personal/listausuario.html'

@@ -24,7 +24,20 @@ class kardex(models.Model):
 			# validadores de filas
 			RegexValidator(
 				regex=r'[0-9]{7}[a-zA-Z]{0,2}', 
-				message='El ci Tiene un Maximo de 7 Digitos', 
+				message='El CI Tiene un Maximo de 7 Digitos y en algunos casos dos letras mas', 
+				code='Numero Invalido'
+			)
+		]
+	)
+	profecion =models.CharField(
+		max_length=40,
+		null=False,
+		blank=False,
+		validators=[
+			# validadores de filas
+			RegexValidator(
+				regex=r'[a-zA-Z]+', 
+				message='La profecion deve contener solo letras', 
 				code='Numero Invalido'
 			)
 		]
@@ -37,7 +50,7 @@ class kardex(models.Model):
 				regex=r'^[0-9]{7,8}$', 
 				message='El telefono tiene un maximo de 8 dijitos', 
 				code='Numero Invalido'
-				)
+			)
 		]
 	)
 	celular = models.PositiveIntegerField(
@@ -48,7 +61,7 @@ class kardex(models.Model):
 				regex=r'^[0-9]{8}$',
 				message='El celular tiene un maximo de 8 dijitos', 
 				code='Numero Invalido'
-				)
+			)
 		]
 	)
 	direccion = models.CharField(
@@ -67,4 +80,30 @@ class kardex(models.Model):
 		validators=[validate_file_extension]
 	)
 	def __str__(self):
-		return (self.ci);
+		return '{}{}'.format(self.ci);
+
+class cargo(models.Model):
+	codigo_cargo = models.CharField(
+		max_length = 4,
+		null=False,
+		blank=False,
+		unique=True,
+		validators=[
+			RegexValidator(
+				regex=r'^[0-9A-Z]{4}$', 
+				message='El codigo de cargo es de cuatro caracteres y no contiene simbolos especiales', 
+				code='Numero Invalido'
+			)
+		]
+	)
+	nombre_cargo = models.CharField(
+		max_length=60,
+		null=False,
+		blank=False
+	)
+	salario = models.FloatField(
+		null=False,
+		blank=False
+	)
+	def __str__(self):
+		return '{}{}'.format(self.nombre_cargo)

@@ -11,6 +11,7 @@ class crearUsuarioKardexForm(ModelForm):
 		"""
 		fields = [
 			'ci',
+			'profecion',
 			'telefono_fijo',
 			'celular',
 			'direccion',
@@ -21,6 +22,7 @@ class crearUsuarioKardexForm(ModelForm):
 		exclude = ['user']
 		widgets = {
 			'ci':forms.TextInput(attrs={'class':'form-control'}),
+			'profecion':forms.TextInput(attrs={'class':'form-control'}),
 			'telefono_fijo':forms.TextInput(attrs={'class':'form-control'}),
 			'celular':forms.TextInput(attrs={'class':'form-control'}),
 			'direccion':forms.TextInput(attrs={'class':'form-control'}),
@@ -46,5 +48,5 @@ class crearUsuarioUserForm(UserCreationForm):
 			'password2':forms.PasswordInput(attrs={'class':'form-control'}),
 			'first_name':forms.TextInput(attrs={'class':'form-control'}),
 			'last_name':forms.TextInput(attrs={'class':'form-control'}),
-			'email':forms.TextInput(attrs={'class':'form-control'}),
+			'email':forms.EmailInput(attrs={'class':'form-control'}),
 		}
