@@ -42,3 +42,14 @@ class crearUsuario(CreateView):
 class listaUsuario(ListView):
 	model = User
 	template_name='personal/listausuario.html'
+	def get_queryset(self):
+		try:
+			id = self.kwargs['id']
+		except:
+			id = ''
+		if (id != ''):
+			#object_list = self.model.objects.filter(name__icontains = id)
+			object_list = self.model.objects.filter(id = id)
+		else:
+			object_list = self.model.objects.all().order_by('id')
+		return object_list
