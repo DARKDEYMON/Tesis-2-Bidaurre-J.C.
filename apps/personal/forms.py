@@ -29,6 +29,10 @@ class crearUsuarioKardexForm(ModelForm):
 			'nivel_de_confiabilidad':forms.Select(attrs={'class':'form-control'}),
 			'curriculum':forms.FileInput(attrs={'class':'form-control'}),
 		}
+class searchForm(forms.Form):
+	search = forms.CharField(label="", help_text="", widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Busqueda por id...'}))
+			
+
 class crearUsuarioUserForm(UserCreationForm):
 	password1 = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control'}))
 	password2 = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control'}))

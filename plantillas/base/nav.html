@@ -22,7 +22,8 @@
             <li><a href="#">Something else here</a></li>
             <li class="divider"></li>
             {# sen evia dos comillas para vacio opcional #}
-            <li><a href="{% url 'personal:listausuario' ''%}">Listado del Personal</a></li>
+            {# <li><a href="{% url 'personal:listausuario' ''%}">Listado del Personal</a></li> #}
+            <li><a href="{% url 'personal:listausuario' %}">Listado del Personal</a></li>
             <li class="divider"></li>
             <li><a href="#">One more separated link</a></li>
           </ul>
