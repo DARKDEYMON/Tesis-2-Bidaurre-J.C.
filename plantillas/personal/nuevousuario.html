@@ -6,6 +6,15 @@
 
 	<fieldset>
 		{% csrf_token %}
+		{% comment %}
+		{% for field in form %}
+		    <div class="fieldWrapper">
+		        {{ field.errors }}
+		        {{ field.label_tag }} 
+		        {{ field }}
+		    </div>
+		{% endfor %}
+		{% endcomment %}
 		{{ form }}
 		{{ form2 }}
 
@@ -14,7 +23,7 @@
 				<button type="reset" class="btn btn-default center-block">Reset</button>
 			</div>
 			<div class="col-lg-6">
-				<button type="submit" value="login" class="btn btn-primary center-block">Login</button>
+				<button type="submit" value="login" class="btn btn-primary center-block">Submit</button>
 			</div>
 		</div>
 			

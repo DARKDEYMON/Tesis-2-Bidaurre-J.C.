@@ -46,7 +46,8 @@ class crearUsuario(CreateView):
 			return self.render_to_response(self.get_context_data(form=form, form2=form2))
 
 # clase nueva sobreescrita para busqueda
-class FormListView(FormMixin, ListView):
+
+class FormListView1(FormMixin, ListView):
 	def get(self, request, *args, **kwargs):
 		# From ProcessFormMixin
 		form_class = self.get_form_class()
@@ -63,12 +64,30 @@ class FormListView(FormMixin, ListView):
 
 	def post(self, request, *args, **kwargs):
 		return self.get(request, *args, **kwargs)
+	def form_invalid(self, request, *args, **kwargs):
+		return self.get(self, request, *args, **kwargs)
 
-class listaUsuario(FormListView):
+class listaUsuario(CreateView, ListView):
 	model = User
 	form_class = searchForm
 	template_name='personal/listausuario.html'
 	paginate_by = 10
+
+	# aun sin saber si cirve
+	def get_context_data(self, **kwargs):
+		context = super (listaUsuario, self).get_context_data(**kwargs)
+		if 'form' not in context:
+			context['form'] = self.form_class()
+		return context
+
+	def get(self, request, *args, **kwargs):
+		self.object = self.get_object
+		form = self.form_class()
+		if request.GET:
+			form = self.form_class(request.GET)
+		self.object_list = self.get_queryset()
+		return self.render_to_response(self.get_context_data(object_list=self.object_list , form=form))
+
 	def get_queryset(self):
 		"""
 		form = form_class(self.request.GET)
@@ -78,17 +97,20 @@ class listaUsuario(FormListView):
 			object_list = self.model.objects.all().filter(is_staff=False).order_by('id')
 		return object_list
 		"""
-		print(self.request.GET)
-		try:
+		
+		id = None
+
+		if self.request.method == "GET":
 			form = self.form_class(self.request.GET)
-			print(self.request.GET)
-			print(form)
-			id = form.cleaned_data['search']
-			#kwargs['id']
-			print(id)
-		except:
-			id = ''
-		if (id != ''):
+			print (form.is_valid())
+			if form.is_valid():
+				print(self.request.GET)
+				print(form)
+				id = form.cleaned_data['search']
+				#kwargs['id']
+				print(id)
+
+		if (id):
 			#object_list = self.model.objects.filter(name__icontains = id)
 			object_list = self.model.objects.filter(id = id, is_staff=False)
 		else:

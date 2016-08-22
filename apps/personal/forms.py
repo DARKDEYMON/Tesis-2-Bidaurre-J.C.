@@ -30,7 +30,7 @@ class crearUsuarioKardexForm(ModelForm):
 			'curriculum':forms.FileInput(attrs={'class':'form-control'}),
 		}
 class searchForm(forms.Form):
-	search = forms.CharField(label="", help_text="", widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Busqueda por id...'}))
+	search = forms.IntegerField(label="", help_text="", widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Busqueda por id...'}))
 			
 
 class crearUsuarioUserForm(UserCreationForm):
