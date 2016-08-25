@@ -1,5 +1,5 @@
 ======================
-Sestor de subida de archibos de curriculum
+Sector de subida de archibos de curriculum
 ======================
 
 * Esta es la carpeta base
