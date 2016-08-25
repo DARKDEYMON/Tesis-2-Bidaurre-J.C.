@@ -5,7 +5,7 @@ from django.views.generic.edit import FormMixin
 from django.http import Http404
 from django.utils.translation import ugettext as _
 
-from django.views.generic import ListView, CreateView
+from django.views.generic import ListView, CreateView, UpdateView
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse_lazy
 
@@ -18,7 +18,7 @@ def main_page(request):
 	return render (request,"base/index.html",{})
 
 class crearUsuario(CreateView):
-	model = kardex
+	#model = User
 	form_class = crearUsuarioUserForm
 	second_form_class = crearUsuarioKardexForm
 	template_name = 'personal/nuevousuario.html'
@@ -45,27 +45,22 @@ class crearUsuario(CreateView):
 			#print ("paso2")
 			return self.render_to_response(self.get_context_data(form=form, form2=form2))
 
-# clase nueva sobreescrita para busqueda
-
-class FormListView1(FormMixin, ListView):
-	def get(self, request, *args, **kwargs):
-		# From ProcessFormMixin
-		form_class = self.get_form_class()
-		self.form = self.get_form(form_class)
-		
-		# From BaseListView
-		self.object_list = self.get_queryset()
-		allow_empty = self.get_allow_empty()
-		if not allow_empty and len(self.object_list) == 0:
-			raise Http404(_(u"Empty list and '%(class_name)s.allow_empty' is False.")% {'class_name': self.__class__.__name__})
-
-		context = self.get_context_data(object_list=self.object_list, form=self.form)
-		return self.render_to_response(context)
-
-	def post(self, request, *args, **kwargs):
-		return self.get(request, *args, **kwargs)
-	def form_invalid(self, request, *args, **kwargs):
-		return self.get(self, request, *args, **kwargs)
+class updateUsuario(UpdateView):
+	model = User
+	second_model = kardex
+	form_class = crearUsuarioUserForm
+	second_form_class = crearUsuarioKardexForm
+	template_name = 'personal/nuevousuario.html'
+	succes_url = '/'
+	def get_context_data(self, **kwargs):
+		context = super(updateUsuario, self).get_context_data(**kwargs)
+		pk = self.kwargs.get('pk',0)
+		modelRes = self.model.objects.get(id=pk)
+		modelRes2 = self.second_model.objects.get(id=modelRes.id)
+		if 'form' not in context or 'form2' not in context:
+			context['form'] = self.form_class(instance=modelRes)
+			context['form2'] = self.second_form_class(instance=modelRes2)
+		return context
 
 class listaUsuario(CreateView, ListView):
 	model = User
@@ -89,17 +84,7 @@ class listaUsuario(CreateView, ListView):
 		return self.render_to_response(self.get_context_data(object_list=self.object_list , form=form))
 
 	def get_queryset(self):
-		"""
-		form = form_class(self.request.GET)
-		if form.is_valid():
-			object_list = self.model.objects.filter(id = form.cleaned_data['search'], is_staff=False)
-		else:
-			object_list = self.model.objects.all().filter(is_staff=False).order_by('id')
-		return object_list
-		"""
-		
 		id = None
-
 		if self.request.method == "GET":
 			form = self.form_class(self.request.GET)
 			print (form.is_valid())
@@ -109,7 +94,6 @@ class listaUsuario(CreateView, ListView):
 				id = form.cleaned_data['search']
 				#kwargs['id']
 				print(id)
-
 		if (id):
 			#object_list = self.model.objects.filter(name__icontains = id)
 			object_list = self.model.objects.filter(id = id, is_staff=False)

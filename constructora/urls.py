@@ -19,8 +19,11 @@ from django.contrib import admin
 from django.views.generic import RedirectView
 from django.core.urlresolvers import reverse_lazy
 
+from django.conf import settings
+from django.conf.urls.static import static
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^personal/', include('apps.personal.urls', namespace='personal')),
     url(r'^$', RedirectView.as_view(url=reverse_lazy('personal:main')), name='home'),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

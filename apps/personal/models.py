@@ -80,7 +80,8 @@ class kardex(models.Model):
 		validators=[validate_file_extension]
 	)
 	def __str__(self):
-		return '{}{}'.format(self.ci);
+		#return '{}{}'.format(self.ci);
+		return (self.ci);
 
 class cargo(models.Model):
 	codigo_cargo = models.CharField(

@@ -29,6 +29,7 @@
 				      <th>Nombre</th>
 				      <th>Apellido</th>
 				      <th>Correo Electronico</th>
+				      <th>Curriculum </th>
 				      <th>Opciones </th>
 				    </tr>
 				  </thead>
@@ -39,24 +40,32 @@
 				  			
 				  			{% if forloop.counter|divisibleby:2 %}
 				  				<tr class="info">
-							      <td class="vert-align">{{ user.id }}</td>
-							      <td>{{ user.first_name }}</td>
-							      <td>{{ user.last_name }}</td>
-							      <td>{{ user.email }}</td>
-							    
+							      	<td class="vert-align">{{ user.id }}</td>
+							      	<td>{{ user.first_name }}</td>
+							      	<td>{{ user.last_name }}</td>
+							      	<td>{{ user.email }}</td>
+							    	<td>
+							    		{% if user.kardex.curriculum %}
+							    			<a href="{{ user.kardex.curriculum.url }}">{{ user.kardex.curriculum.name }}</a>
+							    		{% endif %}
+							    	</td>	
 							     
 							{% else %}
 								<tr class="success">
-							      <td>{{ user.id }}</td>
-							      <td>{{ user.first_name }}</td>
-							      <td>{{ user.last_name }}</td>
-							      <td>{{ user.email }}</td>
-							    
+							      	<td>{{ user.id }}</td>
+							      	<td>{{ user.first_name }}</td>
+							      	<td>{{ user.last_name }}</td>
+							      	<td>{{ user.email }}</td>
+							    	<td>
+							    		{% if user.kardex.curriculum %}
+							    			<a href="{{ user.kardex.curriculum.url }}">{{ user.kardex.curriculum.name }}</a>
+							    		{% endif %}
+							    	</td>	
 							     
 				  			{% endif %}
 				  					<td>
 				  						<div class="btn-group" role="group" aria-label="...">
-										  <a href="#" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-edit" aria-hidden="true"> Editar</a>
+										  <a href="{% url 'personal:updateusuario' user.id%}" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-edit" aria-hidden="true"> Editar</a>
 										  <!--<a href="#" type="button" class="btn btn-default">Eliminar</a>-->
 										  <a href="#" type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true"> Eliminar</a>
 										</div>
