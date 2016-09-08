@@ -54,3 +54,18 @@ class crearUsuarioUserForm(UserCreationForm):
 			'last_name':forms.TextInput(attrs={'class':'form-control'}),
 			'email':forms.EmailInput(attrs={'class':'form-control'}),
 		}
+class crearModificarKardexForm(ModelForm):
+	class Meta:
+		model = kardex
+		fields = [		
+			'telefono_fijo',
+			'celular',
+			'direccion',
+			'curriculum',
+		]
+		widgets = {
+			'telefono_fijo':forms.TextInput(attrs={'class':'form-control'}),
+			'celular':forms.TextInput(attrs={'class':'form-control'}),
+			'direccion':forms.TextInput(attrs={'class':'form-control'}),
+			'curriculum':forms.FileInput(attrs={'class':'form-control'}),
+		}

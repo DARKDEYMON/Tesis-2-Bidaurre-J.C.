@@ -36,7 +36,7 @@ class kardex(models.Model):
 		validators=[
 			# validadores de filas
 			RegexValidator(
-				regex=r'[a-zA-Z]+', 
+				regex=r'[a-zA-Z]+',
 				message='La profecion deve contener solo letras', 
 				code='Numero Invalido'
 			)
@@ -107,4 +107,5 @@ class cargo(models.Model):
 		blank=False
 	)
 	def __str__(self):
-		return '{}{}'.format(self.nombre_cargo)
+		#return '{}{}'.format(self.nombre_cargo)
+		return (self.nombre_cargo)

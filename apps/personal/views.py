@@ -62,6 +62,36 @@ class updateUsuario(UpdateView):
 			context['form2'] = self.second_form_class(instance=modelRes2)
 		return context
 
+
+class updateUsuarioFronUser(UpdateView):
+	model = kardex
+	form_class = crearModificarKardexForm
+	template_name = 'personal/updatefromuser.html'
+	succes_url = '/'
+	def get_context_data(self, **kwargs):
+		context = super(updateUsuarioFronUser, self).get_context_data(**kwargs)
+		pk = self.request.user.id
+		print(pk)
+		modelRes = self.model.objects.get(id=pk)
+		if 'form' not in context:
+			context['form'] = self.form_class(instance=modelRes)
+		return context
+	def get_object(self):
+		return self.model.objects.get(user=self.request.user)
+	def post(self, request, *args, **kwargs):
+		self.object = self.get_object	
+		form = self.form_class(request.POST)
+		form.user = request.user.id
+		#print (form.is_valid())
+		#print (form2.is_valid())
+		if form.is_valid():
+			#print ("paso")
+			form.save()
+			return  HttpResponseRedirect(self.succes_url)
+		else:
+			#print ("paso2")
+			return self.render_to_response(self.get_context_data(form=form))
+
 class listaUsuario(CreateView, ListView):
 	model = User
 	form_class = searchForm
