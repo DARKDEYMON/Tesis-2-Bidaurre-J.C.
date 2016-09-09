@@ -31,7 +31,12 @@ class crearUsuarioKardexForm(ModelForm):
 		}
 class searchForm(forms.Form):
 	search = forms.IntegerField(label="", help_text="", widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Busqueda por id...'}))
-			
+
+class addPermissionsFrom(forms.Form):
+	mod_personal = forms.BooleanField(label='Dar permiso para el modulo de personal', required=False)
+	mod_seguimiento = forms.BooleanField(label='Dar permiso para el modulo de Administracion de proyectos', required=False)
+	mod_almacenes = forms.BooleanField(label='Dar permiso para el modulo de Administracion de almacenes', required=False)
+
 
 class crearUsuarioUserForm(UserCreationForm):
 	password1 = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control'}))

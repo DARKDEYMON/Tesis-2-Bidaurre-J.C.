@@ -5,7 +5,7 @@ from django.views.generic.edit import FormMixin
 from django.http import Http404
 from django.utils.translation import ugettext as _
 
-from django.views.generic import ListView, CreateView, UpdateView
+from django.views.generic import ListView, CreateView, UpdateView, FormView
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse_lazy
 
@@ -13,12 +13,18 @@ from apps.personal.forms import *
 from apps.personal.models import *
 from django.contrib.auth.models import User
 
+from django.contrib.auth.mixins import PermissionRequiredMixin
+
+from django.contrib.auth.models import Permission
+from django.contrib.contenttypes.models import ContentType
+
 # Create your views here.
 def main_page(request):
 	return render (request,"base/index.html",{})
 
 class crearUsuario(CreateView):
 	#model = User
+	#permission_required = 'auth.view_personal'
 	form_class = crearUsuarioUserForm
 	second_form_class = crearUsuarioKardexForm
 	template_name = 'personal/nuevousuario.html'
@@ -67,7 +73,8 @@ class updateUsuarioFronUser(UpdateView):
 	model = kardex
 	form_class = crearModificarKardexForm
 	template_name = 'personal/updatefromuser.html'
-	succes_url = '/'
+	success_url = '/'
+
 	def get_context_data(self, **kwargs):
 		context = super(updateUsuarioFronUser, self).get_context_data(**kwargs)
 		pk = self.request.user.id
@@ -75,22 +82,58 @@ class updateUsuarioFronUser(UpdateView):
 		modelRes = self.model.objects.get(id=pk)
 		if 'form' not in context:
 			context['form'] = self.form_class(instance=modelRes)
+		if 'uss' not in context:
+			context['uss'] = self.get_object()
 		return context
+
 	def get_object(self):
 		return self.model.objects.get(user=self.request.user)
+
+class añadirPermisos(FormView):
+	model = User
+	form_class = addPermissionsFrom
+	template_name = 'personal/añadirpermisos.html'
+	succes_url = '/'
+
+	def get_context_data(self, **kwargs):
+		context = super(añadirPermisos, self).get_context_data(**kwargs)
+		pk = self.kwargs.get('pk',0)
+		user = self.model.objects.get(id=pk)
+		form = self.form_class(initial={'mod_personal':user.has_perm('auth.view_personal'),
+										'mod_seguimiento':user.has_perm('auth.view_seguimiento'),
+										'mod_almacenes':user.has_perm('auth.view_almacen')})
+		#form.fields["mod_personal"] = True
+		#print(form)
+		if 'form' in context :
+			context['form'] = form
+		return context
 	def post(self, request, *args, **kwargs):
-		self.object = self.get_object	
+		#self.object = self.get_object	
 		form = self.form_class(request.POST)
-		form.user = request.user.id
-		#print (form.is_valid())
-		#print (form2.is_valid())
+		pk = self.kwargs.get('pk',0)
+		my_user = self.model.objects.get(id=pk)
 		if form.is_valid():
-			#print ("paso")
-			form.save()
+			content_type = ContentType.objects.get_for_model(self.model)
+			permission = Permission.objects.get(content_type=content_type, codename='view_personal')
+			if(form.cleaned_data['mod_personal']):
+				my_user.user_permissions.add(permission)
+			else:
+				my_user.user_permissions.remove(permission)
+			permission = Permission.objects.get(content_type=content_type, codename='view_seguimiento')
+			if(form.cleaned_data['mod_seguimiento']):
+				my_user.user_permissions.add(permission)
+			else:
+				my_user.user_permissions.remove(permission)
+			permission = Permission.objects.get(content_type=content_type, codename='view_almacen')
+			if(form.cleaned_data['mod_almacenes']):
+				my_user.user_permissions.add(permission)
+			else:
+				my_user.user_permissions.remove(permission)
+
 			return  HttpResponseRedirect(self.succes_url)
 		else:
-			#print ("paso2")
-			return self.render_to_response(self.get_context_data(form=form))
+			print ("paso2")
+			return self.render_to_response(self.get_context_data(form=form)) 
 
 class listaUsuario(CreateView, ListView):
 	model = User
