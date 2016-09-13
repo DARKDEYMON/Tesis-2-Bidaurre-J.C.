@@ -22,13 +22,14 @@ from django.contrib.contenttypes.models import ContentType
 def main_page(request):
 	return render (request,"base/index.html",{})
 
+#crea un nuebo usuario
 class crearUsuario(CreateView):
 	#model = User
 	#permission_required = 'auth.view_personal'
 	form_class = crearUsuarioUserForm
 	second_form_class = crearUsuarioKardexForm
 	template_name = 'personal/nuevousuario.html'
-	succes_url = '/'
+	succes_url = reverse_lazy('personal:listausuario')
 	def get_context_data(self, **kwargs):
 		context = super (crearUsuario, self).get_context_data(**kwargs)
 		if 'form' not in context or 'form2' not in context:
@@ -51,13 +52,14 @@ class crearUsuario(CreateView):
 			#print ("paso2")
 			return self.render_to_response(self.get_context_data(form=form, form2=form2))
 
+#actualisa un usuario desde el modulo de personal
 class updateUsuario(UpdateView):
 	model = User
 	second_model = kardex
 	form_class = crearUsuarioUserForm
 	second_form_class = crearUsuarioKardexForm
 	template_name = 'personal/nuevousuario.html'
-	succes_url = '/'
+	success_url = '/'
 	def get_context_data(self, **kwargs):
 		context = super(updateUsuario, self).get_context_data(**kwargs)
 		pk = self.kwargs.get('pk',0)
@@ -68,7 +70,7 @@ class updateUsuario(UpdateView):
 			context['form2'] = self.second_form_class(instance=modelRes2)
 		return context
 
-
+#actualisa datos del usuario actual logeado
 class updateUsuarioFronUser(UpdateView):
 	model = kardex
 	form_class = crearModificarKardexForm
@@ -89,11 +91,19 @@ class updateUsuarioFronUser(UpdateView):
 	def get_object(self):
 		return self.model.objects.get(user=self.request.user)
 
+#actualisa da un usuario en alta o baja 
+class updateDarBaja(UpdateView):
+	model = User
+	form_class = darBajaForm
+	template_name = 'personal/updatefromuser.html'
+	success_url = reverse_lazy('personal:listausuario')
+
+#añade o quita permisos de acceso a los diferentes modulos a un usuario en espesifico por el id
 class añadirPermisos(FormView):
 	model = User
 	form_class = addPermissionsFrom
 	template_name = 'personal/añadirpermisos.html'
-	succes_url = '/'
+	succes_url = reverse_lazy('personal:listausuario')
 
 	def get_context_data(self, **kwargs):
 		context = super(añadirPermisos, self).get_context_data(**kwargs)
@@ -133,8 +143,9 @@ class añadirPermisos(FormView):
 			return  HttpResponseRedirect(self.succes_url)
 		else:
 			print ("paso2")
-			return self.render_to_response(self.get_context_data(form=form)) 
+			return self.render_to_response(self.get_context_data(form=form))
 
+#crea un listado de los usuarios con los diferentes opciones de modificacion y un buscador por id
 class listaUsuario(CreateView, ListView):
 	model = User
 	form_class = searchForm

@@ -37,6 +37,9 @@ urlpatterns = [
     url(r'^updateusuario/(?P<pk>\d)/$', 
         login_required(updateUsuario.as_view()), 
         name='updateusuario'),
+    url(r'^darbaja/(?P<pk>\d)/$', 
+        login_required(updateDarBaja.as_view()), 
+        name='updatedarbaja'),
     #actualisacion de cuenta por el usuario
     url(r'^updateusuario_user/$', 
         login_required(updateUsuarioFronUser.as_view()), 

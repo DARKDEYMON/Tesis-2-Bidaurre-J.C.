@@ -16,7 +16,7 @@ def create_perms():
 			content_type=content_type,
 		)
 	except:
-		print ("1 ya aderido")
+		print ("permiso 1 ya aderido")
 	try:
 		content_type = ContentType.objects.get_for_model(User)
 		permission = Permission.objects.create(
@@ -25,7 +25,7 @@ def create_perms():
 			content_type=content_type,
 		)
 	except:
-		print ("2 ya aderido")
+		print ("permiso 2 ya aderido")
 	try:
 		content_type = ContentType.objects.get_for_model(User)
 		permission = Permission.objects.create(
@@ -34,5 +34,5 @@ def create_perms():
 			content_type=content_type,
 		)
 	except:
-		print ("3 ya aderido")
+		print ("permiso 3 ya aderido")
 create_perms()

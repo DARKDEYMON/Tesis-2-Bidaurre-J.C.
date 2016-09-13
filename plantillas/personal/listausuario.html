@@ -68,7 +68,7 @@
 										  <a href="{% url 'personal:updateusuario' user.id%}" type="button" class="btn btn-primary">Editar<span class="glyphicon glyphicon-edit" aria-hidden="true"></a>
 										  <!--<a href="#" type="button" class="btn btn-default">Eliminar</a>-->
 										  <a href="{% url 'personal:añadirpermisos' user.id %}" type="button" class="btn btn-warning">Añadir Permisos<span class="glyphicon glyphicon-wrench" aria-hidden="true"></a>
-										  <a href="#" type="button" class="btn btn-danger">Dar Baja/alta<span class="glyphicon glyphicon-remove" aria-hidden="true"></a>
+										  <a href="{% url 'personal:updatedarbaja' user.id %}" type="button" class="btn btn-danger">Dar Baja/alta<span class="glyphicon glyphicon-remove" aria-hidden="true"></a>
 										</div>
 				  					</td>
 					  			</tr>
