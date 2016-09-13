@@ -18,13 +18,11 @@ from django.contrib import admin
 
 from django.views.generic import RedirectView
 from django.core.urlresolvers import reverse_lazy
+from django.contrib.auth.decorators import login_required,permission_required
 
-from django.conf import settings
-from django.conf.urls.static import static
+from apps.seguimiento.views import *
+
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^personal/', include('apps.personal.urls', namespace='personal')),
-    url(r'^seguimiento/', include('apps.seguimiento.urls', namespace='seguimiento')),
-    url(r'^$', RedirectView.as_view(url=reverse_lazy('personal:main')), name='home'),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    url(r'^nuevoproyecto$',login_required(crearProyecto.as_view()), name='nuevoproyecto'),
+]

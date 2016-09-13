@@ -41,23 +41,23 @@ class addPermissionsFrom(forms.Form):
 
 
 class crearUsuarioUserForm(UserCreationForm):
-	password1 = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control'}))
-	password2 = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control'}))
+	#password1 = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control'}))
+	#password2 = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control'}))
 	#email = forms.EmailField(required=True)
 	class Meta:
 		model=User
 		fields=[
 			'username',
-			'password1',
-			'password2',
+			#'password1',
+			#'password2',
 			'first_name',
 			'last_name',
 			'email'
 		]
 		widgets = {
 			'username':forms.TextInput(attrs={'class':'form-control'}),
-			'password1':forms.PasswordInput(attrs={'class':'form-control'}),
-			'password2':forms.PasswordInput(attrs={'class':'form-control'}),
+			#'password1':forms.PasswordInput(attrs={'class':'form-control'}),
+			#'password2':forms.PasswordInput(attrs={'class':'form-control'}),
 			'first_name':forms.TextInput(attrs={'class':'form-control'}),
 			'last_name':forms.TextInput(attrs={'class':'form-control'}),
 			'email':forms.EmailInput(attrs={'class':'form-control'}),
@@ -67,6 +67,29 @@ class crearUsuarioUserForm(UserCreationForm):
 		self.fields['email'].required = True
 		self.fields['first_name'].required = True
 		self.fields['last_name'].required = True
+
+class updateUsuarioUserForm(ModelForm):
+	#email = forms.EmailField(required=True)
+	class Meta:
+		model=User
+		fields=[
+			#'username',
+			'first_name',
+			'last_name',
+			'email',
+		]
+		widgets = {
+			#'username':forms.TextInput(attrs={'class':'form-control'}),
+			'first_name':forms.TextInput(attrs={'class':'form-control'}),
+			'last_name':forms.TextInput(attrs={'class':'form-control'}),
+			'email':forms.EmailInput(attrs={'class':'form-control'}),
+		}
+	def __init__(self, *args, **kwargs):
+		super(updateUsuarioUserForm, self).__init__(*args, **kwargs)
+		self.fields['email'].required = True
+		self.fields['first_name'].required = True
+		self.fields['last_name'].required = True
+
 class crearModificarKardexForm(ModelForm):
 	class Meta:
 		model = kardex

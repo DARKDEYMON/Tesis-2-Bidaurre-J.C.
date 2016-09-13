@@ -56,10 +56,10 @@ class crearUsuario(CreateView):
 class updateUsuario(UpdateView):
 	model = User
 	second_model = kardex
-	form_class = crearUsuarioUserForm
+	form_class = updateUsuarioUserForm
 	second_form_class = crearUsuarioKardexForm
 	template_name = 'personal/nuevousuario.html'
-	success_url = '/'
+	success_url = reverse_lazy('personal:listausuario')
 	def get_context_data(self, **kwargs):
 		context = super(updateUsuario, self).get_context_data(**kwargs)
 		pk = self.kwargs.get('pk',0)
