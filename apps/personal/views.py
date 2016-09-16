@@ -184,3 +184,7 @@ class listaUsuario(CreateView, ListView):
 		else:
 			object_list = self.model.objects.all().filter(is_staff=False).order_by('id')
 		return object_list
+class crearCargo(CreateView):
+	form_class = cargoForm
+	template_name = 'personal/nuevocargo.html'
+	success_url = '/'

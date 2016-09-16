@@ -3,6 +3,8 @@ from django.db import models
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 
+from django.utils.translation import ugettext_lazy as _
+
 # Create your models here.
 
 class proyecto(models.Model):
@@ -59,3 +61,25 @@ class proyecto(models.Model):
 		null=False,
 		blank=False
 	)
+	def __str__(self):
+		return (self.objeto_de_la_contratacion)
+class actividad(models.Model):
+	proyecto = models.ForeignKey(proyecto)
+	nombre = models.CharField(
+		null=False,
+		blank=False,
+		max_length=60
+	)
+	fecha_inicio = models.DateField(
+		null=False,
+		blank=False
+	)
+	plaso_previsto = models.DateField(
+		null=False,
+		blank=False
+	)
+	def __str__(self):
+		return (self.nombre)
+	class Meta:
+		#verbose_name = _('actividad')
+		verbose_name_plural = _('adtividades')

@@ -24,5 +24,6 @@ from apps.seguimiento.views import *
 
 
 urlpatterns = [
-    url(r'^nuevoproyecto$',login_required(crearProyecto.as_view()), name='nuevoproyecto'),
+    url(r'^nuevoproyecto/$',login_required(crearProyecto.as_view()), name='nuevoproyecto'),
+    url(r'^listaproyectos/$',login_required(listaProyectos.as_view()), name='listaproyectos'),
 ]

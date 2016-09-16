@@ -18,7 +18,7 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Personal <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
             <li><a href="{% url 'personal:nuevousuario' %}">Crear Nuevo usuario</a></li>
-            <li><a href="#">Another action</a></li>
+            <li><a href="{% url 'personal:crearcargo' %}">Crear Cargo</a></li>
             <li><a href="#">Something else here</a></li>
             <li class="divider"></li>
             {# sen evia dos comillas para vacio opcional #}
@@ -36,7 +36,7 @@
             <li><a href="#">Another action</a></li>
             <li><a href="#">Something else here</a></li>
             <li class="divider"></li>
-            <li><a href="#">Separated link</a></li>
+            <li><a href="{% url 'seguimiento:listaproyectos' %}">Lista Proyectos</a></li>
             <li class="divider"></li>
             <li><a href="#">One more separated link</a></li>
           </ul>
@@ -74,9 +74,9 @@
           <ul class="dropdown-menu" role="menu">
             <li><a href="{% url 'personal:reset_password' %}">Canviar Contraseña</a></li>
             <li><a href="{% url 'personal:updateusuariofronuser' %}">Actualisar Informacion</a></li>
-            <li><a href="#">Something else here</a></li>
+            <!--<li><a href="#">Something else here</a></li>
             <li class="divider"></li>
-            <li><a href="#">Separated link</a></li>
+            <li><a href="#">Separated link</a></li>-->
             <li class="divider"></li>
             <li><a href="{% url "personal:logout" %}">Salir</a></li>
           </ul>

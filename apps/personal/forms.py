@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 from django import forms
-from apps.personal.models import kardex
+from apps.personal.models import *
 
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -31,8 +31,10 @@ class crearUsuarioKardexForm(ModelForm):
 			'nivel_de_confiabilidad':forms.Select(attrs={'class':'form-control'}),
 			'curriculum':forms.FileInput(attrs={'class':'form-control','accept':'.pdf,.doc,.docx'}),
 		}
+CHOICES = (('1', 'ID'),('2', 'Nombre'),)
 class searchForm(forms.Form):
-	search = forms.IntegerField(label="", help_text="", widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Busqueda por id...'}))
+	search = forms.IntegerField(label="", help_text="", widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Busqueda por...'}))
+	buscar_por = forms.ChoiceField(label="", help_text="", choices=CHOICES)
 
 class addPermissionsFrom(forms.Form):
 	mod_personal = forms.BooleanField(label='Dar permiso para el modulo de personal', required=False)
@@ -111,3 +113,7 @@ class darBajaForm(ModelForm):
 		fields = [
 			'is_active'
 		]
+class cargoForm(ModelForm):
+	class Meta:
+		model = cargo
+		exclude =['']

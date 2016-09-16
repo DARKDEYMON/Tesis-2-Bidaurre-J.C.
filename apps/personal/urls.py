@@ -59,4 +59,7 @@ urlpatterns = [
     url(r'^añadirpermisos/(?P<pk>\d)/$',
         login_required(añadirPermisos.as_view()), 
         name='añadirpermisos'),
+    url(r'^crearcargo/$', 
+        login_required(crearCargo.as_view()), 
+        name='crearcargo'),
 ]
