@@ -5,7 +5,6 @@ from apps.seguimiento.models import *
 # Create your views here. D:\Maritza-2012\PUNA-Proy Ecoturistico Thalaqocha\A-PROPUESTA\1-TDRs
 
 from django.views.generic import ListView, CreateView, UpdateView, FormView
-
 from django.core.urlresolvers import reverse_lazy
 
 class crearProyecto(CreateView):

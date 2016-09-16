@@ -1,0 +1,22 @@
+{% extends "base/baseform.html" %}	
+
+
+	
+	{% block formulario %}
+
+	
+		{% csrf_token %}
+
+		
+		{% load bootstrap3 %}
+		{% bootstrap_form form %}
+
+		{% buttons %}
+	        <button type="submit" class="btn btn-primary center-block">
+	            {% bootstrap_icon "glyphicon glyphicon-ok" %} Submit
+	        </button>
+	    {% endbuttons %}
+
+		
+	
+	{% endblock formulario %}
