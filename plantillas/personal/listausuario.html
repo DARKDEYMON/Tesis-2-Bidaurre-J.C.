@@ -11,7 +11,7 @@
 
 							{% load bootstrap3 %}
 				
-							{% csrf_token %}
+							
 								
 							{% bootstrap_form form layout='inline' %}
 
@@ -89,6 +89,39 @@
 
 				  </tbody>
 				</table> 
+
+				<!-- paginador -->
+				<div class="row row-centered">
+				<div class="col-xs-3 col-centered"></div>
+				<div class="col-xs-6 col-centered">
+					{% if is_paginated %}
+						<div class="text-center">
+						<ul class="pagination">
+						{% if page_obj.has_previous %}
+								    <li>
+								        <span><a href="?page={{ page_obj.previous_page_number }}">Anterior</a></span>
+								    </li>
+						{% endif %}
+								    <li class="">
+								        <span>Pagina {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.</span>
+								    </li>
+						{% if page_obj.has_next %}
+								    <li>
+								        <span><a href="?page={{ page_obj.next_page_number }}">Siguiente</a></span>
+								    </li>
+						{% endif %}
+						</ul>
+						</div>
+					{% else %}
+						<!--
+						<h3>Your File Exam</h3>
+						<p>File not yet available</p>
+						-->
+					{% endif %}
+				</div>
+				<div class="col-xs-3 col-centered"></div>
+				</div>
+				<!-- paginador -->
 			</div>
 		</div>
 		<div class="col-sm-2"></div>

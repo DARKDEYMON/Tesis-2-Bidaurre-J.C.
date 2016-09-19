@@ -18,6 +18,7 @@ from django.contrib import admin
 from apps.personal.views import *
 from django.contrib.auth.views import login, logout_then_login, password_reset
 from django.contrib.auth.decorators import login_required,permission_required
+from django.views.decorators.csrf import csrf_exempt
 
 from django.contrib.auth import views as auth_views
 
@@ -32,7 +33,7 @@ urlpatterns = [
         name='nuevousuario'),
     #url(r'^listausuario/(?P<id>\d*)/*$', login_required(listaUsuario.as_view()), name='listausuario'),
     url(r'^listausuario/$', 
-        login_required(listaUsuario.as_view()), 
+        login_required(csrf_exempt(listaUsuario.as_view())), 
         name='listausuario'),
     url(r'^updateusuario/(?P<pk>\d)/$', 
         login_required(updateUsuario.as_view()), 

@@ -3,4 +3,4 @@ from apps.seguimiento.models import *
 
 # Register your models here.
 admin.site.register(proyecto)
-admin.site.register(actividad)
+admin.site.register(item)

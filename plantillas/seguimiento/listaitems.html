@@ -17,64 +17,64 @@
 
 								{% buttons submit='Search' layout='inline' %}{% endbuttons %}
 
-						    
+						    	<a class="btn btn-warning" type="submit"  href="{% url 'seguimiento:crearitem' pk1 %}">Crear Nuevo Item </a>
 						</form>
 						
 					</div>
 				</div>
 				
 				<table class="table table-striped table-hover ">
-				  <thead>
+				  	<thead>
 				    <tr>
-				      <th>#id</th>
-				      <th>Objeto de Contratacion</th>
-				      <th>Modalidad</th>
-				      <th>Telefono</th>
-				      <th>Email</th>
-				      <th>Plaso Previsto</th>
-				      <th>Opciones</th>
+				      	<th>#id</th>
+				      	<th>Descripcion</th>
+				      	<th>unidad</th>
+				      	<th>Cantidad</th>
+				      	<th>Fecha de Inicio</th>
+				      	<th>Plaso de Finalisacion</th>
+				      	<th>Opciones</th>
 				    </tr>
-				  </thead>
-				  <tbody>
+				  	</thead>
+				 	 <tbody>
 				  
-				  {% if object_list %}
-				  		{% for proyecto in object_list %}
+				  	{% if object_list %}
+				  		{% for item in object_list %}
 
 
-	
 				  			{% if forloop.counter|divisibleby:2 %}
 				  				<tr class="info">
-							      	<td>{{ proyecto.id }}</td>
-							      	<td>{{ proyecto.objeto_de_la_contratacion }}</td>
-							      	<td>{{ proyecto.modalidad_de_contratacion }}</td>
-							      	<td>{{ proyecto.ec_telefono }}</td>
-							    	<td>{{ proyecto.ec_email }}</td>
-							    	<td>{{ proyecto.plaso_previsto }}</td>
+							      	<td>{{ item.id }}</td>
+							      	<td>{{ item.descripcion }}</td>
+							      	<td>{{ item.unidad }}</td>
+							      	<td>{{ item.cantidad }}</td>
+							      	<td>{{ item.fecha_inicio }}</td>
+							      	<td>{{ item.plaso_finalisacion }}</td>
 							     
 							{% else %}
 								<tr class="success">
-							      	<td>{{ proyecto.id }}</td>
-							      	<td>{{ proyecto.objeto_de_la_contratacion }}</td>
-							      	<td>{{ proyecto.modalidad_de_contratacion }}</td>
-							      	<td>{{ proyecto.ec_telefono }}</td>
-							    	<td>{{ proyecto.ec_email }}</td>
-							    	<td>{{ proyecto.plaso_previsto }}</td>
+							      	<td>{{ item.id }}</td>
+							      	<td>{{ item.descripcion }}</td>
+							      	<td>{{ item.unidad }}</td>
+							      	<td>{{ item.cantidad }}</td>
+							      	<td>{{ item.fecha_inicio }}</td>
+							      	<td>{{ item.plaso_finalisacion }}</td>
 							     
 				  			{% endif %}
 				  					<td>
 				  						<div class="btn-group" role="group">
-										  <a href="{% url 'seguimiento:listaitems' proyecto.id %}" type="button" class="btn btn-primary">Items<span class="glyphicon glyphicon-edit" aria-hidden="true"></a>
-										  <a href="" type="button" class="btn btn-warning">Añadir Permisos<span class="glyphicon glyphicon-wrench" aria-hidden="true"></a>
-										  <a href="" type="button" class="btn btn-danger">Dar Baja/alta<span class="glyphicon glyphicon-remove" aria-hidden="true"></a>
+										  <a href="#" type="button" class="btn btn-primary">Actividades<span class="glyphicon glyphicon-edit" aria-hidden="true"></a>
+										  <a href="#" type="button" class="btn btn-warning">Añadir Permisos<span class="glyphicon glyphicon-wrench" aria-hidden="true"></a>
+										  <a href="#" type="button" class="btn btn-danger">Dar Baja/alta<span class="glyphicon glyphicon-remove" aria-hidden="true"></a>
 										</div>
 				  					</td>
 					  			</tr>
-					  		
-				  		{% endfor %}
-				  	
-				  {% endif %}
 
-				  </tbody>
+				  		{% endfor %}
+
+					{% endif %}
+
+				  	</tbody>
+				  	
 				</table>
 				<!-- paginador -->
 				<div class="row row-centered">

@@ -63,23 +63,33 @@ class proyecto(models.Model):
 	)
 	def __str__(self):
 		return (self.objeto_de_la_contratacion)
-class actividad(models.Model):
+
+class item(models.Model):
 	proyecto = models.ForeignKey(proyecto)
-	nombre = models.CharField(
+	descripcion = models.CharField(
 		null=False,
 		blank=False,
-		max_length=60
+		max_length=120
 	)
 	fecha_inicio = models.DateField(
 		null=False,
 		blank=False
 	)
-	plaso_previsto = models.DateField(
+	plaso_finalisacion = models.DateField(
+		null=False,
+		blank=False
+	)
+	unidad = models.CharField(
+		max_length=3,
+		null=False,
+		blank=False
+	)
+	cantidad = models.PositiveIntegerField(
 		null=False,
 		blank=False
 	)
 	def __str__(self):
-		return (self.nombre)
+		return (self.descripcion)
 	class Meta:
 		#verbose_name = _('actividad')
-		verbose_name_plural = _('adtividades')
+		verbose_name_plural = _('items')

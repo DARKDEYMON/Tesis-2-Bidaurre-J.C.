@@ -16,9 +16,22 @@ class crearProyectoForm(ModelForm):
 		}
 		labels = {
 			'ec_telefono':'Telefono de la entidad contratante',
-			'ec_direccion':'Direccion dela entidad contratante',
+			'ec_direccion':'Direccion de la entidad contratante',
 			'ec_email':'Email de la entidad contratante'
 		}
+
+class crearItemsForm(ModelForm):
+	class Meta:
+		model = item
+		exclude =['proyecto']
+		widgets = {
+			'fecha_inicio':Html5DateInput(),
+			'plaso_finalisacion':Html5DateInput()
+		}
+		labels = {
+			'plaso_finalisacion':'Plazo de Finalisacion',
+		}
+
 CHOICES = (('1', 'ID'),('2', 'Nombre'),)
 class searchForm(forms.Form):
 	search = forms.IntegerField(label="", help_text="", widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Busqueda por...'}))

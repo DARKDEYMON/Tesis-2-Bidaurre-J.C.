@@ -19,11 +19,14 @@ from django.contrib import admin
 from django.views.generic import RedirectView
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.decorators import login_required,permission_required
+from django.views.decorators.csrf import csrf_exempt
 
 from apps.seguimiento.views import *
 
 
 urlpatterns = [
     url(r'^nuevoproyecto/$',login_required(crearProyecto.as_view()), name='nuevoproyecto'),
-    url(r'^listaproyectos/$',login_required(listaProyectos.as_view()), name='listaproyectos'),
+    url(r'^listaproyectos/$',login_required(csrf_exempt(listaProyectos.as_view())), name='listaproyectos'),
+    url(r'^crearitem/(?P<pk>\d)/$',login_required(csrf_exempt(crearItem.as_view())), name='crearitem'),
+    url(r'^listaItems/(?P<pk>\d)/$',login_required(csrf_exempt(listaItems.as_view())), name='listaitems'),
 ]

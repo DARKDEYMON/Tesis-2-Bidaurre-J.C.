@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     #importado de los diferentes modulos
+    'django.contrib.postgres',
     'bootstrap3',
     'apps.almacenes',
     'apps.personal',
