@@ -4,15 +4,15 @@ from apps.seguimiento.models import *
 
 #witdget para html5
 class Html5DateInput(forms.DateInput):
-    input_type = 'date'
+	input_type = 'date'
 
 class crearProyectoForm(ModelForm):
 	class Meta:
 		model = proyecto
 		exclude = ['']
 		widgets = {
-			'fecha_inicio':Html5DateInput(),
-			'plaso_previsto':Html5DateInput()
+			'fecha_inicio':Html5DateInput(format=('%Y-%m-%d')),#attrs={'format':'dd/MM/yyyy'}),
+			'plaso_previsto':Html5DateInput(format=('%Y-%m-%d'))
 		}
 		labels = {
 			'ec_telefono':'Telefono de la entidad contratante',

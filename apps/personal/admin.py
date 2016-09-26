@@ -5,3 +5,5 @@ from apps.personal.models import *
 
 admin.site.register(kardex)
 admin.site.register(cargo)
+admin.site.register(designacion)
+#admin.site.register(designacion_proyecto)

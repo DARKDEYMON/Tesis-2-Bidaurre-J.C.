@@ -1,8 +1,8 @@
 {% extends "base/index.html" %}	
 
 	{% block body %}
-		<div class="col-sm-2"></div>
-		<div class="col-sm-8">
+		<div class="col-sm-1"></div>
+		<div class="col-sm-10">
 			<div class="well bs-component">
 				
 				<div class="row">
@@ -29,8 +29,10 @@
 				      <th>#id</th>
 				      <th>Objeto de Contratacion</th>
 				      <th>Modalidad</th>
+				      <th>Departamento</th>
 				      <th>Telefono</th>
 				      <th>Email</th>
+				      <th>Fecha Inicio</th>
 				      <th>Plaso Previsto</th>
 				      <th>Opciones</th>
 				    </tr>
@@ -47,25 +49,37 @@
 							      	<td>{{ proyecto.id }}</td>
 							      	<td>{{ proyecto.objeto_de_la_contratacion }}</td>
 							      	<td>{{ proyecto.modalidad_de_contratacion }}</td>
+							      	<td>{{ proyecto.ubicacion_proyecto }}</td>
 							      	<td>{{ proyecto.ec_telefono }}</td>
 							    	<td>{{ proyecto.ec_email }}</td>
-							    	<td>{{ proyecto.plaso_previsto }}</td>
+							    	<td>{{ proyecto.fecha_inicio|date:"Y-m-d" }}</td>
+							    	<td>{{ proyecto.plaso_previsto|date:"Y-m-d" }}</td>
 							     
 							{% else %}
 								<tr class="success">
 							      	<td>{{ proyecto.id }}</td>
 							      	<td>{{ proyecto.objeto_de_la_contratacion }}</td>
 							      	<td>{{ proyecto.modalidad_de_contratacion }}</td>
+							      	<td>{{ proyecto.ubicacion_proyecto }}</td>
 							      	<td>{{ proyecto.ec_telefono }}</td>
 							    	<td>{{ proyecto.ec_email }}</td>
-							    	<td>{{ proyecto.plaso_previsto }}</td>
+							    	<td>{{ proyecto.fecha_inicio|date:"Y-m-d" }}</td>
+							    	<td>{{ proyecto.plaso_previsto|date:"Y-m-d" }}</td>
 							     
 				  			{% endif %}
 				  					<td>
 				  						<div class="btn-group" role="group">
-										  <a href="{% url 'seguimiento:listaitems' proyecto.id %}" type="button" class="btn btn-primary">Items<span class="glyphicon glyphicon-edit" aria-hidden="true"></a>
-										  <a href="" type="button" class="btn btn-warning">Añadir Permisos<span class="glyphicon glyphicon-wrench" aria-hidden="true"></a>
-										  <a href="" type="button" class="btn btn-danger">Dar Baja/alta<span class="glyphicon glyphicon-remove" aria-hidden="true"></a>
+										  <a href="{% url 'seguimiento:updateproyect' proyecto.id %}" type="button" class="btn btn-primary">
+										  	Editar<span class="glyphicon glyphicon-edit" aria-hidden="true">
+										  </a>
+										  <a href="{% url 'seguimiento:listaitems' proyecto.id %}" type="button" class="btn btn-warning">
+										  	Items<span class="glyphicon glyphicon-wrench" aria-hidden="true">
+										  </a>
+										  <!--
+										  <a href="" type="button" class="btn btn-danger">
+										  	Dar Baja/alta<span class="glyphicon glyphicon-remove" aria-hidden="true">
+										  </a>
+										  -->
 										</div>
 				  					</td>
 					  			</tr>
@@ -110,5 +124,5 @@
 				<!-- paginador -->
 			</div>
 		</div>
-		<div class="col-sm-2"></div>
+		<div class="col-sm-1"></div>
 	{% endblock body %}

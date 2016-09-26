@@ -117,3 +117,11 @@ class cargoForm(ModelForm):
 	class Meta:
 		model = cargo
 		exclude =['']
+class designacionForm(ModelForm):
+	class Meta:
+		model = designacion
+		exclude =['user']
+"""class designacion_cargoForm(ModelForm):
+	class Meta:
+		model = designacion_proyecto
+		exclude = ['designacion']"""

@@ -142,3 +142,5 @@ LOGIN_REDIRECT_URL = reverse_lazy('personal:main')
 LOGIN_URL = reverse_lazy('personal:login')
 LOGOUT_URL = reverse_lazy('personal:logout')
 LOGOUT_REDIRECT_URL = reverse_lazy('personal:login')
+
+#DATE_FORMAT = "Y-m-d"

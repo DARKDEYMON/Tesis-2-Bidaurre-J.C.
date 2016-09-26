@@ -5,7 +5,7 @@ from django.views.generic.edit import FormMixin
 from django.http import Http404
 from django.utils.translation import ugettext as _
 
-from django.views.generic import ListView, CreateView, UpdateView, FormView
+from django.views.generic import ListView, CreateView, UpdateView, FormView, DeleteView
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse_lazy
 
@@ -184,7 +184,128 @@ class listaUsuario(CreateView, ListView):
 		else:
 			object_list = self.model.objects.all().filter(is_staff=False).order_by('id')
 		return object_list
+
 class crearCargo(CreateView):
 	form_class = cargoForm
 	template_name = 'personal/nuevocargo.html'
 	success_url = '/'
+
+class crearDesignacion(CreateView):
+	model = User
+	#permission_required = 'auth.view_personal'
+	form_class = designacionForm
+	#second_form_class = designacion_cargoForm
+	template_name = 'personal/designacion.html'
+	succes_url = reverse_lazy('personal:listausuario')
+
+	def post(self, request, *args, **kwargs):
+		self.object = self.get_object	
+		form = self.form_class(request.POST)
+		pk = self.kwargs.get('pk',0)
+		#form.data["user"] =	pk
+		#a=designacion.objects.filter(user=User.objects.get(pk=pk),proyecto=proyecto.objects.get(pk=form.cleaned_data['proyecto']))
+		#form2 = self.second_form_class(request.POST)
+		if form.is_valid():
+			#print (form.cleaned_data['proyecto'].pk)
+			#verifica si el usuarioya tiene un cargo designado en el proyecto
+			#print(len(designacion.objects.filter(cargo=form.cleaned_data['cargo'],proyecto=form.cleaned_data['proyecto'])))
+			#print(designacion.objects.filter(cargo=form.cleaned_data['cargo'],proyecto=form.cleaned_data['proyecto']))
+			if(len(designacion.objects.filter(user=User.objects.get(pk=pk),proyecto=form.cleaned_data['proyecto']))!=0 or len(designacion.objects.filter(cargo=form.cleaned_data['cargo'],proyecto=form.cleaned_data['proyecto']))!=0):
+				if(len(designacion.objects.filter(user=User.objects.get(pk=pk),proyecto=form.cleaned_data['proyecto']))!=0):
+					return self.render_to_response(self.get_context_data(form=form,error='El usuario ya tiene una asignacion de cargo en este proyecto'))
+				if(len(designacion.objects.filter(cargo=form.cleaned_data['cargo'],proyecto=form.cleaned_data['proyecto']))!=0):
+					return self.render_to_response(self.get_context_data(form=form,error='El cargo ya esta asignado a una persona en el proyecto'))
+			else:
+				form1Save = form.save(commit=False)
+				form1Save.user = self.model.objects.get(id=pk)
+				form.save()
+				return  HttpResponseRedirect(self.succes_url)
+		else:
+			#print ("paso2")
+			return self.render_to_response(self.get_context_data(form=form))
+
+class listaDesignaciones(CreateView, ListView):
+	model = designacion
+	form_class = searchForm
+	template_name='personal/listadesignacion.html'
+	paginate_by = 10
+
+	# aun sin saber si cirve
+	def get_context_data(self, **kwargs):
+		context = super (listaDesignaciones, self).get_context_data(**kwargs)
+		if 'form' not in context:
+			context['form'] = self.form_class()
+		return context
+
+	def get(self, request, *args, **kwargs):
+		self.object = self.get_object
+		form = self.form_class()
+		if request.GET:
+			form = self.form_class(request.GET)
+		self.object_list = self.get_queryset()
+		return self.render_to_response(self.get_context_data(object_list=self.object_list , form=form))
+
+	def get_queryset(self):
+		pk=self.kwargs['pk']
+		id = None
+		if self.request.method == "GET":
+			form = self.form_class(self.request.GET)
+			print (form.is_valid())
+			if form.is_valid():
+				print(self.request.GET)
+				print(form)
+				id = form.cleaned_data['search']
+				#kwargs['id']
+				print(id)
+		if (id):
+			#object_list = self.model.objects.filter(name__icontains = id)
+			object_list = self.model.objects.filter(pk=id, user=User.objects.filter(pk=pk), is_staff=False)
+		else:
+			object_list = self.model.objects.all().filter(user=User.objects.filter(pk=pk)).order_by('id')
+		return object_list
+class borrarDesignacion(DeleteView):
+	model = designacion
+	template_name ='personal/borrardesignacion.html'
+	success_url = 'personal:listadesignaciones'
+	def get_success_url(self, **kwargs):
+		return reverse_lazy(self.success_url, kwargs = {'pk': self.get_object().user.pk})
+
+"""class updateDesignacion(UpdateView):
+	model = designacion
+	form_class = designacionForm
+	template_name = 'personal/updatefromuser.html'
+	success_url = 'personal:listadesignaciones'
+
+	def get_context_data(self, **kwargs):
+		context = super(updateDesignacion, self).get_context_data(**kwargs)
+		pk = self.kwargs.get('pk',0)
+		modelRes = self.model.objects.get(id=pk)
+		if 'form' in context:
+			context['form'] = self.form_class(instance=modelRes)
+		return context
+
+	def post(self, request, *args, **kwargs):
+		self.object = self.get_object	
+		form = self.form_class(request.POST)
+		pk = self.kwargs.get('pk',0)
+		#form.data["user"] =	pk
+		#a=designacion.objects.filter(user=User.objects.get(pk=pk),proyecto=proyecto.objects.get(pk=form.cleaned_data['proyecto']))
+		#form2 = self.second_form_class(request.POST)
+		if form.is_valid():
+			#print (form.cleaned_data['proyecto'].pk)
+			#verifica si el usuarioya tiene un cargo designado en el proyecto
+			#print(len(designacion.objects.filter(cargo=form.cleaned_data['cargo'],proyecto=form.cleaned_data['proyecto'])))
+			#print(designacion.objects.filter(cargo=form.cleaned_data['cargo'],proyecto=form.cleaned_data['proyecto']))
+			if(len(designacion.objects.filter(user=User.objects.get(pk=pk),proyecto=form.cleaned_data['proyecto']))!=0 or len(designacion.objects.filter(cargo=form.cleaned_data['cargo'],proyecto=form.cleaned_data['proyecto']))!=0):
+				if(len(designacion.objects.filter(user=User.objects.get(pk=pk),proyecto=form.cleaned_data['proyecto']))!=0):
+					return self.render_to_response(self.get_context_data(form=form,error='El usuario ya tiene una asignacion de cargo en este proyecto'))
+				if(len(designacion.objects.filter(cargo=form.cleaned_data['cargo'],proyecto=form.cleaned_data['proyecto']))!=0):
+					return self.render_to_response(self.get_context_data(form=form,error='El cargo ya esta asignado a una persona en el proyecto'))
+			else:
+				form1Save = form.save(commit=False)
+				form1Save.user = self.model.objects.get(id=pk)
+				for_rever = form.save()
+				return  HttpResponseRedirect(reverse_lazy(self.success_url, kwargs={'pk': for_rever.pk}))
+		else:
+			#print ("paso2")
+			return self.render_to_response(self.get_context_data(form=form))"""

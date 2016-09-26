@@ -25,8 +25,24 @@ from apps.seguimiento.views import *
 
 
 urlpatterns = [
-    url(r'^nuevoproyecto/$',login_required(crearProyecto.as_view()), name='nuevoproyecto'),
-    url(r'^listaproyectos/$',login_required(csrf_exempt(listaProyectos.as_view())), name='listaproyectos'),
-    url(r'^crearitem/(?P<pk>\d)/$',login_required(csrf_exempt(crearItem.as_view())), name='crearitem'),
-    url(r'^listaItems/(?P<pk>\d)/$',login_required(csrf_exempt(listaItems.as_view())), name='listaitems'),
+    url(r'^nuevoproyecto/$',
+        login_required(crearProyecto.as_view()), 
+        name='nuevoproyecto'
+    ),
+    url(r'^listaproyectos/$',
+        login_required(csrf_exempt(listaProyectos.as_view())), 
+        name='listaproyectos'
+    ),
+    url(r'^crearitem/(?P<pk>\d+)/$',
+        login_required(crearItem.as_view()), 
+        name='crearitem'
+    ),
+    url(r'^listaItems/(?P<pk>\d+)/$',
+        login_required(csrf_exempt(listaItems.as_view())), 
+        name='listaitems'
+    ),
+    url(r'^updateproyect/(?P<pk>\d+)/$',
+        login_required(updateProyecto.as_view()), 
+        name='updateproyect'
+    ),
 ]

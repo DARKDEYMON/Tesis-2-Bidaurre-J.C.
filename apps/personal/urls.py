@@ -35,10 +35,10 @@ urlpatterns = [
     url(r'^listausuario/$', 
         login_required(csrf_exempt(listaUsuario.as_view())), 
         name='listausuario'),
-    url(r'^updateusuario/(?P<pk>\d)/$', 
+    url(r'^updateusuario/(?P<pk>\d+)/$', 
         login_required(updateUsuario.as_view()), 
         name='updateusuario'),
-    url(r'^darbaja/(?P<pk>\d)/$', 
+    url(r'^darbaja/(?P<pk>\d+)/$', 
         login_required(updateDarBaja.as_view()), 
         name='updatedarbaja'),
     #actualisacion de cuenta por el usuario
@@ -57,10 +57,22 @@ urlpatterns = [
         auth_views.password_change,
         {'template_name':'personal/password_reset_form.html','post_change_redirect' : '/'}, 
         name='reset_password'),
-    url(r'^añadirpermisos/(?P<pk>\d)/$',
+    url(r'^añadirpermisos/(?P<pk>\d+)/$',
         login_required(añadirPermisos.as_view()), 
         name='añadirpermisos'),
     url(r'^crearcargo/$', 
         login_required(crearCargo.as_view()), 
         name='crearcargo'),
+    url(r'^designacion/(?P<pk>\d+)/$',
+        #aqui el decorador de permisos
+        permission_required('auth.view_personal')(login_required(crearDesignacion.as_view())), 
+        name='designacion'),
+    url(r'^listadesignaciones/(?P<pk>\d+)/$',
+        #aqui el decorador de permisos
+        permission_required('auth.view_personal')(login_required(listaDesignaciones.as_view())), 
+        name='listadesignaciones'),
+    url(r'^borrardesig/(?P<pk>\d+)/$',
+        #aqui el decorador de permisos
+        permission_required('auth.view_personal')(login_required(borrarDesignacion.as_view())), 
+        name='borrardesig'),
 ]

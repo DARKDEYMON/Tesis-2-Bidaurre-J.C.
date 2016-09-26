@@ -9,11 +9,13 @@ from django.http import HttpResponseRedirect
 from django.views.generic import ListView, CreateView, UpdateView, FormView
 from django.core.urlresolvers import reverse_lazy
 
+# crear proyecto
 class crearProyecto(CreateView):
 	form_class = crearProyectoForm
 	template_name = 'seguimiento/nuevoproyecto.html'
 	success_url = reverse_lazy('seguimiento:listaproyectos')
 
+# lista proyectos
 class listaProyectos(CreateView,ListView):
 	model = proyecto
 	form_class = searchForm
@@ -48,6 +50,7 @@ class listaProyectos(CreateView,ListView):
 		else:
 			object_list = self.model.objects.all().order_by('id')
 		return object_list
+# crea un item para un proyecto en especifico
 class crearItem(CreateView):
 	model_pk = proyecto
 	form_class = crearItemsForm
@@ -67,7 +70,7 @@ class crearItem(CreateView):
 		else:
 			#print ("paso2")
 			return self.render_to_response(self.get_context_data(form=form))
-
+# lista los items de un proyecto en espesifico
 class listaItems(CreateView,ListView):
 	model = item
 	form_class = searchForm
@@ -105,3 +108,20 @@ class listaItems(CreateView,ListView):
 		else:
 			object_list = self.model.objects.filter(proyecto = pk1).order_by('id')
 		return object_list
+
+class updateProyecto(UpdateView):
+	model = proyecto
+	form_class = crearProyectoForm
+	template_name = 'seguimiento/nuevoproyecto.html'
+	success_url = reverse_lazy('seguimiento:listaproyectos')
+	def get_context_data(self, **kwargs):
+		context = super (updateProyecto, self).get_context_data(**kwargs)
+		pk1=self.kwargs['pk']
+		if 'form' in context:
+			import datetime
+			ins = self.model.objects.get(pk=pk1)
+			print(ins.fecha_inicio)
+			#print(datetime.datetime.strptime(str(ins.fecha_inicio), '%Y-%m-%d').strftime('%d-%m-%Y'))
+			
+			context['form'] = self.form_class(instance=ins, initial={'fecha':str(ins.fecha_inicio)})
+		return context

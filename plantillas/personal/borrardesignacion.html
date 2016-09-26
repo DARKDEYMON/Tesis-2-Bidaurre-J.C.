@@ -1,0 +1,43 @@
+{% extends "base/baseform.html" %}	
+
+
+	
+	{% block formulario %}
+
+	
+		
+		{% comment %}
+		{% for field in form %}
+		    <div class="fieldWrapper">
+		        {{ field.errors }}
+		        {{ field.label_tag }} 
+		        {{ field }}
+		    </div>
+		{% endfor %}
+		{% endcomment %}
+		{% load bootstrap3 %}
+
+
+		<form action="" method="post">
+		{% csrf_token %}
+			<div class="alert alert-danger" role="alert"><strong>Alerta!!!!</strong> Esta Seguro de Borrar la designacion para <strong>"{{ object.user.first_name }}" </strong>?</div>
+		    
+		    {% buttons %}
+	        	<button type="submit" class="btn btn-primary center-block">
+	            	{% bootstrap_icon "glyphicon glyphicon-ok" %} Submit
+	       		</button>
+	   		{% endbuttons %}
+		</form>
+		<!--
+		<div class="row">
+			<div class="col-lg-6">	
+				<button type="reset" class="btn btn-default center-block">Reset</button>
+			</div>
+			<div class="col-lg-6">
+				<button type="submit" value="login" class="btn btn-primary center-block">Submit</button>
+			</div>
+		</div>
+		-->
+		
+	
+	{% endblock formulario %}

@@ -4,16 +4,18 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 
+from apps.seguimiento.models  import proyecto
+
 
 # Create your models here.
 
 # validador de extencion de archibos
 def validate_file_extension(value):
-  import os
-  ext = os.path.splitext(value.name)[1]
-  valid_extensions = ['.pdf','.doc','.docx']
-  if not ext in valid_extensions:
-    raise ValidationError(u'Tipo de Archibo no Soportado!')
+	import os
+	ext = os.path.splitext(value.name)[1]
+	valid_extensions = ['.pdf','.doc','.docx']
+	if not ext in valid_extensions:
+		raise ValidationError(u'Tipo de Archibo no Soportado!')
 
 class kardex(models.Model):
 	user = models.OneToOneField(User)
@@ -88,19 +90,6 @@ class kardex(models.Model):
 		return (self.ci);
 
 class cargo(models.Model):
-	codigo_cargo = models.CharField(
-		max_length = 4,
-		null=False,
-		blank=False,
-		unique=True,
-		validators=[
-			RegexValidator(
-				regex=r'^[0-9A-Z]{4}$', 
-				message='El codigo de cargo es de cuatro caracteres y no contiene simbolos especiales', 
-				code='Numero Invalido'
-			)
-		]
-	)
 	nombre_cargo = models.CharField(
 		max_length=60,
 		null=False,
@@ -113,3 +102,10 @@ class cargo(models.Model):
 	def __str__(self):
 		#return '{}{}'.format(self.nombre_cargo)
 		return (self.nombre_cargo)
+
+class designacion(models.Model):
+	user = models.ForeignKey(User)
+	cargo = models.ForeignKey(cargo)
+	proyecto = models.ForeignKey(proyecto)
+	def __str__(self):
+		return (self.user.first_name)

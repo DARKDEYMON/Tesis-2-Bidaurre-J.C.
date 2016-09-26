@@ -74,11 +74,38 @@
 							     
 				  			{% endif %}
 				  					<td>
-				  						<div class="btn-group" role="group">
-										  <a href="{% url 'personal:updateusuario' user.id%}" type="button" class="btn btn-primary">Editar<span class="glyphicon glyphicon-edit" aria-hidden="true"></a>
-										  <!--<a href="#" type="button" class="btn btn-default">Eliminar</a>-->
-										  <a href="{% url 'personal:añadirpermisos' user.id %}" type="button" class="btn btn-warning">Añadir Permisos<span class="glyphicon glyphicon-wrench" aria-hidden="true"></a>
-										  <a href="{% url 'personal:updatedarbaja' user.id %}" type="button" class="btn btn-danger">Dar Baja/alta<span class="glyphicon glyphicon-remove" aria-hidden="true"></a>
+				  						<div class="btn-group">
+				  						
+				  							<!-- Single button -->
+											<div class="btn-group">
+											  <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											    Gestion de Usuarios <span class="caret"></span>
+											  </button>
+											  <ul class="dropdown-menu">
+											    <li><a href="{% url 'personal:updateusuario' user.id %}">Editar<span class="glyphicon glyphicon-edit" aria-hidden="true"></a></li>
+											    <li><a href="{% url 'personal:añadirpermisos' user.id %}">Añadir Permisos<span class="glyphicon glyphicon-wrench" </li>
+											    <li><a href="{% url 'personal:updatedarbaja' user.id %}">Dar Baja/alta<span class="glyphicon glyphicon-remove" aria-hidden="true"></a></li>
+											    
+											  </ul>
+											</div>
+
+											<div class="btn-group">
+											  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											    Gestion Administrativa <span class="caret"></span>
+											  </button>
+											  <ul class="dropdown-menu">
+											    <li><a href="{% url 'personal:designacion' user.id%}">Designar<span class="glyphicon glyphicon-edit" aria-hidden="true"></a></li>
+											    <li><a href="{% url 'personal:listadesignaciones' user.id%}">Lista de Designaciones<span class="glyphicon glyphicon-edit" aria-hidden="true"></a></li>
+											  </ul>
+											</div>
+											
+											<!--
+										  	<a href="{% url 'personal:updateusuario' user.id%}" type="button" class="btn btn-primary">Editar<span class="glyphicon glyphicon-edit" aria-hidden="true"></a>
+										  	<a href="#" type="button" class="btn btn-default">Eliminar</a>
+										  	<a href="{% url 'personal:añadirpermisos' user.id %}" type="button" class="btn btn-warning">Añadir Permisos<span class="glyphicon glyphicon-wrench" aria-hidden="true"></a>
+										  	<a href="{% url 'personal:updatedarbaja' user.id %}" type="button" class="btn btn-danger">Dar Baja/alta<span class="glyphicon glyphicon-remove" aria-hidden="true"></a>
+										  	<a href="{% url 'personal:designacion' user.id%}" type="button" class="btn btn-primary">Designar<span class="glyphicon glyphicon-edit" aria-hidden="true"></a>
+										  	-->
 										</div>
 				  					</td>
 					  			</tr>
