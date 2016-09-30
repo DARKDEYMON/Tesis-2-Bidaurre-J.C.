@@ -190,6 +190,44 @@ class crearCargo(CreateView):
 	template_name = 'personal/nuevocargo.html'
 	success_url = '/'
 
+class listaCargo(CreateView,ListView):
+	model = cargo
+	form_class = searchForm
+	template_name = 'personal/listacargo.html'
+	paginate_by = 10
+
+	def get_context_data(self, **kwargs):
+		context = super (listaCargo, self).get_context_data(**kwargs)
+		if 'form' not in context:
+			context['form'] = self.form_class()
+		return context
+
+	def get(self, request, *args, **kwargs):
+		self.object = self.get_object
+		form = self.form_class()
+		if request.GET:
+			form = self.form_class(request.GET)
+		self.object_list = self.get_queryset()
+		return self.render_to_response(self.get_context_data(object_list=self.object_list , form=form))
+
+	def get_queryset(self):
+		id = None
+		if self.request.method == "GET":
+			form = self.form_class(self.request.GET)
+			print (form.is_valid())
+			if form.is_valid():
+				print(self.request.GET)
+				print(form)
+				id = form.cleaned_data['search']
+				#kwargs['id']
+				print(id)
+		if (id):
+			#object_list = self.model.objects.filter(name__icontains = id)
+			object_list = self.model.objects.filter(pk=id)
+		else:
+			object_list = self.model.objects.all().filter().order_by('id')
+		return object_list
+
 class crearDesignacion(CreateView):
 	model = User
 	#permission_required = 'auth.view_personal'

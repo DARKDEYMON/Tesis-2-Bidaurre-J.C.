@@ -18,14 +18,14 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Personal <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
             <li><a href="{% url 'personal:nuevousuario' %}">Crear Nuevo usuario</a></li>
-            <li><a href="{% url 'personal:crearcargo' %}">Crear Cargo</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li class="divider"></li>
-            {# sen evia dos comillas para vacio opcional #}
-            {# <li><a href="{% url 'personal:listausuario' ''%}">Listado del Personal</a></li> #}
             <li><a href="{% url 'personal:listausuario' %}">Listado del Personal</a></li>
             <li class="divider"></li>
-            <li><a href="#">One more separated link</a></li>
+            <li><a href="{% url 'personal:crearcargo' %}">Crear Cargos</a></li>
+            <li><a href="{% url 'personal:listacargo' %}">Lista de Cargos</a></li>
+            
+            {# sen evia dos comillas para vacio opcional #}
+            {# <li><a href="{% url 'personal:listausuario' ''%}">Listado del Personal</a></li> #}
+          
           </ul>
         </li>
 
@@ -33,10 +33,11 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Seguimiento <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
             <li><a href="{% url 'seguimiento:nuevoproyecto' %}">Crear Nuevo Proyecto</a></li>
+            <li><a href="{% url 'seguimiento:listaproyectos' %}">Lista Proyectos</a></li>
+            
+            <li class="divider"></li>
             <li><a href="#">Another action</a></li>
             <li><a href="#">Something else here</a></li>
-            <li class="divider"></li>
-            <li><a href="{% url 'seguimiento:listaproyectos' %}">Lista Proyectos</a></li>
             <li class="divider"></li>
             <li><a href="#">One more separated link</a></li>
           </ul>

@@ -63,8 +63,15 @@
 				  					<td>
 				  						<div class="btn-group" role="group">
 										  <a href="#" type="button" class="btn btn-primary">Actividades<span class="glyphicon glyphicon-edit" aria-hidden="true"></a>
-										  <a href="#" type="button" class="btn btn-warning">Añadir Permisos<span class="glyphicon glyphicon-wrench" aria-hidden="true"></a>
-										  <a href="#" type="button" class="btn btn-danger">Dar Baja/alta<span class="glyphicon glyphicon-remove" aria-hidden="true"></a>
+											<button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+												Agregados Externos <span class="caret"></span>
+											</button>
+											<ul class="dropdown-menu">
+											    <li><a href="{% url 'personal:updateusuario' user.id %}">Mano de Hobra<span class="glyphicon glyphicon-edit" aria-hidden="true"></a></li>
+											    <li><a href="{% url 'personal:añadirpermisos' user.id %}">Contrato de Maquinaria/Hequipo<span class="glyphicon glyphicon-wrench" </li>
+											    <li><a href="{% url 'personal:updatedarbaja' user.id %}">Materiales Locales<span class="glyphicon glyphicon-remove" aria-hidden="true"></a></li>
+											    
+											</ul>
 										</div>
 				  					</td>
 					  			</tr>

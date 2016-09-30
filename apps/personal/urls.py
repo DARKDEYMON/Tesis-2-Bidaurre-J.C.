@@ -63,6 +63,9 @@ urlpatterns = [
     url(r'^crearcargo/$', 
         login_required(crearCargo.as_view()), 
         name='crearcargo'),
+    url(r'^listacargo/$', 
+        login_required(listaCargo.as_view()), 
+        name='listacargo'),
     url(r'^designacion/(?P<pk>\d+)/$',
         #aqui el decorador de permisos
         permission_required('auth.view_personal')(login_required(crearDesignacion.as_view())), 

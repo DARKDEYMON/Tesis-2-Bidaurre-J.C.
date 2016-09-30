@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from apps.seguimiento.forms import *
 from apps.seguimiento.models import *
+from apps.personal.models import designacion
 
 from django.http import HttpResponseRedirect
 
@@ -125,3 +126,39 @@ class updateProyecto(UpdateView):
 			
 			context['form'] = self.form_class(instance=ins, initial={'fecha':str(ins.fecha_inicio)})
 		return context
+
+class listaPersonalProyecto(CreateView,ListView):
+	model = designacion
+	form_class = searchForm
+	template_name = 'seguimiento/listapersonalpro.html'
+	paginate_by = 10
+	def get_context_data(self, **kwargs):
+		context = super (listaPersonalProyecto, self).get_context_data(**kwargs)
+		if 'form' in context:
+			context['form'] = self.form_class()
+		return context
+	def get(self, request, *args, **kwargs):
+		self.object = self.get_object
+		form = self.form_class()
+		if request.GET:
+			form = self.form_class(request.GET)
+		self.object_list = self.get_queryset()
+		return self.render_to_response(self.get_context_data(object_list=self.object_list , form=form))
+	def get_queryset(self):
+		pk1=self.kwargs['pk']
+		id = None
+		if self.request.method == "GET":
+			form = self.form_class(self.request.GET)
+			print (form.is_valid())
+			if form.is_valid():
+				print(self.request.GET)
+				print(form)
+				id = form.cleaned_data['search']
+				#kwargs['id']
+				print(id)
+		if (id):
+			#object_list = self.model.objects.filter(name__icontains = id)
+			object_list = self.model.objects.filter(proyecto = proyecto.objects.filter(id=pk1), id = id)
+		else:
+			object_list = self.model.objects.filter(proyecto = proyecto.objects.filter(id=pk1)).order_by('id')
+		return object_list
