@@ -17,11 +17,11 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Personal <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="{% url 'personal:nuevousuario' %}">Crear Nuevo usuario</a></li>
-            <li><a href="{% url 'personal:listausuario' %}">Listado del Personal</a></li>
+            <li><a href="{% url 'personal:nuevousuario' %}">Nuevo usuario</a></li>
+            <li><a href="{% url 'personal:listausuario' %}">Listado del usuario/personal</a></li>
             <li class="divider"></li>
-            <li><a href="{% url 'personal:crearcargo' %}">Crear Cargos</a></li>
-            <li><a href="{% url 'personal:listacargo' %}">Lista de Cargos</a></li>
+            <li><a href="{% url 'personal:crearcargo' %}">Crear cargo</a></li>
+            <li><a href="{% url 'personal:listacargo' %}">Listado de cargos</a></li>
             
             {# sen evia dos comillas para vacio opcional #}
             {# <li><a href="{% url 'personal:listausuario' ''%}">Listado del Personal</a></li> #}
@@ -32,27 +32,23 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Seguimiento <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="{% url 'seguimiento:nuevoproyecto' %}">Crear Nuevo Proyecto</a></li>
-            <li><a href="{% url 'seguimiento:listaproyectos' %}">Lista Proyectos</a></li>
-            
-            <li class="divider"></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li class="divider"></li>
-            <li><a href="#">One more separated link</a></li>
+            <li><a href="{% url 'seguimiento:nuevoproyecto' %}">Crear nuevo proyecto</a></li>
+            <li><a href="{% url 'seguimiento:listaproyectos' %}">Listado de proyectos</a></li>
           </ul>
         </li>
 
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Almacenes <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="{% url 'almacenes:nuevoitem' %}">Crear Nuevo Item</a></li>
-            <li><a href="{% url 'almacenes:nuevoproveedor' %}">Crear Nuevo Proveedor</a></li>
-            <li><a href="#">Something else here</a></li>
+            <li><a href="{% url 'almacenes:nuevomaterial' %}">Crear nuevo material</a></li>
             <li class="divider"></li>
-            <li><a href="#">Separated link</a></li>
+            <li><a href="{% url 'almacenes:crearalmacen' %}">Crear almacen</a></li>
+            <li><a href="{% url 'almacenes:listaalmacenes' %}">Listado de almacenes</a></li>
             <li class="divider"></li>
-            <li><a href="#">One more separated link</a></li>
+            <li><a href="{% url 'almacenes:crearherramientas' %}">Crear Herramientas</a></li>
+            <!--<li><a href="">Items de proyecto</a></li>-->
+            <li class="divider"></li>
+            <li><a href="{% url 'almacenes:nuevoproveedor' %}">Crear proveedor</a></li>
           </ul>
         </li>
 

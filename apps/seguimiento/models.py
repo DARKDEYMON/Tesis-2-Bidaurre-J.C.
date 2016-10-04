@@ -2,6 +2,7 @@ from django.db import models
 
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
+from apps.almacenes.models import material
 
 from django.utils.translation import ugettext_lazy as _
 
@@ -89,7 +90,22 @@ class item(models.Model):
 		blank=False
 	)
 	def __str__(self):
-		return (self.descripcion)
+		return (self.proyecto.objeto_de_la_contratacion+':'+self.descripcion)
 	class Meta:
 		#verbose_name = _('actividad')
 		verbose_name_plural = _('items')
+class peticion_material(models.Model):
+	item = models.ForeignKey(item)
+	material = models.ForeignKey(material)
+	cantidad = models.PositiveIntegerField(
+		blank=False,
+		null=False
+	)
+	precio_estimado = models.PositiveIntegerField(
+		blank=False,
+		null=False
+	)
+	observaciones = models.TextField(
+		blank=True,
+		null=True
+	)

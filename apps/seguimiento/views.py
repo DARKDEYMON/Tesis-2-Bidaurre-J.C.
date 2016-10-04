@@ -162,3 +162,21 @@ class listaPersonalProyecto(CreateView,ListView):
 		else:
 			object_list = self.model.objects.filter(proyecto = proyecto.objects.filter(id=pk1)).order_by('id')
 		return object_list
+
+class peticionMaterial(CreateView):
+	model_pk = item
+	form_class = crearPeticionMaterialForm
+	template_name = 'seguimiento/peticionmaterial.html'
+	success_url = 'seguimiento:listaitems'
+	def post(self, request, *args, **kwargs):
+		self.object = self.get_object	
+		form = self.form_class(request.POST)
+		if form.is_valid():
+			pk1=self.kwargs['pk']
+			form =form.save(commit=False)
+			form.item = self.model_pk.objects.get(id=pk1)
+			form.save()
+			return  HttpResponseRedirect(reverse_lazy(self.success_url, kwargs = {'pk': pk1}))
+		else:
+			#print ("paso2")
+			return self.render_to_response(self.get_context_data(form=form))

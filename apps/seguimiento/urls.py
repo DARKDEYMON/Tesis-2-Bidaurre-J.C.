@@ -49,4 +49,8 @@ urlpatterns = [
         login_required(listaPersonalProyecto.as_view()), 
         name='listapersonal'
     ),
+    url(r'^peticionmaterial/(?P<pk>\d+)/$',
+        login_required(peticionMaterial.as_view()), 
+        name='peticionmaterial'
+    ),
 ]

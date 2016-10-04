@@ -24,6 +24,40 @@ from apps.almacenes.views import *
 
 
 urlpatterns = [
-    url(r'^nuevoitem/$',login_required(crearItemAlmacen.as_view()), name='nuevoitem'),
-    url(r'^nuevoproveedor/$',login_required(crearProveedor.as_view()), name='nuevoproveedor'),
+    url(r'^nuevomaterial/$',
+    	login_required(crearMaterialAlmacen.as_view()), 
+    	name='nuevomaterial'
+    ),
+    url(r'^nuevoproveedor/$',
+    	login_required(crearProveedor.as_view()), 
+    	name='nuevoproveedor'
+    ),
+    url(r'^crearalmacen/$',
+    	login_required(crearAlmacen.as_view()), 
+    	name='crearalmacen'
+    ),
+    url(r'^listaalmacenes/$',
+        login_required(listaAlmacenes.as_view()), 
+        name='listaalmacenes'
+    ),
+    url(r'^actualisarAlmacen/(?P<pk>\d+)/$',
+        login_required(actualisarAlmacen.as_view()), 
+        name='actualisarAlmacen'
+    ),
+    url(r'^crearherramientas/$',
+        login_required(crearHerramientas.as_view()), 
+        name='crearherramientas'
+    ),
+    url(r'^listaitems/(?P<ct>\w+)/$',
+        login_required(listaItemsPedidos.as_view()), 
+        name='listaitems'
+    ),
+    url(r'^ingresoinsumo/(?P<pk>\d+)/$',
+        login_required(ingresoInsumoItem.as_view()), 
+        name='ingresoinsumo'
+    ),
+    url(r'^salidainsumo/(?P<pk>\d+)/$',
+        login_required(salidaInsumoItem.as_view()), 
+        name='salidainsumo'
+    ),
 ]

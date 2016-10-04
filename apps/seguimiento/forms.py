@@ -36,3 +36,14 @@ CHOICES = (('1', 'ID'),('2', 'Nombre'),)
 class searchForm(forms.Form):
 	search = forms.IntegerField(label="", help_text="", widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Busqueda por...'}))
 	buscar_por = forms.ChoiceField(label="", help_text="", choices=CHOICES)
+
+
+class crearPeticionMaterialForm(ModelForm):
+	"""
+	def __init__(self,*args,**kwargs):
+		super (crearPeticionMaterialForm,self ).__init__(*args,**kwargs) # populates the post
+		self.fields['itemsAlmacen'].queryset = itemsAlmacen.objects.filter(tipo_item='MA')
+	"""
+	class Meta:
+		model = peticion_material
+		exclude = ['item']
