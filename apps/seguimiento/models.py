@@ -2,7 +2,7 @@ from django.db import models
 
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
-from apps.almacenes.models import material
+from apps.almacenes.models import material, insumos
 
 from django.utils.translation import ugettext_lazy as _
 
@@ -94,14 +94,14 @@ class item(models.Model):
 	class Meta:
 		#verbose_name = _('actividad')
 		verbose_name_plural = _('items')
-class peticion_material(models.Model):
+class peticion_materiales(models.Model):
 	item = models.ForeignKey(item)
 	material = models.ForeignKey(material)
 	cantidad = models.PositiveIntegerField(
 		blank=False,
 		null=False
 	)
-	precio_estimado = models.PositiveIntegerField(
+	precio_estimado_total = models.PositiveIntegerField(
 		blank=False,
 		null=False
 	)
@@ -109,3 +109,45 @@ class peticion_material(models.Model):
 		blank=True,
 		null=True
 	)
+	def __str__(self):
+		return (self.material.decripcion)
+
+class peticion_insumos(models.Model):
+	item = models.ForeignKey(item)
+	insumos = models.ForeignKey(insumos)
+	cantidad = models.PositiveIntegerField(
+		blank=False,
+		null=False
+	)
+	precio_estimado_total = models.PositiveIntegerField(
+		blank=False,
+		null=False
+	)
+	observaciones = models.TextField(
+		blank=True,
+		null=True
+	)
+	def __str__(self):
+		return (self.insumos.decripcion)
+
+class requerimientoPersonal(models.Model):
+	item = models.ForeignKey(item)
+	funcion = models.CharField(
+		max_length=60,
+		blank=False,
+		null=False
+	)
+	cantidad = models.PositiveIntegerField(
+		null=False,
+		blank=False
+	)
+	precio_estimado_total = models.PositiveIntegerField(
+		null=False,
+		blank=False
+	)
+	observaciones = models.TextField(
+		blank=True,
+		null=True
+	)
+	def __str__(self):
+		return (self.funcion)

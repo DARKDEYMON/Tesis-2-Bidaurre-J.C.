@@ -89,7 +89,7 @@ class material(models.Model):
 	def __str__(self):
 		return self.decripcion
 
-class ingreso_material(models.Model):
+class materialAlmacen(models.Model):
 	almacen = models.ForeignKey(almacen)
 	material = models.ForeignKey(material)
 	cantidad = models.PositiveIntegerField(
@@ -102,38 +102,41 @@ class ingreso_material(models.Model):
 	class Meta:
 		unique_together = (('almacen', 'material'),)
 
-class herramientas(models.Model):
-	decripcion = models.CharField(
-		max_length=100,
-		blank=False,
-		null=False
-	)
-	observaciones = models.TextField(
-		null=True,
-		blank=True,
-	)
-	def __str__(self):
-		return self.decripcion
-class herramientasAlmacen(models.Model):
+class ingresoMaterial(models.Model):
 	almacen = models.ForeignKey(almacen)
-	herramientas = models.ForeignKey(herramientas)
+	material = models.ForeignKey(material)
+	proveedor = models.ForeignKey(proveedor)
+	item = models.ForeignKey('seguimiento.item')
+	fecha =models.DateField(
+		null=False,
+		blank=False,
+		auto_now=True
+	)
+	costo_total = models.PositiveIntegerField(
+		null=False,
+		blank=False
+	)
 	cantidad = models.PositiveIntegerField(
 		blank=False,
 		null=False,
 		default=0
 	)
-	class Meta:
-		unique_together = (('almacen', 'herramientas'),)
-class ingresoHerramientas(models.Model):
+class salidaMaterial(models.Model):
 	almacen = models.ForeignKey(almacen)
-	herramientas = models.ForeignKey(herramientas)
-	proveedor = models.ForeignKey(proveedor)
+	material = models.ForeignKey(material)
+	item = models.ForeignKey('seguimiento.item')
+	fecha =models.DateField(
+		null=False,
+		blank=False,
+		auto_now=True
+	)
 	cantidad = models.PositiveIntegerField(
 		blank=False,
 		null=False,
 		default=0
 	)
 
+#insumos
 class insumos(models.Model):
 	decripcion = models.CharField(
 		max_length=100,
@@ -166,6 +169,11 @@ class ingresoInsumos(models.Model):
 	insumos = models.ForeignKey(insumos)
 	proveedor = models.ForeignKey(proveedor)
 	item = models.ForeignKey('seguimiento.item')
+	fecha =models.DateField(
+		null=False,
+		blank=False,
+		auto_now=True
+	)
 	costo_total = models.PositiveIntegerField(
 		null=False,
 		blank=False
@@ -179,6 +187,36 @@ class salidaInsumos(models.Model):
 	almacen = models.ForeignKey(almacen)
 	insumos = models.ForeignKey(insumos)
 	item = models.ForeignKey('seguimiento.item')
+	fecha =models.DateField(
+		null=False,
+		blank=False,
+		auto_now=True
+	)
+	cantidad = models.PositiveIntegerField(
+		blank=False,
+		null=False,
+		default=0
+	)
+
+
+#herraminetas
+class herramientas(models.Model):
+	decripcion = models.CharField(
+		max_length=100,
+		blank=False,
+		null=False
+	)
+	observaciones = models.TextField(
+		null=True,
+		blank=True,
+	)
+	def __str__(self):
+		return self.decripcion
+
+class ingresoHerramientas(models.Model):
+	almacen = models.ForeignKey(almacen)
+	herramientas = models.ForeignKey(herramientas)
+	proveedor = models.ForeignKey(proveedor)
 	cantidad = models.PositiveIntegerField(
 		blank=False,
 		null=False,

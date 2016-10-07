@@ -68,7 +68,7 @@
 												</button>
 												<ul class="dropdown-menu">
 												    <li><a href="{% url 'seguimiento:peticionmaterial' item.id %}">Requeriminetos de materiales<span class="glyphicon glyphicon-edit" aria-hidden="true"></a></li>
-												    <li><a href="#">Requeriminetos de insumos<span class="glyphicon glyphicon-wrench" </li>
+												    <li><a href="{% url 'seguimiento:peticioninsumos' item.id %}">Requeriminetos de insumos<span class="glyphicon glyphicon-wrench" </li>
 												    <li><a href="#">Requeriminetos de herramientas<span class="glyphicon glyphicon-remove" aria-hidden="true"></a></li>
 												    <li><a href="#">Requeriminetos de Maquinaria/Hequipo<span class="glyphicon glyphicon-remove" aria-hidden="true"></a></li>
 												</ul>
@@ -78,7 +78,7 @@
 													Agregados Externos <span class="caret"></span>
 												</button>
 												<ul class="dropdown-menu">
-												    <li><a href="#">Mano de Hobra<span class="glyphicon glyphicon-edit" aria-hidden="true"></a></li>
+												    <li><a href="{% url 'seguimiento:requerimientopersonal' item.id %}">Mano de Hobra<span class="glyphicon glyphicon-edit" aria-hidden="true"></a></li>
 												    <li><a href="#">Contrato de Maquinaria/Hequipo<span class="glyphicon glyphicon-wrench" </li>
 												    <li><a href="#">Materiales Locales<span class="glyphicon glyphicon-remove" aria-hidden="true"></a></li>
 												    

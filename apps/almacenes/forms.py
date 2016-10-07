@@ -12,6 +12,12 @@ class actualisarAlmacenForm(ModelForm):
 		model = almacen
 		exclude = ['ciudad']
 
+class crearProveedorForm(ModelForm):
+	class Meta:
+		model = proveedor
+		exclude = ['']
+
+#material
 class crearMaterialForm(ModelForm):
 	class Meta:
 		model = material
@@ -20,15 +26,17 @@ class crearMaterialForm(ModelForm):
 			'tipo_item':'Tipo de Item',
 		}
 
-class crearProveedorForm(ModelForm):
+class crearIngresoMaterialForm(ModelForm):
 	class Meta:
-		model = proveedor
-		exclude = ['']
-class crearHerramientasForm(ModelForm):
+		model = ingresoMaterial
+		exclude = ['almacen','item']
+
+class crearSalidaMaterialForm(ModelForm):
 	class Meta:
-		model = herramientas
-		exclude = ['']
-#los buenos
+		model = salidaMaterial
+		exclude = ['almacen','item']
+
+#insumo
 class crearIngresoInsumoForm(ModelForm):
 	class Meta:
 		model = ingresoInsumos
@@ -38,6 +46,11 @@ class crearSalidaInsumoForm(ModelForm):
 	class Meta:
 		model = salidaInsumos
 		exclude = ['almacen','item']
+#herramientas
+class crearHerramientasForm(ModelForm):
+	class Meta:
+		model = herramientas
+		exclude = ['']
 
 CHOICES = (('1', 'ID'),('2', 'Nombre'),)
 class searchForm(forms.Form):

@@ -144,7 +144,7 @@ class salidaInsumoItem(CreateView):
 			from django.db.models import Sum
 			pk1=self.kwargs['pk']
 			#form =form.save(commit=False)
-			almacen.objects.get(ciudad=self.model_pk.objects.get(id=pk1).proyecto.ubicacion_proyecto)
+			#almacen.objects.get(ciudad=self.model_pk.objects.get(id=pk1).proyecto.ubicacion_proyecto)
 			almacen_obj = almacen.objects.get(ciudad=self.model_pk.objects.get(id=pk1).proyecto.ubicacion_proyecto)
 			aux = ingresoInsumos.objects.filter(item=pk1 ,insumos=form.cleaned_data['insumos'],almacen=almacen_obj).aggregate(Sum('cantidad'))
 			aux1 = salidaInsumos.objects.filter(item=pk1 ,insumos=form.cleaned_data['insumos'],almacen=almacen_obj).aggregate(Sum('cantidad'))
@@ -169,6 +169,79 @@ class salidaInsumoItem(CreateView):
 				form.almacen = almacen.objects.get(ciudad=self.model_pk.objects.get(id=pk1).proyecto.ubicacion_proyecto)
 				form.save()
 				a=insumosAlmacen.objects.get(almacen=form.almacen,insumos=form.insumos)
+				a.cantidad = a.cantidad - form.cantidad
+				a.save()
+				return  HttpResponseRedirect(self.success_url)
+		else:
+			#print ("paso2")
+			return self.render_to_response(self.get_context_data(form=form))
+
+class ingresoMaterialItem(CreateView):
+	model_pk = item
+	form_class = crearIngresoMaterialForm
+	template_name = 'almacen/crearingresomaterial.html'
+	success_url = '/'
+	def post(self, request, *args, **kwargs):
+		self.object = self.get_object	
+		form = self.form_class(request.POST)
+		#print (form.is_valid())
+		#print (form2.is_valid())
+		if form.is_valid():
+			pk1=self.kwargs['pk']
+			form =form.save(commit=False)
+			form.item = self.model_pk.objects.get(id=pk1)
+			form.almacen = almacen.objects.get(ciudad=self.model_pk.objects.get(id=pk1).proyecto.ubicacion_proyecto)
+			form.save()
+			a=materialAlmacen.objects.get_or_create(almacen=form.almacen,material=form.material)
+			a[0].cantidad = a[0].cantidad + form.cantidad
+			a[0].save()
+			return  HttpResponseRedirect(self.success_url)
+		else:
+			#print ("paso2")
+			return self.render_to_response(self.get_context_data(form=form))
+
+class salidaMaterialItem(CreateView):
+	model_pk = item
+	form_class = crearSalidaMaterialForm
+	template_name = 'almacen/salidamaterial.html'
+	success_url = '/'
+
+	def post(self, request, *args, **kwargs):
+		self.object = self.get_object	
+		form = self.form_class(request.POST)
+		#print (form.is_valid())
+		#print (form2.is_valid())
+		if form.is_valid():
+			from django.db.models import Sum
+			pk1=self.kwargs['pk']
+			#form =form.save(commit=False)
+			#almacen.objects.get(ciudad=self.model_pk.objects.get(id=pk1).proyecto.ubicacion_proyecto)
+
+			almacen_obj = almacen.objects.get(ciudad=self.model_pk.objects.get(id=pk1).proyecto.ubicacion_proyecto)
+			aux = ingresoMaterial.objects.filter(item=pk1 ,material=form.cleaned_data['material'],almacen=almacen_obj).aggregate(Sum('cantidad'))
+			aux1 = salidaMaterial.objects.filter(item=pk1 ,material=form.cleaned_data['material'],almacen=almacen_obj).aggregate(Sum('cantidad'))
+
+			total_ing = aux['cantidad__sum']
+			#print(total_ing)
+			total_sali = aux1['cantidad__sum']
+			#print(total_sali)
+			if(aux['cantidad__sum'] is None):
+				total_ing = 0
+			if(aux1['cantidad__sum'] is None):
+				total_sali = 0	 
+			total = total_ing - total_sali
+
+			if(aux['cantidad__sum'] is None):
+				return self.render_to_response(self.get_context_data(form=form,error='No se tiene ingresos de este material para el item'))
+			if(form.cleaned_data['cantidad']>total):
+				return self.render_to_response(self.get_context_data(form=form,error='La cantidad exede el stock actual de '+ str(total)))
+			else:
+				form =form.save(commit=False)
+				#print(almacen.objects.get(ciudad=self.model_pk.objects.get(id=pk1).proyecto.ubicacion_proyecto))
+				form.item = self.model_pk.objects.get(id=pk1)
+				form.almacen = almacen.objects.get(ciudad=self.model_pk.objects.get(id=pk1).proyecto.ubicacion_proyecto)
+				form.save()
+				a=materialAlmacen.objects.get(almacen=form.almacen,material=form.material)
 				a.cantidad = a.cantidad - form.cantidad
 				a.save()
 				return  HttpResponseRedirect(self.success_url)

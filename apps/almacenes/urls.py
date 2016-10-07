@@ -24,10 +24,6 @@ from apps.almacenes.views import *
 
 
 urlpatterns = [
-    url(r'^nuevomaterial/$',
-    	login_required(crearMaterialAlmacen.as_view()), 
-    	name='nuevomaterial'
-    ),
     url(r'^nuevoproveedor/$',
     	login_required(crearProveedor.as_view()), 
     	name='nuevoproveedor'
@@ -59,5 +55,17 @@ urlpatterns = [
     url(r'^salidainsumo/(?P<pk>\d+)/$',
         login_required(salidaInsumoItem.as_view()), 
         name='salidainsumo'
+    ),
+    url(r'^nuevomaterial/$',
+        login_required(crearMaterialAlmacen.as_view()), 
+        name='nuevomaterial'
+    ),
+    url(r'^ingresomaterial/(?P<pk>\d+)/$',
+        login_required(ingresoMaterialItem.as_view()), 
+        name='ingresomaterial'
+    ),
+    url(r'^salidamaterial/(?P<pk>\d+)/$',
+        login_required(salidaMaterialItem.as_view()), 
+        name='salidamaterial'
     ),
 ]

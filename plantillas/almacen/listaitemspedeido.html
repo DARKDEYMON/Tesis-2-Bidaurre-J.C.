@@ -63,7 +63,7 @@
 											    Ingresos de Item <span class="caret"></span>
 											  </button>
 											  <ul class="dropdown-menu">
-											    <li><a href="#">Ingreso Material<span class="glyphicon glyphicon-edit" aria-hidden="true"></a></li>
+											    <li><a href="{% url 'almacenes:ingresomaterial' item.id %}">Ingreso Material<span class="glyphicon glyphicon-edit" aria-hidden="true"></a></li>
 											    <li><a href="{% url 'almacenes:ingresoinsumo' item.id %}">Ingreso Insumo<span class="glyphicon glyphicon-wrench"></a> </li>
 											  </ul>
 											</div>
@@ -73,7 +73,7 @@
 											    Envios de Item <span class="caret"></span>
 											  </button>
 											  <ul class="dropdown-menu">
-											    <li><a href="#">Envio de Material<span class="glyphicon glyphicon-edit" aria-hidden="true"></a></li>
+											    <li><a href="{% url 'almacenes:salidamaterial' item.id %}">Envio de Material<span class="glyphicon glyphicon-edit" aria-hidden="true"></a></li>
 											    <li><a href="{% url 'almacenes:salidainsumo' item.id %}">Envio de Insumos<span class="glyphicon glyphicon-edit" aria-hidden="true"></a></li>
 											    <li><a href="#">Envio de Herramientas<span class="glyphicon glyphicon-edit" aria-hidden="true"></a></li>
 											    <li><a href="#">Envio de Equipo<span class="glyphicon glyphicon-edit" aria-hidden="true"></a></li>

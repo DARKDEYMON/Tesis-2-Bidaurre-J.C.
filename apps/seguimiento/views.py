@@ -176,7 +176,42 @@ class peticionMaterial(CreateView):
 			form =form.save(commit=False)
 			form.item = self.model_pk.objects.get(id=pk1)
 			form.save()
-			return  HttpResponseRedirect(reverse_lazy(self.success_url, kwargs = {'pk': pk1}))
+			return  HttpResponseRedirect(reverse_lazy(self.success_url, kwargs = {'pk': self.model_pk.objects.get(id=pk1).proyecto.id}))
+		else:
+			#print ("paso2")
+			return self.render_to_response(self.get_context_data(form=form))
+
+class peticionInsumos(CreateView):
+	model_pk = item
+	form_class = crearPeticionInsumosForm
+	template_name = 'seguimiento/peticioninsumos.html'
+	success_url = 'seguimiento:listaitems'
+	def post(self, request, *args, **kwargs):
+		self.object = self.get_object	
+		form = self.form_class(request.POST)
+		if form.is_valid():
+			pk1=self.kwargs['pk']
+			form =form.save(commit=False)
+			form.item = self.model_pk.objects.get(id=pk1)
+			form.save()
+			return  HttpResponseRedirect(reverse_lazy(self.success_url, kwargs = {'pk': self.model_pk.objects.get(id=pk1).proyecto.id}))
+		else:
+			#print ("paso2")
+			return self.render_to_response(self.get_context_data(form=form))
+class requerimientoPersonal(CreateView):
+	model_pk = item
+	form_class = crearRequerimientoPersonalForm
+	template_name = 'seguimiento/requerimientopersonal.html'
+	success_url = 'seguimiento:listaitems'
+	def post(self, request, *args, **kwargs):
+		self.object = self.get_object	
+		form = self.form_class(request.POST)
+		if form.is_valid():
+			pk1=self.kwargs['pk']
+			form =form.save(commit=False)
+			form.item = self.model_pk.objects.get(id=pk1)
+			form.save()
+			return  HttpResponseRedirect(reverse_lazy(self.success_url, kwargs = {'pk': self.model_pk.objects.get(id=pk1).proyecto.id}))
 		else:
 			#print ("paso2")
 			return self.render_to_response(self.get_context_data(form=form))

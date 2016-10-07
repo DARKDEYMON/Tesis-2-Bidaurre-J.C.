@@ -45,5 +45,15 @@ class crearPeticionMaterialForm(ModelForm):
 		self.fields['itemsAlmacen'].queryset = itemsAlmacen.objects.filter(tipo_item='MA')
 	"""
 	class Meta:
-		model = peticion_material
+		model = peticion_materiales
+		exclude = ['item']
+
+class crearPeticionInsumosForm(ModelForm):
+	class Meta:
+		model = peticion_insumos
+		exclude = ['item']
+
+class crearRequerimientoPersonalForm(ModelForm):
+	class Meta:
+		model = requerimientoPersonal
 		exclude = ['item']
