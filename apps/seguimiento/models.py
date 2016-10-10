@@ -48,7 +48,7 @@ class proyecto(models.Model):
 		null=False,
 		blank=False
 	)
-	plaso_previsto = models.DateField(
+	plazo_previsto = models.DateField(
 		null=False,
 		blank=False
 	)
@@ -76,7 +76,7 @@ class item(models.Model):
 		null=False,
 		blank=False
 	)
-	plaso_finalisacion = models.DateField(
+	plazo_finalizacion = models.DateField(
 		null=False,
 		blank=False
 	)
@@ -129,10 +129,32 @@ class peticion_insumos(models.Model):
 	)
 	def __str__(self):
 		return (self.insumos.decripcion)
-
+#externos
 class requerimientoPersonal(models.Model):
 	item = models.ForeignKey(item)
 	funcion = models.CharField(
+		max_length=60,
+		blank=False,
+		null=False
+	)
+	cantidad = models.PositiveIntegerField(
+		null=False,
+		blank=False
+	)
+	precio_estimado_total = models.PositiveIntegerField(
+		null=False,
+		blank=False
+	)
+	observaciones = models.TextField(
+		blank=True,
+		null=True
+	)
+	def __str__(self):
+		return (self.funcion)
+
+class requerimiento_maq_he(models.Model):
+	item = models.ForeignKey(item)
+	nombre_maq_he = models.CharField(
 		max_length=60,
 		blank=False,
 		null=False

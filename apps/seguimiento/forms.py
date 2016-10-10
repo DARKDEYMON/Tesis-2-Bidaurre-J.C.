@@ -12,7 +12,7 @@ class crearProyectoForm(ModelForm):
 		exclude = ['']
 		widgets = {
 			'fecha_inicio':Html5DateInput(format=('%Y-%m-%d')),#attrs={'format':'dd/MM/yyyy'}),
-			'plaso_previsto':Html5DateInput(format=('%Y-%m-%d'))
+			'plazo_previsto':Html5DateInput(format=('%Y-%m-%d'))
 		}
 		labels = {
 			'ec_telefono':'Telefono de la entidad contratante',
@@ -26,10 +26,10 @@ class crearItemsForm(ModelForm):
 		exclude =['proyecto']
 		widgets = {
 			'fecha_inicio':Html5DateInput(),
-			'plaso_finalisacion':Html5DateInput()
+			'plazo_finalizacion':Html5DateInput()
 		}
 		labels = {
-			'plaso_finalisacion':'Plazo de Finalisacion',
+			'plazo_finalizacion':'Plazo de Finalisacion',
 		}
 
 CHOICES = (('1', 'ID'),('2', 'Nombre'),)
@@ -57,3 +57,11 @@ class crearRequerimientoPersonalForm(ModelForm):
 	class Meta:
 		model = requerimientoPersonal
 		exclude = ['item']
+
+class crearRequerimientoMaHeForm(ModelForm):
+	class Meta:
+		model = requerimiento_maq_he
+		exclude = ['item']
+		labels = {
+				'nombre_maq_he':'Nombre de la Maquinaria/Hequipo',
+		}

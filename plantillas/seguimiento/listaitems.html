@@ -31,7 +31,7 @@
 				      	<th>unidad</th>
 				      	<th>Cantidad</th>
 				      	<th>Fecha de Inicio</th>
-				      	<th>Plaso de Finalisacion</th>
+				      	<th>Plazo de Finalizacion</th>
 				      	<th>Opciones</th>
 				    </tr>
 				  	</thead>
@@ -48,7 +48,7 @@
 							      	<td>{{ item.unidad }}</td>
 							      	<td>{{ item.cantidad }}</td>
 							      	<td>{{ item.fecha_inicio }}</td>
-							      	<td>{{ item.plaso_finalisacion }}</td>
+							      	<td>{{ item.plazo_finalizacion }}</td>
 							     
 							{% else %}
 								<tr class="success">
@@ -57,11 +57,18 @@
 							      	<td>{{ item.unidad }}</td>
 							      	<td>{{ item.cantidad }}</td>
 							      	<td>{{ item.fecha_inicio }}</td>
-							      	<td>{{ item.plaso_finalisacion }}</td>
+							      	<td>{{ item.plazo_finalizacion }}</td>
 							     
 				  			{% endif %}
 				  					<td>
 				  						<div class="btn-group">
+				  							<div class="btn-group">
+										
+												<a type="button" class="btn btn-primary" href="#">
+													Editar<span class="glyphicon glyphicon-edit" aria-hidden="true">
+												</a>
+											
+											</div>
 					  						<div class="btn-group" role="group">
 											  	<button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 													Requerimientos a almacen  <span class="caret"></span>
@@ -79,11 +86,12 @@
 												</button>
 												<ul class="dropdown-menu">
 												    <li><a href="{% url 'seguimiento:requerimientopersonal' item.id %}">Mano de Hobra<span class="glyphicon glyphicon-edit" aria-hidden="true"></a></li>
-												    <li><a href="#">Contrato de Maquinaria/Hequipo<span class="glyphicon glyphicon-wrench" </li>
+												    <li><a href="{% url 'seguimiento:requerimientoMaHe' item.id %}">Contrato de Maquinaria/Hequipo<span class="glyphicon glyphicon-wrench" </li>
 												    <li><a href="#">Materiales Locales<span class="glyphicon glyphicon-remove" aria-hidden="true"></a></li>
 												    
 												</ul>
 											</div>
+											
 										</div>
 				  					</td>
 					  			</tr>

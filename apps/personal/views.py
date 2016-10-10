@@ -366,3 +366,10 @@ class borrarDesignacion(DeleteView):
 		else:
 			#print ("paso2")
 			return self.render_to_response(self.get_context_data(form=form))"""
+
+
+class updateCargo(UpdateView):
+	model = cargo
+	form_class = cargoForm
+	template_name = 'personal/nuevocargo.html'
+	success_url = reverse_lazy('personal:listacargo')

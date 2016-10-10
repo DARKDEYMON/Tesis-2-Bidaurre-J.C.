@@ -33,7 +33,7 @@ class kardex(models.Model):
 			)
 		]
 	)
-	profecion =models.CharField(
+	profesion =models.CharField(
 		max_length=40,
 		null=False,
 		blank=False,

@@ -24,12 +24,15 @@ class crearUsuarioKardexForm(ModelForm):
 		exclude = ['user']
 		widgets = {
 			'ci':forms.TextInput(attrs={'class':'form-control'}),
-			'profecion':forms.TextInput(attrs={'class':'form-control'}),
+			'profesion':forms.TextInput(attrs={'class':'form-control'}),
 			'telefono_fijo':forms.TextInput(attrs={'class':'form-control'}),
 			'celular':forms.TextInput(attrs={'class':'form-control'}),
 			'direccion':forms.TextInput(attrs={'class':'form-control'}),
 			'nivel_de_confiabilidad':forms.Select(attrs={'class':'form-control'}),
 			'curriculum':forms.FileInput(attrs={'class':'form-control','accept':'.pdf,.doc,.docx'}),
+		}
+		labels = {
+			'ci':'C.I.',
 		}
 CHOICES = (('1', 'ID'),('2', 'Nombre'),)
 class searchForm(forms.Form):
@@ -107,6 +110,7 @@ class crearModificarKardexForm(ModelForm):
 			'direccion':forms.TextInput(attrs={'class':'form-control'}),
 			'curriculum':forms.FileInput(attrs={'class':'form-control','accept':'.pdf,.doc,.docx'}),
 		}
+		
 class darBajaForm(ModelForm):
 	class Meta:
 		model = User

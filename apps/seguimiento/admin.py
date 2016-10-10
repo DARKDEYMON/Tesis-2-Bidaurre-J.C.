@@ -9,3 +9,4 @@ admin.site.register(peticion_materiales)
 admin.site.register(peticion_insumos)
 
 admin.site.register(requerimientoPersonal)
+admin.site.register(requerimiento_maq_he)

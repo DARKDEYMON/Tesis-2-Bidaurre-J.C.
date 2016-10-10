@@ -62,4 +62,8 @@ urlpatterns = [
         login_required(requerimientoPersonal.as_view()), 
         name='requerimientopersonal'
     ),
+    url(r'^requerimientomahe/(?P<pk>\d+)/$',
+        login_required(requerimientoMaHe.as_view()), 
+        name='requerimientoMaHe'
+    ),
 ]
