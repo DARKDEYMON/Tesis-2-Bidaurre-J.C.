@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_extensions',
     #importado de los diferentes modulos
     'django.contrib.postgres',
     'bootstrap3',
@@ -144,3 +145,7 @@ LOGOUT_URL = reverse_lazy('personal:logout')
 LOGOUT_REDIRECT_URL = reverse_lazy('personal:login')
 
 #DATE_FORMAT = "Y-m-d"
+GRAPH_MODELS = {
+  'all_applications': True,
+  'group_models': True,
+}

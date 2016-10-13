@@ -101,7 +101,7 @@ class peticion_materiales(models.Model):
 		blank=False,
 		null=False
 	)
-	precio_estimado_total = models.PositiveIntegerField(
+	precio_estimado_total = models.FloatField(
 		blank=False,
 		null=False
 	)
@@ -119,7 +119,7 @@ class peticion_insumos(models.Model):
 		blank=False,
 		null=False
 	)
-	precio_estimado_total = models.PositiveIntegerField(
+	precio_estimado_total = models.FloatField(
 		blank=False,
 		null=False
 	)
@@ -130,7 +130,7 @@ class peticion_insumos(models.Model):
 	def __str__(self):
 		return (self.insumos.decripcion)
 #externos
-class requerimientoPersonal(models.Model):
+class requerimiento_personal(models.Model):
 	item = models.ForeignKey(item)
 	funcion = models.CharField(
 		max_length=60,
@@ -141,7 +141,7 @@ class requerimientoPersonal(models.Model):
 		null=False,
 		blank=False
 	)
-	precio_estimado_total = models.PositiveIntegerField(
+	precio_total = models.FloatField(
 		null=False,
 		blank=False
 	)
@@ -163,7 +163,7 @@ class requerimiento_maq_he(models.Model):
 		null=False,
 		blank=False
 	)
-	precio_estimado_total = models.PositiveIntegerField(
+	precio_total = models.FloatField(
 		null=False,
 		blank=False
 	)
@@ -173,3 +173,18 @@ class requerimiento_maq_he(models.Model):
 	)
 	def __str__(self):
 		return (self.funcion)
+class materiales_locales(models.Model):
+	item = models.ForeignKey(item)
+	descripcion = models.CharField(
+		max_length=60,
+		blank=False,
+		null=False
+	)
+	cantidad = models.PositiveIntegerField(
+		blank=False,
+		null=False
+	)
+	precio_total = models.FloatField(
+		blank=False,
+		null=False,
+	)

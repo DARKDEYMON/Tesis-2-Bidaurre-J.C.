@@ -8,5 +8,6 @@ admin.site.register(item)
 admin.site.register(peticion_materiales)
 admin.site.register(peticion_insumos)
 
-admin.site.register(requerimientoPersonal)
+admin.site.register(requerimiento_personal)
 admin.site.register(requerimiento_maq_he)
+admin.site.register(materiales_locales)

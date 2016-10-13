@@ -71,6 +71,12 @@ class crearItem(CreateView):
 		else:
 			#print ("paso2")
 			return self.render_to_response(self.get_context_data(form=form))
+
+class updateItem(UpdateView):
+	model =item
+	form_class = crearItemsForm
+	template_name = 'seguimiento/nuevoitem.html'
+
 # lista los items de un proyecto en espesifico
 class listaItems(CreateView,ListView):
 	model = item
@@ -181,6 +187,42 @@ class peticionMaterial(CreateView):
 			#print ("paso2")
 			return self.render_to_response(self.get_context_data(form=form))
 
+class listaPeticionMaterial(CreateView,ListView):
+	model = peticion_materiales
+	form_class = searchForm
+	template_name = 'seguimiento/listamaterialalmacen.html'
+	paginate_by = 10
+	def get_context_data(self, **kwargs):
+		context = super (listaPeticionMaterial, self).get_context_data(**kwargs)
+		if 'form' in context:
+			context['form'] = self.form_class()
+		return context
+	def get(self, request, *args, **kwargs):
+		self.object = self.get_object
+		form = self.form_class()
+		if request.GET:
+			form = self.form_class(request.GET)
+		self.object_list = self.get_queryset()
+		return self.render_to_response(self.get_context_data(object_list=self.object_list , form=form))
+	def get_queryset(self):
+		pk1=self.kwargs['pk']
+		id = None
+		if self.request.method == "GET":
+			form = self.form_class(self.request.GET)
+			print (form.is_valid())
+			if form.is_valid():
+				print(self.request.GET)
+				print(form)
+				id = form.cleaned_data['search']
+				#kwargs['id']
+				print(id)
+		if (id):
+			#object_list = self.model.objects.filter(name__icontains = id)
+			object_list = self.model.objects.filter(item = item.objects.filter(id=pk1), id = id)
+		else:
+			object_list = self.model.objects.filter(item = item.objects.filter(id=pk1)).order_by('id')
+		return object_list
+
 class peticionInsumos(CreateView):
 	model_pk = item
 	form_class = crearPeticionInsumosForm
@@ -198,6 +240,43 @@ class peticionInsumos(CreateView):
 		else:
 			#print ("paso2")
 			return self.render_to_response(self.get_context_data(form=form))
+
+class listaPeticionInsumos(CreateView,ListView):
+	model = peticion_insumos
+	form_class = searchForm
+	template_name = 'seguimiento/listainsumosalmacen.html'
+	paginate_by = 10
+	def get_context_data(self, **kwargs):
+		context = super (listaPeticionInsumos, self).get_context_data(**kwargs)
+		if 'form' in context:
+			context['form'] = self.form_class()
+		return context
+	def get(self, request, *args, **kwargs):
+		self.object = self.get_object
+		form = self.form_class()
+		if request.GET:
+			form = self.form_class(request.GET)
+		self.object_list = self.get_queryset()
+		return self.render_to_response(self.get_context_data(object_list=self.object_list , form=form))
+	def get_queryset(self):
+		pk1=self.kwargs['pk']
+		id = None
+		if self.request.method == "GET":
+			form = self.form_class(self.request.GET)
+			print (form.is_valid())
+			if form.is_valid():
+				print(self.request.GET)
+				print(form)
+				id = form.cleaned_data['search']
+				#kwargs['id']
+				print(id)
+		if (id):
+			#object_list = self.model.objects.filter(name__icontains = id)
+			object_list = self.model.objects.filter(item = item.objects.filter(id=pk1), id = id)
+		else:
+			object_list = self.model.objects.filter(item = item.objects.filter(id=pk1)).order_by('id')
+		return object_list
+
 class requerimientoPersonal(CreateView):
 	model_pk = item
 	form_class = crearRequerimientoPersonalForm
@@ -216,6 +295,42 @@ class requerimientoPersonal(CreateView):
 			#print ("paso2")
 			return self.render_to_response(self.get_context_data(form=form))
 
+class listaRequerimientoPersonal(CreateView,ListView):
+	model = requerimiento_personal
+	form_class = searchForm
+	template_name = 'seguimiento/listarequerimientopersonal.html'
+	paginate_by = 10
+	def get_context_data(self, **kwargs):
+		context = super (listaRequerimientoPersonal, self).get_context_data(**kwargs)
+		if 'form' in context:
+			context['form'] = self.form_class()
+		return context
+	def get(self, request, *args, **kwargs):
+		self.object = self.get_object
+		form = self.form_class()
+		if request.GET:
+			form = self.form_class(request.GET)
+		self.object_list = self.get_queryset()
+		return self.render_to_response(self.get_context_data(object_list=self.object_list , form=form))
+	def get_queryset(self):
+		pk1=self.kwargs['pk']
+		id = None
+		if self.request.method == "GET":
+			form = self.form_class(self.request.GET)
+			print (form.is_valid())
+			if form.is_valid():
+				print(self.request.GET)
+				print(form)
+				id = form.cleaned_data['search']
+				#kwargs['id']
+				print(id)
+		if (id):
+			#object_list = self.model.objects.filter(name__icontains = id)
+			object_list = self.model.objects.filter(item = item.objects.filter(id=pk1), id = id)
+		else:
+			object_list = self.model.objects.filter(item = item.objects.filter(id=pk1)).order_by('id')
+		return object_list
+
 class requerimientoMaHe(CreateView):
 	model_pk = item
 	form_class = crearRequerimientoMaHeForm
@@ -233,3 +348,93 @@ class requerimientoMaHe(CreateView):
 		else:
 			#print ("paso2")
 			return self.render_to_response(self.get_context_data(form=form))
+
+class listaRequerimientoMaHe(CreateView,ListView):
+	model = requerimiento_maq_he
+	form_class = searchForm
+	template_name = 'seguimiento/listaRequerimientomahe.html'
+	paginate_by = 10
+	def get_context_data(self, **kwargs):
+		context = super (listaRequerimientoMaHe, self).get_context_data(**kwargs)
+		if 'form' in context:
+			context['form'] = self.form_class()
+		return context
+	def get(self, request, *args, **kwargs):
+		self.object = self.get_object
+		form = self.form_class()
+		if request.GET:
+			form = self.form_class(request.GET)
+		self.object_list = self.get_queryset()
+		return self.render_to_response(self.get_context_data(object_list=self.object_list , form=form))
+	def get_queryset(self):
+		pk1=self.kwargs['pk']
+		id = None
+		if self.request.method == "GET":
+			form = self.form_class(self.request.GET)
+			print (form.is_valid())
+			if form.is_valid():
+				print(self.request.GET)
+				print(form)
+				id = form.cleaned_data['search']
+				#kwargs['id']
+				print(id)
+		if (id):
+			#object_list = self.model.objects.filter(name__icontains = id)
+			object_list = self.model.objects.filter(item = item.objects.filter(id=pk1), id = id)
+		else:
+			object_list = self.model.objects.filter(item = item.objects.filter(id=pk1)).order_by('id')
+		return object_list
+
+class requerimientoMaterialesLocales(CreateView):
+	model_pk = item
+	form_class = crearRequerimientoMaterialLocalForm
+	template_name = 'seguimiento/requerimientomaterlocal.html'
+	success_url = 'seguimiento:listaitems'
+	def post(self, request, *args, **kwargs):
+		self.object = self.get_object	
+		form = self.form_class(request.POST)
+		if form.is_valid():
+			pk1=self.kwargs['pk']
+			form =form.save(commit=False)
+			form.item = self.model_pk.objects.get(id=pk1)
+			form.save()
+			return  HttpResponseRedirect(reverse_lazy(self.success_url, kwargs = {'pk': self.model_pk.objects.get(id=pk1).proyecto.id}))
+		else:
+			#print ("paso2")
+			return self.render_to_response(self.get_context_data(form=form))
+
+class listaRequerimientoMaterialeLocales(CreateView,ListView):
+	model = materiales_locales
+	form_class = searchForm
+	template_name = 'seguimiento/listaRequerimientomaterialelocales.html'
+	paginate_by = 10
+	def get_context_data(self, **kwargs):
+		context = super (listaRequerimientoMaterialeLocales, self).get_context_data(**kwargs)
+		if 'form' in context:
+			context['form'] = self.form_class()
+		return context
+	def get(self, request, *args, **kwargs):
+		self.object = self.get_object
+		form = self.form_class()
+		if request.GET:
+			form = self.form_class(request.GET)
+		self.object_list = self.get_queryset()
+		return self.render_to_response(self.get_context_data(object_list=self.object_list , form=form))
+	def get_queryset(self):
+		pk1=self.kwargs['pk']
+		id = None
+		if self.request.method == "GET":
+			form = self.form_class(self.request.GET)
+			print (form.is_valid())
+			if form.is_valid():
+				print(self.request.GET)
+				print(form)
+				id = form.cleaned_data['search']
+				#kwargs['id']
+				print(id)
+		if (id):
+			#object_list = self.model.objects.filter(name__icontains = id)
+			object_list = self.model.objects.filter(item = item.objects.filter(id=pk1), id = id)
+		else:
+			object_list = self.model.objects.filter(item = item.objects.filter(id=pk1)).order_by('id')
+		return object_list

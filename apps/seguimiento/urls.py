@@ -37,6 +37,10 @@ urlpatterns = [
         login_required(crearItem.as_view()), 
         name='crearitem'
     ),
+    url(r'^updateitem/(?P<pk>\d+)/$',
+        login_required(updateItem.as_view()), 
+        name='updateitem'
+    ),
     url(r'^listaItems/(?P<pk>\d+)/$',
         login_required(csrf_exempt(listaItems.as_view())), 
         name='listaitems'
@@ -53,17 +57,40 @@ urlpatterns = [
         login_required(peticionMaterial.as_view()), 
         name='peticionmaterial'
     ),
+    url(r'^listapeticionmaterial/(?P<pk>\d+)/$',
+        login_required(csrf_exempt(listaPeticionMaterial.as_view())), 
+        name='listapeticionmaterial'
+    ),
     url(r'^peticioninsumos/(?P<pk>\d+)/$',
         login_required(peticionInsumos.as_view()), 
         name='peticioninsumos'
     ),
-
+    url(r'^listapeticioninsumos/(?P<pk>\d+)/$',
+        login_required(csrf_exempt(listaPeticionInsumos.as_view())), 
+        name='listapeticioninsumos'
+    ),
     url(r'^requerimientopersonal/(?P<pk>\d+)/$',
         login_required(requerimientoPersonal.as_view()), 
         name='requerimientopersonal'
     ),
+    url(r'^listareqpersonal/(?P<pk>\d+)/$',
+        login_required(csrf_exempt(listaRequerimientoPersonal.as_view())), 
+        name='listareqpersonal'
+    ),
     url(r'^requerimientomahe/(?P<pk>\d+)/$',
         login_required(requerimientoMaHe.as_view()), 
         name='requerimientoMaHe'
+    ),
+    url(r'^listarequerimientomahe/(?P<pk>\d+)/$',
+        login_required(csrf_exempt(listaRequerimientoMaHe.as_view())), 
+        name='listarequerimientomahe'
+    ),
+    url(r'^requerimientomatlo/(?P<pk>\d+)/$',
+        login_required(requerimientoMaterialesLocales.as_view()), 
+        name='requerimientomatlo'
+    ),
+    url(r'^listaRequerimientomalo/(?P<pk>\d+)/$',
+        login_required(csrf_exempt(listaRequerimientoMaterialeLocales.as_view())), 
+        name='listaRequerimientomalo'
     ),
 ]
