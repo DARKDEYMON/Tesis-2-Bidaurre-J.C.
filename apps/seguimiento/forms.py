@@ -53,6 +53,11 @@ class crearPeticionInsumosForm(ModelForm):
 		model = peticion_insumos
 		exclude = ['item']
 
+class crearPeticionHerramientas(ModelForm):
+	class Meta:
+		model = peticion_Herramientas
+		exclude = ['item']
+
 class crearRequerimientoPersonalForm(ModelForm):
 	class Meta:
 		model = requerimiento_personal

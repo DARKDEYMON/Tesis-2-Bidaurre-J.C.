@@ -96,7 +96,17 @@
 												    	</a> 
 												    </li>
 												    <li class="divider"></li>
-												    <li><a href="#">Requeriminetos de herramientas<span class="glyphicon glyphicon-remove" aria-hidden="true"></a></li>
+												    <li>
+												    	<a href="{% url 'seguimiento:requerimientoherramientas' item.id %}">
+												    		Requeriminetos de herramientas<span class="glyphicon glyphicon-remove" aria-hidden="true">
+												    	</a>
+												    </li>
+												    <li>
+												    	<a href="{% url 'seguimiento:listarequerimientoherr' item.id %}">
+												    		Lista requeriminetos de herramientas<span class="glyphicon glyphicon-remove" aria-hidden="true">
+												    	</a>
+												    </li>
+												    <li class="divider"></li>
 												    <li><a href="#">Requeriminetos de Maquinaria/Hequipo<span class="glyphicon glyphicon-remove" aria-hidden="true"></a></li>
 												</ul>
 											</div>

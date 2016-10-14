@@ -44,9 +44,21 @@ urlpatterns = [
         login_required(crearHerramientas.as_view()), 
         name='crearherramientas'
     ),
+    url(r'^ingresoherramientas/(?P<ct>\w+)/$',
+        login_required(ingresoHerramientasView.as_view()), 
+        name='ingresoherramientas'
+    ),
+    url(r'^salidaherramientas/(?P<pk>\d+)/$',
+        login_required(salidaHerramientasView.as_view()), 
+        name='salidaherramientas'
+    ),
     url(r'^listaitems/(?P<ct>\w+)/$',
         login_required(listaItemsPedidos.as_view()), 
         name='listaitems'
+    ),
+    url(r'^crearinsumoalmacen/$',
+        login_required(crearInsumoAlmacen.as_view()), 
+        name='crearinsumoalmacen'
     ),
     url(r'^ingresoinsumo/(?P<pk>\d+)/$',
         login_required(ingresoInsumoItem.as_view()), 
@@ -67,5 +79,17 @@ urlpatterns = [
     url(r'^salidamaterial/(?P<pk>\d+)/$',
         login_required(salidaMaterialItem.as_view()), 
         name='salidamaterial'
+    ),
+    url(r'^crearmaquinariaequipo/$',
+        login_required(crearMaquinariaEquipo.as_view()), 
+        name='crearmaquinariaequipo'
+    ),
+    url(r'^ingresomaquinariaequipo/(?P<ct>\w+)/$',
+        login_required(ingresoMaquinariaEquipo.as_view()), 
+        name='ingresomaquinariaequipo'
+    ),
+    url(r'^salidamaquinariaequipo/(?P<pk>\d+)/$',
+        login_required(salidaMaquinariaEquipo.as_view()), 
+        name='salidaMaquinariaEquipo'
     ),
 ]

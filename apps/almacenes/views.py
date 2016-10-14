@@ -59,6 +59,11 @@ class crearMaterialAlmacen(CreateView):
 	template_name = 'almacen/nuevomaterial.html'
 	success_url = '/'
 
+class crearInsumoAlmacen(CreateView):
+	form_class = crearInsumoForm
+	template_name = 'almacen/nuevoinsumo.html'
+	success_url = '/'
+
 class crearHerramientas(CreateView):
 	form_class = crearHerramientasForm
 	template_name = 'almacen/nuevaherramienta.html'
@@ -67,6 +72,11 @@ class crearHerramientas(CreateView):
 class crearProveedor(CreateView):
 	form_class = crearProveedorForm
 	template_name = 'almacen/nuevoproveedor.html'
+	success_url = '/'
+
+class crearMaquinariaEquipo(CreateView):
+	form_class = crearMaquinariaEquipoForm
+	template_name = 'almacen/crearmaquinariaequipo.html'
 	success_url = '/'
 
 class listaItemsPedidos(CreateView,ListView):
@@ -245,6 +255,167 @@ class salidaMaterialItem(CreateView):
 				a.cantidad = a.cantidad - form.cantidad
 				a.save()
 				return  HttpResponseRedirect(self.success_url)
+		else:
+			#print ("paso2")
+			return self.render_to_response(self.get_context_data(form=form))
+
+class ingresoHerramientasView(CreateView):
+	model_pk = almacen
+	form_class = crearIngresoHerramientasForm
+	template_name = 'almacen/ingresoherramientas.html'
+	success_url = reverse_lazy('almacenes:listaalmacenes')
+	def post(self, request, *args, **kwargs):
+		self.object = self.get_object	
+		form = self.form_class(request.POST)
+		#print (form.is_valid())
+		#print (form2.is_valid())
+		if form.is_valid():
+			ct=self.kwargs['ct']
+			#print(ct)
+			form =form.save(commit=False)
+			#print(self.model_pk.objects.get(ciudad=ct))
+			form.almacen = self.model_pk.objects.get(ciudad=ct)
+			form.save()
+			a=herramientasAlmacen.objects.get_or_create(almacen=form.almacen,herramientas=form.herramientas)
+			a[0].cantidad = a[0].cantidad + form.cantidad
+			a[0].save()
+
+			return  HttpResponseRedirect(self.success_url)
+		else:
+			return self.render_to_response(self.get_context_data(form=form))
+
+class salidaHerramientasView(CreateView):
+	model_pk = item
+	form_class = crearSalidaHerramientasForm
+	template_name = 'almacen/salidaherramientas.html'
+	success_url = '/'
+
+	def post(self, request, *args, **kwargs):
+		self.object = self.get_object	
+		form = self.form_class(request.POST)
+		#print (form.is_valid())
+		#print (form2.is_valid())
+		if form.is_valid():
+			from django.db.models import Sum
+			pk1=self.kwargs['pk']
+			#form =form.save(commit=False)
+			#almacen.objects.get(ciudad=self.model_pk.objects.get(id=pk1).proyecto.ubicacion_proyecto)
+
+			almacen_obj = almacen.objects.get(ciudad=self.model_pk.objects.get(id=pk1).proyecto.ubicacion_proyecto)
+			aux = ingresoHerramientas.objects.filter(herramientas=form.cleaned_data['herramientas'],almacen=almacen_obj).aggregate(Sum('cantidad'))
+			aux1 = salidaHerramientas.objects.filter(herramientas=form.cleaned_data['herramientas'],almacen=almacen_obj).aggregate(Sum('cantidad'))
+
+			total_ing = aux['cantidad__sum']
+			#print(total_ing)
+			total_sali = aux1['cantidad__sum']
+			#print(total_sali)
+			
+			if(aux['cantidad__sum'] is None):
+				total_ing = 0
+			if(aux1['cantidad__sum'] is None):
+				total_sali = 0	 
+			total = total_ing - total_sali
+			print(total)
+			"""
+			if(aux['cantidad__sum'] is None):
+				return self.render_to_response(self.get_context_data(form=form,error='No se tiene ingresos de este herramientas para el item'))
+			"""
+			if(form.cleaned_data['cantidad']>total):
+				return self.render_to_response(self.get_context_data(form=form,error='La cantidad exede el stock actual de '+ str(total)))
+
+			else:
+				form =form.save(commit=False)
+				#print(almacen.objects.get(ciudad=self.model_pk.objects.get(id=pk1).proyecto.ubicacion_proyecto))
+				form.item = self.model_pk.objects.get(id=pk1)
+				form.almacen = almacen.objects.get(ciudad=self.model_pk.objects.get(id=pk1).proyecto.ubicacion_proyecto)
+				form.save()
+				a=herramientasAlmacen.objects.get(almacen=form.almacen,herramientas=form.herramientas)
+				a.cantidad = a.cantidad - form.cantidad
+				a.save()
+			
+				return  HttpResponseRedirect(self.success_url)
+
+		else:
+			#print ("paso2")
+			return self.render_to_response(self.get_context_data(form=form))
+
+
+class ingresoMaquinariaEquipo(CreateView):
+	model_pk = almacen
+	form_class = crearIngresoMaquinariaEquipoForm
+	template_name = 'almacen/ingresomaquinariaequipo.html'
+	success_url = reverse_lazy('almacenes:listaalmacenes')
+	def post(self, request, *args, **kwargs):
+		self.object = self.get_object	
+		form = self.form_class(request.POST)
+		#print (form.is_valid())
+		#print (form2.is_valid())
+		if form.is_valid():
+			ct=self.kwargs['ct']
+			#print(ct)
+			form =form.save(commit=False)
+			#print(self.model_pk.objects.get(ciudad=ct))
+			form.almacen = self.model_pk.objects.get(ciudad=ct)
+			form.save()
+			a=maquinaria_equipoAlmacen.objects.get_or_create(almacen=form.almacen,maquinaria_equipo=form.maquinaria_equipo)
+			a[0].cantidad = a[0].cantidad + form.cantidad
+			a[0].save()
+
+			return  HttpResponseRedirect(self.success_url)
+		else:
+			return self.render_to_response(self.get_context_data(form=form))
+
+class salidaMaquinariaEquipo(CreateView):
+	model_pk = item
+	form_class = crearSalidaMaquinariaEquipoForm
+	template_name = 'almacen/salidamaquinariaequipo.html'
+	success_url = '/'
+
+	def post(self, request, *args, **kwargs):
+		self.object = self.get_object	
+		form = self.form_class(request.POST)
+		#print (form.is_valid())
+		#print (form2.is_valid())
+		if form.is_valid():
+			from django.db.models import Sum
+			pk1=self.kwargs['pk']
+			#form =form.save(commit=False)
+			#almacen.objects.get(ciudad=self.model_pk.objects.get(id=pk1).proyecto.ubicacion_proyecto)
+
+			almacen_obj = almacen.objects.get(ciudad=self.model_pk.objects.get(id=pk1).proyecto.ubicacion_proyecto)
+			aux = ingresoMaquinaria_equipo.objects.filter(maquinaria_equipo=form.cleaned_data['maquinaria_equipo'],almacen=almacen_obj).aggregate(Sum('cantidad'))
+			aux1 = salidaMaquinaria_equipo.objects.filter(maquinaria_equipo=form.cleaned_data['maquinaria_equipo'],almacen=almacen_obj).aggregate(Sum('cantidad'))
+
+			total_ing = aux['cantidad__sum']
+			#print(total_ing)
+			total_sali = aux1['cantidad__sum']
+			#print(total_sali)
+			
+			if(aux['cantidad__sum'] is None):
+				total_ing = 0
+			if(aux1['cantidad__sum'] is None):
+				total_sali = 0	 
+			total = total_ing - total_sali
+			#print(total)
+			"""
+			if(aux['cantidad__sum'] is None):
+				return self.render_to_response(self.get_context_data(form=form,error='No se tiene ingresos de este herramientas para el item'))
+			"""
+			if(form.cleaned_data['cantidad']>total):
+				return self.render_to_response(self.get_context_data(form=form,error='La cantidad exede el stock actual de '+ str(total)))
+
+			else:
+				form =form.save(commit=False)
+				#print(almacen.objects.get(ciudad=self.model_pk.objects.get(id=pk1).proyecto.ubicacion_proyecto))
+				form.item = self.model_pk.objects.get(id=pk1)
+				form.almacen = almacen.objects.get(ciudad=self.model_pk.objects.get(id=pk1).proyecto.ubicacion_proyecto)
+				form.save()
+				a=maquinaria_equipoAlmacen.objects.get(almacen=form.almacen,maquinaria_equipo=form.maquinaria_equipo)
+				a.cantidad = a.cantidad - form.cantidad
+				a.save()
+			
+				return  HttpResponseRedirect(self.success_url)
+
 		else:
 			#print ("paso2")
 			return self.render_to_response(self.get_context_data(form=form))

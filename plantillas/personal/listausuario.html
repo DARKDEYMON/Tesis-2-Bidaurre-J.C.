@@ -38,8 +38,9 @@
 				      <th>#id</th>
 				      <th>Nombre</th>
 				      <th>Apellido</th>
-				      <th>Correo Electronico</th>
+				      <th>Correo electronico</th>
 				      <th>Curriculum </th>
+				      <th>Confiabilidad </th>
 				      <th>Opciones </th>
 				    </tr>
 				  </thead>
@@ -58,7 +59,8 @@
 							    		{% if user.kardex.curriculum %}
 							    			<a href="{{ user.kardex.curriculum.url }}">{{ user.kardex.curriculum.name }}</a>
 							    		{% endif %}
-							    	</td>	
+							    	</td>
+							    	<td>{{ user.kardex.nivel_de_confiabilidad }}</td>
 							     
 							{% else %}
 								<tr class="success">
@@ -71,7 +73,7 @@
 							    			<a href="{{ user.kardex.curriculum.url }}">{{ user.kardex.curriculum.name }}</a>
 							    		{% endif %}
 							    	</td>	
-							     
+							     	<td>{{ user.kardex.nivel_de_confiabilidad }}</td>
 				  			{% endif %}
 				  					<td>
 				  						<div class="btn-group">

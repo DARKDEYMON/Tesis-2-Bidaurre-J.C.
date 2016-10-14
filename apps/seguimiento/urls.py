@@ -93,4 +93,12 @@ urlpatterns = [
         login_required(csrf_exempt(listaRequerimientoMaterialeLocales.as_view())), 
         name='listaRequerimientomalo'
     ),
+    url(r'^requerimientoherramientas/(?P<pk>\d+)/$',
+        login_required(requerimientoHerramientas.as_view()), 
+        name='requerimientoherramientas'
+    ),
+    url(r'^listarequerimientoherr/(?P<pk>\d+)/$',
+        login_required(csrf_exempt(listaRequerimientoHerramientas.as_view())), 
+        name='listarequerimientoherr'
+    ),
 ]

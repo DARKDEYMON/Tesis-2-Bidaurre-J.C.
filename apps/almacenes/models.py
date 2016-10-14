@@ -143,14 +143,14 @@ class insumos(models.Model):
 		blank=False,
 		null=False
 	)
-	observaciones = models.TextField(
-		null=True,
-		blank=True,
-	)
 	unidad = models.CharField(
 		max_length=10,
 		blank=False,
 		null=False
+	)
+	observaciones = models.TextField(
+		null=True,
+		blank=True,
 	)
 	def __str__(self):
 		return self.decripcion
@@ -198,7 +198,6 @@ class salidaInsumos(models.Model):
 		default=0
 	)
 
-
 #herraminetas
 class herramientas(models.Model):
 	decripcion = models.CharField(
@@ -213,10 +212,123 @@ class herramientas(models.Model):
 	def __str__(self):
 		return self.decripcion
 
+class herramientasAlmacen(models.Model):
+	almacen = models.ForeignKey(almacen)
+	herramientas = models.ForeignKey(herramientas)
+	cantidad = models.PositiveIntegerField(
+		blank=False,
+		null=False,
+		default=0
+	)
+	class Meta:
+		unique_together = (('almacen', 'herramientas'),)
+
 class ingresoHerramientas(models.Model):
 	almacen = models.ForeignKey(almacen)
 	herramientas = models.ForeignKey(herramientas)
 	proveedor = models.ForeignKey(proveedor)
+	cantidad = models.PositiveIntegerField(
+		blank=False,
+		null=False,
+		default=0
+	)
+	fecha =models.DateField(
+		null=False,
+		blank=False,
+		auto_now=True
+	)
+	costo_total = models.PositiveIntegerField(
+		null=False,
+		blank=False
+	)
+	cantidad = models.PositiveIntegerField(
+		blank=False,
+		null=False,
+		default=0
+	)
+
+class salidaHerramientas(models.Model):
+	almacen = models.ForeignKey(almacen)
+	herramientas = models.ForeignKey(herramientas)
+	item = models.ForeignKey('seguimiento.item')
+	debuelto = models.BooleanField(
+		blank=False,
+		null=False,
+		default=False
+	)
+	fecha =models.DateField(
+		null=False,
+		blank=False,
+		auto_now=True
+	)
+	cantidad = models.PositiveIntegerField(
+		blank=False,
+		null=False,
+		default=0
+	)
+#maquinaria/equipo
+class maquinaria_equipo(models.Model):
+	decripcion = models.CharField(
+		max_length=100,
+		blank=False,
+		null=False
+	)
+	observaciones = models.TextField(
+		null=True,
+		blank=True,
+	)
+	def __str__(self):
+		return self.decripcion
+
+class maquinaria_equipoAlmacen(models.Model):
+	almacen = models.ForeignKey(almacen)
+	maquinaria_equipo = models.ForeignKey(maquinaria_equipo)
+	cantidad = models.PositiveIntegerField(
+		blank=False,
+		null=False,
+		default=0
+	)
+	class Meta:
+		unique_together = (('almacen', 'maquinaria_equipo'),)
+
+class ingresoMaquinaria_equipo(models.Model):
+	almacen = models.ForeignKey(almacen)
+	maquinaria_equipo = models.ForeignKey(maquinaria_equipo)
+	proveedor = models.ForeignKey(proveedor)
+	cantidad = models.PositiveIntegerField(
+		blank=False,
+		null=False,
+		default=0
+	)
+	fecha =models.DateField(
+		null=False,
+		blank=False,
+		auto_now=True
+	)
+	costo_total = models.PositiveIntegerField(
+		null=False,
+		blank=False
+	)
+	cantidad = models.PositiveIntegerField(
+		blank=False,
+		null=False,
+		default=0
+	)
+
+class salidaMaquinaria_equipo(models.Model):
+	almacen = models.ForeignKey(almacen)
+	maquinaria_equipo = models.ForeignKey(maquinaria_equipo)
+	item = models.ForeignKey('seguimiento.item')
+	debuelto = models.BooleanField(
+		blank=False,
+		null=False,
+		default=False
+	)
+	fecha =models.DateField(
+		null=False,
+		blank=False,
+		auto_now=True
+	)
 	cantidad = models.PositiveIntegerField(
 		blank=False,
 		null=False,

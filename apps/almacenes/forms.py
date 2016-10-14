@@ -37,6 +37,11 @@ class crearSalidaMaterialForm(ModelForm):
 		exclude = ['almacen','item']
 
 #insumo
+class crearInsumoForm(ModelForm):
+	class Meta:
+		model = insumos
+		exclude = ['']
+
 class crearIngresoInsumoForm(ModelForm):
 	class Meta:
 		model = ingresoInsumos
@@ -51,6 +56,31 @@ class crearHerramientasForm(ModelForm):
 	class Meta:
 		model = herramientas
 		exclude = ['']
+
+class crearIngresoHerramientasForm(ModelForm):
+	class Meta:
+		model = ingresoHerramientas
+		exclude = ['almacen']
+
+class crearSalidaHerramientasForm(ModelForm):
+	class Meta:
+		model = salidaHerramientas
+		exclude = ['almacen','item','debuelto']
+
+class crearMaquinariaEquipoForm(ModelForm):
+	class Meta:
+		model = maquinaria_equipo
+		exclude = ['']
+
+class crearIngresoMaquinariaEquipoForm(ModelForm):
+	class Meta:
+		model = ingresoMaquinaria_equipo
+		exclude = ['almacen']
+
+class crearSalidaMaquinariaEquipoForm(ModelForm):
+	class Meta:
+		model = salidaMaquinaria_equipo
+		exclude = ['almacen','item','debuelto']
 
 CHOICES = (('1', 'ID'),('2', 'Nombre'),)
 class searchForm(forms.Form):

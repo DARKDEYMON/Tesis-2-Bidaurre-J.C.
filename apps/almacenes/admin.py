@@ -16,3 +16,11 @@ admin.site.register(ingresoInsumos)
 admin.site.register(salidaInsumos)
 
 admin.site.register(herramientas)
+admin.site.register(herramientasAlmacen)
+admin.site.register(ingresoHerramientas)
+admin.site.register(salidaHerramientas)
+
+admin.site.register(maquinaria_equipo)
+admin.site.register(maquinaria_equipoAlmacen)
+admin.site.register(ingresoMaquinaria_equipo)
+admin.site.register(salidaMaquinaria_equipo)

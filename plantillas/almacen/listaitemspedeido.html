@@ -75,8 +75,8 @@
 											  <ul class="dropdown-menu">
 											    <li><a href="{% url 'almacenes:salidamaterial' item.id %}">Envio de Material<span class="glyphicon glyphicon-edit" aria-hidden="true"></a></li>
 											    <li><a href="{% url 'almacenes:salidainsumo' item.id %}">Envio de Insumos<span class="glyphicon glyphicon-edit" aria-hidden="true"></a></li>
-											    <li><a href="#">Envio de Herramientas<span class="glyphicon glyphicon-edit" aria-hidden="true"></a></li>
-											    <li><a href="#">Envio de Equipo<span class="glyphicon glyphicon-edit" aria-hidden="true"></a></li>
+											    <li><a href="{% url 'almacenes:salidaherramientas' item.id %}">Envio de Herramientas<span class="glyphicon glyphicon-edit" aria-hidden="true"></a></li>
+											    <li><a href="{% url 'almacenes:salidaMaquinariaEquipo' item.id %}">Envio de Equipo<span class="glyphicon glyphicon-edit" aria-hidden="true"></a></li>
 											  </ul>
 											</div>
 

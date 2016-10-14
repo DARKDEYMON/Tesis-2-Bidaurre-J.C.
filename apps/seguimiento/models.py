@@ -2,7 +2,7 @@ from django.db import models
 
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
-from apps.almacenes.models import material, insumos
+from apps.almacenes.models import material, insumos, herramientas
 
 from django.utils.translation import ugettext_lazy as _
 
@@ -120,6 +120,20 @@ class peticion_insumos(models.Model):
 		null=False
 	)
 	precio_estimado_total = models.FloatField(
+		blank=False,
+		null=False
+	)
+	observaciones = models.TextField(
+		blank=True,
+		null=True
+	)
+	def __str__(self):
+		return (self.insumos.decripcion)
+
+class peticion_Herramientas(models.Model):
+	item = models.ForeignKey(item)
+	herramientas = models.ForeignKey(herramientas)
+	cantidad = models.PositiveIntegerField(
 		blank=False,
 		null=False
 	)
