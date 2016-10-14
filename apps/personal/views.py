@@ -64,7 +64,8 @@ class updateUsuario(UpdateView):
 		context = super(updateUsuario, self).get_context_data(**kwargs)
 		pk = self.kwargs.get('pk',0)
 		modelRes = self.model.objects.get(id=pk)
-		modelRes2 = self.second_model.objects.get(id=modelRes.id)
+		#modelRes2 = self.second_model.objects.get(id=modelRes.id)
+		modelRes2 = self.second_model.objects.get(user=modelRes)
 		if 'form' not in context or 'form2' not in context:
 			context['form'] = self.form_class(instance=modelRes)
 			context['form2'] = self.second_form_class(instance=modelRes2)

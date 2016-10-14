@@ -2,7 +2,7 @@ from django.db import models
 
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
-from apps.almacenes.models import material, insumos, herramientas
+from apps.almacenes.models import material, insumos, herramientas, maquinaria_equipo
 
 from django.utils.translation import ugettext_lazy as _
 
@@ -142,7 +142,21 @@ class peticion_Herramientas(models.Model):
 		null=True
 	)
 	def __str__(self):
-		return (self.insumos.decripcion)
+		return (self.herramientas.decripcion)
+
+class peticion_maquinaria_equipo(models.Model):
+	item = models.ForeignKey(item)
+	maquinaria_equipo = models.ForeignKey(maquinaria_equipo)
+	cantidad = models.PositiveIntegerField(
+		blank=False,
+		null=False
+	)
+	observaciones = models.TextField(
+		blank=True,
+		null=True
+	)
+	def __str__(self):
+		return (self.maquinaria_equipo.decripcion)
 #externos
 class requerimiento_personal(models.Model):
 	item = models.ForeignKey(item)
