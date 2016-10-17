@@ -23,8 +23,15 @@ from django.views.decorators.csrf import csrf_exempt
 
 from apps.seguimiento.views import *
 
+#rest imports
+from rest_framework import routers
+from .serializers_views import *
+
+router = routers.DefaultRouter()
+router.register(r'currentitemuser', currentItemViewSetRest)
 
 urlpatterns = [
+    url(r'^restseguimiento/', include(router.urls)),
     url(r'^nuevoproyecto/$',
         login_required(crearProyecto.as_view()), 
         name='nuevoproyecto'

@@ -30,6 +30,7 @@
 				      	<th>Material</th>
 				      	<th>Cantidad</th>
 				      	<th>Precio Estimado Total</th>
+				      	<th>Peticion de planificacion</th>
 				    </tr>
 				  	</thead>
 				 	 <tbody>
@@ -44,7 +45,7 @@
 							      	<td>{{ pet.insumos.decripcion }}</td>
 							      	<td>{{ pet.cantidad }}</td>
 							      	<td>{{ pet.precio_estimado_total }}</td>
-							      	
+							      	<td>{{ pet.petion_de_planificacion }}</td>
 							     
 							{% else %}
 								<tr class="success">
@@ -52,7 +53,7 @@
 							      	<td>{{ pet.insumos.decripcion }}</td>
 							      	<td>{{ pet.cantidad }}</td>
 							      	<td>{{ pet.precio_estimado_total }}</td>
-							      	
+							      	<td>{{ pet.petion_de_planificacion }}</td>
 							     
 				  			{% endif %}
 				  					<td>

@@ -99,6 +99,11 @@ class cargo(models.Model):
 		null=False,
 		blank=False
 	)
+	encargado_de_reportes_avance = models.BooleanField(
+		null=False,
+		blank=False,
+		default=False
+	)
 	def __str__(self):
 		#return '{}{}'.format(self.nombre_cargo)
 		return (self.nombre_cargo)

@@ -76,6 +76,9 @@ class updateItem(UpdateView):
 	model =item
 	form_class = crearItemsForm
 	template_name = 'seguimiento/nuevoitem.html'
+	success_url = 'seguimiento:listaitems'
+	def get_success_url(self):
+		return reverse_lazy(self.success_url, kwargs = {'pk': self.get_object().proyecto.pk})
 
 # lista los items de un proyecto en espesifico
 class listaItems(CreateView,ListView):

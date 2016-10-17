@@ -83,7 +83,8 @@ class item(models.Model):
 	unidad = models.CharField(
 		max_length=3,
 		null=False,
-		blank=False
+		blank=False,
+		choices =(('Gbl','Gbl'),('m2','m2'),('m3','m3'))
 	)
 	cantidad = models.PositiveIntegerField(
 		null=False,
@@ -105,6 +106,10 @@ class peticion_materiales(models.Model):
 		blank=False,
 		null=False
 	)
+	petion_de_planificacion = models.BooleanField(
+		blank=False,
+		null=False
+	)
 	observaciones = models.TextField(
 		blank=True,
 		null=True
@@ -123,6 +128,10 @@ class peticion_insumos(models.Model):
 		blank=False,
 		null=False
 	)
+	petion_de_planificacion = models.BooleanField(
+		blank=False,
+		null=False
+	)
 	observaciones = models.TextField(
 		blank=True,
 		null=True
@@ -134,6 +143,10 @@ class peticion_Herramientas(models.Model):
 	item = models.ForeignKey(item)
 	herramientas = models.ForeignKey(herramientas)
 	cantidad = models.PositiveIntegerField(
+		blank=False,
+		null=False
+	)
+	petion_de_planificacion = models.BooleanField(
 		blank=False,
 		null=False
 	)
@@ -154,6 +167,10 @@ class peticion_maquinaria_equipo(models.Model):
 	observaciones = models.TextField(
 		blank=True,
 		null=True
+	)
+	petion_de_planificacion = models.BooleanField(
+		blank=False,
+		null=False
 	)
 	def __str__(self):
 		return (self.maquinaria_equipo.decripcion)
@@ -200,7 +217,8 @@ class requerimiento_maq_he(models.Model):
 		null=True
 	)
 	def __str__(self):
-		return (self.funcion)
+		return (self.nombre_maq_he)
+
 class materiales_locales(models.Model):
 	item = models.ForeignKey(item)
 	descripcion = models.CharField(
@@ -215,4 +233,47 @@ class materiales_locales(models.Model):
 	precio_total = models.FloatField(
 		blank=False,
 		null=False,
+	)
+	def __str__(self):
+		return (self.descripcion)
+# reportes
+class reportes_avance(models.Model):
+	item = models.ForeignKey(item)
+	date = models.DateField(
+		blank=False,
+		null=False,
+		auto_now=True
+	)
+	alto = models.FloatField(
+		null = False,
+		blank = False,
+		default = 0.0
+	)
+	largo = models.FloatField(
+		null = False,
+		blank = False,
+		default = 0.0
+	)
+	ancho = models.FloatField(
+		null = False,
+		blank = False,
+		default = 0.0
+	)
+	def __str__(self):
+		return (self.item.descripcion)
+
+def validate_file_extension(value):
+	import os
+	ext = os.path.splitext(value.name)[1]
+	valid_extensions = ['.jpg','.png']
+	if not ext in valid_extensions:
+		raise ValidationError(u'Tipo de Archibo no Soportado!')
+		
+class reporte_fotografico(models.Model):
+	reportes_avance = models.ForeignKey(reportes_avance)
+	curriculum = models.FileField(
+		upload_to='reporte_fotos/', 
+		validators=[validate_file_extension],
+		null=True,
+		blank=True
 	)

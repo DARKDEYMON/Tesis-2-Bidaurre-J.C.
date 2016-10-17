@@ -13,3 +13,6 @@ admin.site.register(peticion_maquinaria_equipo)
 admin.site.register(requerimiento_personal)
 admin.site.register(requerimiento_maq_he)
 admin.site.register(materiales_locales)
+
+admin.site.register(reportes_avance)
+admin.site.register(reporte_fotografico)

@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
+    'rest_framework',
     #importado de los diferentes modulos
     'django.contrib.postgres',
     'bootstrap3',
@@ -143,6 +144,23 @@ LOGIN_REDIRECT_URL = reverse_lazy('personal:main')
 LOGIN_URL = reverse_lazy('personal:login')
 LOGOUT_URL = reverse_lazy('personal:logout')
 LOGOUT_REDIRECT_URL = reverse_lazy('personal:login')
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+        #'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
+
+"""
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+    )
+}
+"""
 
 #DATE_FORMAT = "Y-m-d"
 GRAPH_MODELS = {

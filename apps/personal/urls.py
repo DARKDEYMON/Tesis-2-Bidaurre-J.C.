@@ -13,7 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib import admin
 from apps.personal.views import *
 from django.contrib.auth.views import login, logout_then_login, password_reset
@@ -22,7 +22,16 @@ from django.views.decorators.csrf import csrf_exempt
 
 from django.contrib.auth import views as auth_views
 
+#rest imports
+from rest_framework import routers
+from .serializers_views import *
+
+router = routers.DefaultRouter()
+router.register(r'currentuser', currentUserViewSetRest)
+
 urlpatterns = [
+    #rest routes
+    url(r'^restpersonal/', include(router.urls)),
     #login_required metodo de forsado de login
     url(r'^$', 
         login_required(main_page), 

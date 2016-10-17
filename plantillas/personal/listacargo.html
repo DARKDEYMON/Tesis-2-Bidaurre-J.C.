@@ -38,6 +38,7 @@
 				      <th>#id</th>
 				      <th>Nombre Crago</th>
 				      <th>Salario</th>
+				      <th>Encargado de reportes de avance</th>
 				    </tr>
 				  </thead>
 				  <tbody>
@@ -50,14 +51,14 @@
 							      	<td>{{ cargo.id }}</td>
 							      	<td>{{ cargo.nombre_cargo }}</td>
 							      	<td>{{ cargo.salario }}</td>
-							    	
+							    	<td>{{ cargo.encargado_de_reportes_avance }}</td>
 							     
 							{% else %}
 								<tr class="success">
 							      	<td>{{ cargo.id }}</td>
 							      	<td>{{ cargo.nombre_cargo }}</td>
 							      	<td>{{ cargo.salario }}</td>
-							    	
+							    	<td>{{ cargo.encargado_de_reportes_avance }}</td>
 							     
 				  			{% endif %}
 				  					<td>
