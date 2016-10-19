@@ -271,9 +271,16 @@ def validate_file_extension(value):
 		
 class reporte_fotografico(models.Model):
 	reportes_avance = models.ForeignKey(reportes_avance)
-	curriculum = models.FileField(
+	date = models.DateField(
+		blank=False,
+		null=False,
+		auto_now=True
+	)
+	fotos_reporte = models.FileField(
 		upload_to='reporte_fotos/', 
 		validators=[validate_file_extension],
 		null=True,
 		blank=True
 	)
+	def __str__(self):
+		return (self.reportes_avance.item.descripcion)

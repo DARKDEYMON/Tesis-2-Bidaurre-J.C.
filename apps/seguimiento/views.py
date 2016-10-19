@@ -496,3 +496,40 @@ class listaRequerimientoHerramientas(CreateView,ListView):
 		else:
 			object_list = self.model.objects.filter(item = item.objects.filter(id=pk1)).order_by('id')
 		return object_list
+
+class crearInforme(CreateView):
+	model_pk = item
+	form_class = crearReportesAvanceForm
+	template_name = 'seguimiento/crearinforme.html'
+	success_url = 'seguimiento:informefotografico'
+	def post(self, request, *args, **kwargs):
+		self.object = self.get_object
+		form = self.form_class(request.POST)
+		if form.is_valid():
+			pk1=self.kwargs['pk']
+			form = form.save(commit=False)
+			form.item = self.model_pk.objects.get(id=pk1)
+			form.save()
+			#print (form)
+			return  HttpResponseRedirect(reverse_lazy(self.success_url, kwargs = {'pk': form.pk }))
+		else:
+			#print ("paso2")
+			return self.render_to_response(self.get_context_data(form=form))
+
+class crearInformeFotografico(CreateView):
+	model_pk = reportes_avance
+	form_class = crearFotosReporteForm
+	template_name = 'seguimiento/crearinformefotografico.html'
+	success_url = 'seguimiento:informefotografico'
+	def post(self, request, *args, **kwargs):
+		self.object = self.get_object
+		form = self.form_class(request.POST,request.FILES)
+		if form.is_valid():
+			pk1=self.kwargs['pk']
+			form =form.save(commit=False)
+			form.reportes_avance = self.model_pk.objects.get(id=pk1)
+			form.save()
+			return  HttpResponseRedirect(reverse_lazy(self.success_url, kwargs = {'pk': pk1 }))
+		else:
+			#print ("paso2")
+			return self.render_to_response(self.get_context_data(form=form))

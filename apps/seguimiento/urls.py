@@ -108,4 +108,12 @@ urlpatterns = [
         login_required(csrf_exempt(listaRequerimientoHerramientas.as_view())), 
         name='listarequerimientoherr'
     ),
+    url(r'^crearinforme/(?P<pk>\d+)/$',
+        login_required(crearInforme.as_view()), 
+        name='crearinforme'
+    ),
+    url(r'^informefotografico/(?P<pk>\d+)/$',
+        login_required(crearInformeFotografico.as_view()), 
+        name='informefotografico'
+    ),
 ]

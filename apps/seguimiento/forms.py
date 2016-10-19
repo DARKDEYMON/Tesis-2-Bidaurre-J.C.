@@ -75,3 +75,13 @@ class crearRequerimientoMaterialLocalForm(ModelForm):
 	class Meta:
 		model = materiales_locales
 		exclude = ['item']
+
+class crearReportesAvanceForm(ModelForm):
+	class Meta:
+		model = reportes_avance
+		exclude = ['item']
+
+class crearFotosReporteForm(ModelForm):
+	class Meta:
+		model = reporte_fotografico
+		exclude = ['reportes_avance']
