@@ -533,3 +533,50 @@ class crearInformeFotografico(CreateView):
 		else:
 			#print ("paso2")
 			return self.render_to_response(self.get_context_data(form=form))
+
+class listaInformes(CreateView,ListView):
+	model = reportes_avance
+	form_class = searchForm
+	template_name = 'seguimiento/listapeInformes.html'
+	paginate_by = 10
+	def get_context_data(self, **kwargs):
+		context = super (listaInformes, self).get_context_data(**kwargs)
+		if 'form' in context:
+			context['form'] = self.form_class()
+		return context
+	def get(self, request, *args, **kwargs):
+		self.object = self.get_object
+		form = self.form_class()
+		if request.GET:
+			form = self.form_class(request.GET)
+		self.object_list = self.get_queryset()
+		return self.render_to_response(self.get_context_data(object_list=self.object_list , form=form))
+	def get_queryset(self):
+		pk1=self.kwargs['pk']
+		id = None
+		if self.request.method == "GET":
+			form = self.form_class(self.request.GET)
+			print (form.is_valid())
+			if form.is_valid():
+				print(self.request.GET)
+				print(form)
+				id = form.cleaned_data['search']
+				#kwargs['id']
+				print(id)
+		if (id):
+			#object_list = self.model.objects.filter(name__icontains = id)
+			object_list = self.model.objects.filter(item = item.objects.filter(id=pk1), id = id)
+		else:
+			object_list = self.model.objects.filter(item = item.objects.filter(id=pk1)).order_by('id')
+		return object_list
+
+class listaInformesFotos(ListView):
+	model = reporte_fotografico
+	template_name = 'seguimiento/listainformefotos.html'
+	paginate_by = 10
+
+	def get_queryset(self):
+		pk1=self.kwargs['pk']
+		print(pk1)
+		object_list = self.model.objects.filter(reportes_avance = reportes_avance.objects.filter(id=pk1))
+		return object_list

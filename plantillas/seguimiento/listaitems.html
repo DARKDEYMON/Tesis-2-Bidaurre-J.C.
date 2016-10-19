@@ -150,11 +150,23 @@
 												</ul>
 											</div>
 											<div class="btn-group" role="group">
-												<a type="button" class="btn btn-warning dropdown-toggle" href="{% url 'seguimiento:crearinforme' item.id %}">
-												    Crear informe<span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true">
-												</a>
+												<button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+													Informes <span class="caret"></span>
+												</button>
+												<ul class="dropdown-menu">
+													<li>
+														<a type="button" href="{% url 'seguimiento:crearinforme' item.id %}">
+														    Crear informe<span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true">
+														</a>
+													</li>
+													<li>
+														<a type="button" href="{% url 'seguimiento:listainformes' item.id %}">
+														    Lista de informes<span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true">
+														</a>
+													</li>
+												</ul>
 											</div>
-											
+														
 										</div>
 				  					</td>
 					  			</tr>

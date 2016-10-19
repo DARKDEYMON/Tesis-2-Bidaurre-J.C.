@@ -116,4 +116,12 @@ urlpatterns = [
         login_required(crearInformeFotografico.as_view()), 
         name='informefotografico'
     ),
+    url(r'^listainformes/(?P<pk>\d+)/$',
+        login_required(listaInformes.as_view()), 
+        name='listainformes'
+    ),
+    url(r'^listainformesfotos/(?P<pk>\d+)/$',
+        login_required(listaInformesFotos.as_view()), 
+        name='listainformesfotos'
+    ),
 ]
