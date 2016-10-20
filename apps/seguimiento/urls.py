@@ -29,6 +29,7 @@ from .serializers_views import *
 
 router = routers.DefaultRouter()
 router.register(r'currentitemuser', currentItemViewSetRest)
+router.register(r'currentreporte', currentReporteViewSetRest)
 
 urlpatterns = [
     url(r'^restseguimiento/', include(router.urls)),

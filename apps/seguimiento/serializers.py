@@ -7,3 +7,9 @@ class ItemSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
 		model = item
 		fields = ('id','proyecto_name','descripcion','fecha_inicio', 'plazo_finalizacion', 'unidad','cantidad')
+
+class ReportesSerializer(serializers.HyperlinkedModelSerializer):
+	item = serializers.PrimaryKeyRelatedField(read_only=False,queryset=item.objects.all())
+	class Meta:
+		model = reportes_avance
+		fields = ('id','item','date','alto', 'largo', 'ancho')

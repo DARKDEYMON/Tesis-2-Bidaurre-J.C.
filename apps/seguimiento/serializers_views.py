@@ -10,4 +10,8 @@ class currentItemViewSetRest(viewsets.ModelViewSet):
 	
 	def get_queryset(self):
 		return item.objects.filter(proyecto__in=proyecto.objects.filter(designacion__cargo__in=cargo.objects.filter(encargado_de_reportes_avance=True),designacion__user=self.request.user))
-	
+
+class currentReporteViewSetRest(viewsets.ModelViewSet):
+	model = reportes_avance
+	queryset = reportes_avance.objects.all()
+	serializer_class = ReportesSerializer
