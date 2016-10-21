@@ -30,6 +30,8 @@ from .serializers_views import *
 router = routers.DefaultRouter()
 router.register(r'currentitemuser', currentItemViewSetRest)
 router.register(r'currentreporte', currentReporteViewSetRest)
+router.register(r'currentreportefotos', currentReporteFotosViewSetRest)
+
 
 urlpatterns = [
     url(r'^restseguimiento/', include(router.urls)),

@@ -259,6 +259,10 @@ class reportes_avance(models.Model):
 		blank = False,
 		default = 0.0
 	)
+	observaciones = models.TextField(
+		blank=True,
+		null=True
+	)
 	def __str__(self):
 		return (self.item.descripcion)
 
