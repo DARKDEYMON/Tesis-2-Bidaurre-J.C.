@@ -1,4 +1,5 @@
 from .models import *
+from apps.almacenes.models import *
 from rest_framework import serializers
 
 class ItemSerializer(serializers.HyperlinkedModelSerializer):
@@ -19,3 +20,10 @@ class ReportesFotosSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
 		model = reporte_fotografico
 		fields = ('id','reportes_avance','fotos_reporte')
+
+class RequrimientoMaterialesSerializer(serializers.HyperlinkedModelSerializer):
+	item = serializers.PrimaryKeyRelatedField(read_only=False,queryset=item.objects.all())
+	material = serializers.PrimaryKeyRelatedField(read_only=False,queryset=material.objects.all())
+	class Meta:
+		model = peticion_materiales
+		fields = ('id','item','material','cantidad','precio_estimado_total','observaciones')

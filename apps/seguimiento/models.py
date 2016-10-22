@@ -4,6 +4,8 @@ from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from apps.almacenes.models import material, insumos, herramientas, maquinaria_equipo
 
+from django.core.validators import MaxValueValidator, MinValueValidator
+
 from django.utils.translation import ugettext_lazy as _
 
 # Create your models here.
@@ -108,7 +110,8 @@ class peticion_materiales(models.Model):
 	)
 	petion_de_planificacion = models.BooleanField(
 		blank=False,
-		null=False
+		null=False,
+		default=False
 	)
 	observaciones = models.TextField(
 		blank=True,
@@ -130,7 +133,8 @@ class peticion_insumos(models.Model):
 	)
 	petion_de_planificacion = models.BooleanField(
 		blank=False,
-		null=False
+		null=False,
+		default=False
 	)
 	observaciones = models.TextField(
 		blank=True,
@@ -148,7 +152,8 @@ class peticion_Herramientas(models.Model):
 	)
 	petion_de_planificacion = models.BooleanField(
 		blank=False,
-		null=False
+		null=False,
+		default=False
 	)
 	observaciones = models.TextField(
 		blank=True,
@@ -170,7 +175,8 @@ class peticion_maquinaria_equipo(models.Model):
 	)
 	petion_de_planificacion = models.BooleanField(
 		blank=False,
-		null=False
+		null=False,
+		default=False
 	)
 	def __str__(self):
 		return (self.maquinaria_equipo.decripcion)
@@ -247,17 +253,20 @@ class reportes_avance(models.Model):
 	alto = models.FloatField(
 		null = False,
 		blank = False,
-		default = 0.0
+		default = 1.0,
+		validators=[MinValueValidator(0.0001,"El valor no puede ser cero")]
 	)
 	largo = models.FloatField(
 		null = False,
 		blank = False,
-		default = 0.0
+		default = 1.0,
+		validators=[MinValueValidator(0.0001,"El valor no puede ser cero")]
 	)
 	ancho = models.FloatField(
 		null = False,
 		blank = False,
-		default = 0.0
+		default = 1.0,
+		validators=[MinValueValidator(0.0001,"El valor no puede ser cero")]
 	)
 	observaciones = models.TextField(
 		blank=True,

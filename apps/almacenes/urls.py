@@ -22,8 +22,15 @@ from django.contrib.auth.decorators import login_required,permission_required
 
 from apps.almacenes.views import *
 
+from rest_framework import routers
+from .serializers_views import *
+
+router = routers.DefaultRouter()
+router.register(r'materiales', materialesViewSetRest)
+
 
 urlpatterns = [
+    url(r'^restalmacen/', include(router.urls)),
     url(r'^nuevoproveedor/$',
     	login_required(crearProveedor.as_view()), 
     	name='nuevoproveedor'

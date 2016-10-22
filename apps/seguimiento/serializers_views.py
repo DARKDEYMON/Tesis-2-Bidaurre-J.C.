@@ -20,3 +20,8 @@ class currentReporteFotosViewSetRest(viewsets.ModelViewSet):
 	model = reporte_fotografico
 	queryset = reporte_fotografico.objects.all()
 	serializer_class = ReportesFotosSerializer
+
+class requrimientoMaterialesSerializerViewSetRest(viewsets.ModelViewSet):
+	model = peticion_materiales
+	queryset = peticion_materiales.objects.all()
+	serializer_class = RequrimientoMaterialesSerializer

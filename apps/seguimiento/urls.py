@@ -31,6 +31,7 @@ router = routers.DefaultRouter()
 router.register(r'currentitemuser', currentItemViewSetRest)
 router.register(r'currentreporte', currentReporteViewSetRest)
 router.register(r'currentreportefotos', currentReporteFotosViewSetRest)
+router.register(r'peticionmaterial', requrimientoMaterialesSerializerViewSetRest)
 
 
 urlpatterns = [
