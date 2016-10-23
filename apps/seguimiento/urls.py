@@ -32,7 +32,7 @@ router.register(r'currentitemuser', currentItemViewSetRest)
 router.register(r'currentreporte', currentReporteViewSetRest)
 router.register(r'currentreportefotos', currentReporteFotosViewSetRest)
 router.register(r'peticionmaterial', requrimientoMaterialesSerializerViewSetRest)
-
+router.register(r'peticioninsumo', requrimientoInsumosSerializerViewSetRest)
 
 urlpatterns = [
     url(r'^restseguimiento/', include(router.urls)),

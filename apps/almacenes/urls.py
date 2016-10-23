@@ -27,7 +27,7 @@ from .serializers_views import *
 
 router = routers.DefaultRouter()
 router.register(r'materiales', materialesViewSetRest)
-
+router.register(r'insumos', insumosViewSetRest)
 
 urlpatterns = [
     url(r'^restalmacen/', include(router.urls)),

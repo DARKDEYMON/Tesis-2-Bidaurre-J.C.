@@ -274,6 +274,9 @@ class reportes_avance(models.Model):
 	)
 	def __str__(self):
 		return (self.item.descripcion)
+	def save(self, *args, **kwargs):
+		print('save() is called.'+str(self))
+		super(reportes_avance, self).save(*args, **kwargs)
 
 def validate_file_extension(value):
 	import os

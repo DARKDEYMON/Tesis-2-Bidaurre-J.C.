@@ -27,3 +27,10 @@ class RequrimientoMaterialesSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
 		model = peticion_materiales
 		fields = ('id','item','material','cantidad','precio_estimado_total','observaciones')
+
+class RequrimientoInsumosSerializer(serializers.HyperlinkedModelSerializer):
+	item = serializers.PrimaryKeyRelatedField(read_only=False,queryset=item.objects.all())
+	insumos = serializers.PrimaryKeyRelatedField(read_only=False,queryset=insumos.objects.all())
+	class Meta:
+		model = peticion_insumos
+		fields = ('id','item','insumos','cantidad','precio_estimado_total','observaciones')

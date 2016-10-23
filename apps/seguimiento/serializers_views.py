@@ -25,3 +25,8 @@ class requrimientoMaterialesSerializerViewSetRest(viewsets.ModelViewSet):
 	model = peticion_materiales
 	queryset = peticion_materiales.objects.all()
 	serializer_class = RequrimientoMaterialesSerializer
+
+class requrimientoInsumosSerializerViewSetRest(viewsets.ModelViewSet):
+	model = peticion_insumos
+	queryset = peticion_insumos.objects.all()
+	serializer_class = RequrimientoInsumosSerializer
