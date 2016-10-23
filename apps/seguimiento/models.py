@@ -196,6 +196,11 @@ class requerimiento_personal(models.Model):
 		null=False,
 		blank=False
 	)
+	planificacion = models.BooleanField(
+		blank=False,
+		null=False,
+		default=False
+	)
 	observaciones = models.TextField(
 		blank=True,
 		null=True
@@ -218,6 +223,11 @@ class requerimiento_maq_he(models.Model):
 		null=False,
 		blank=False
 	)
+	planificacion = models.BooleanField(
+		blank=False,
+		null=False,
+		default=False
+	)
 	observaciones = models.TextField(
 		blank=True,
 		null=True
@@ -235,6 +245,16 @@ class materiales_locales(models.Model):
 	cantidad = models.PositiveIntegerField(
 		blank=False,
 		null=False
+	)
+	unidad =models.CharField(
+		max_length=10,
+		blank=False,
+		null=False
+	)
+	planificacion = models.BooleanField(
+		blank=False,
+		null=False,
+		default=False
 	)
 	precio_total = models.FloatField(
 		blank=False,

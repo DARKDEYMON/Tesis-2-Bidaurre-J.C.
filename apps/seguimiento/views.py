@@ -190,6 +190,20 @@ class peticionMaterial(CreateView):
 			#print ("paso2")
 			return self.render_to_response(self.get_context_data(form=form))
 
+class updatePeticionMaterial(UpdateView):
+	model = peticion_materiales
+	form_class = crearPeticionMaterialForm
+	template_name = 'seguimiento/peticionmaterial.html'
+	success_url = reverse_lazy('seguimiento:listaproyectos')
+	def get_context_data(self, **kwargs):
+		context = super (updatePeticionMaterial, self).get_context_data(**kwargs)
+		pk1=self.kwargs['pk']
+		if 'form' in context:
+			ins = self.model.objects.get(pk=pk1)
+			#print(datetime.datetime.strptime(str(ins.fecha_inicio), '%Y-%m-%d').strftime('%d-%m-%Y'))
+			context['form'] = self.form_class(instance=ins)
+		return context
+
 class listaPeticionMaterial(CreateView,ListView):
 	model = peticion_materiales
 	form_class = searchForm
@@ -243,6 +257,20 @@ class peticionInsumos(CreateView):
 		else:
 			#print ("paso2")
 			return self.render_to_response(self.get_context_data(form=form))
+
+class updatePeticionInsumos(UpdateView):
+	model = peticion_insumos
+	form_class = crearPeticionInsumosForm
+	template_name = 'seguimiento/peticioninsumos.html'
+	success_url = reverse_lazy('seguimiento:listaproyectos')
+	def get_context_data(self, **kwargs):
+		context = super (updatePeticionInsumos, self).get_context_data(**kwargs)
+		pk1=self.kwargs['pk']
+		if 'form' in context:
+			ins = self.model.objects.get(pk=pk1)
+			#print(datetime.datetime.strptime(str(ins.fecha_inicio), '%Y-%m-%d').strftime('%d-%m-%Y'))
+			context['form'] = self.form_class(instance=ins)
+		return context
 
 class listaPeticionInsumos(CreateView,ListView):
 	model = peticion_insumos
@@ -298,6 +326,20 @@ class requerimientoPersonal(CreateView):
 			#print ("paso2")
 			return self.render_to_response(self.get_context_data(form=form))
 
+class updateRequerimientoPersonal(UpdateView):
+	model = requerimiento_personal
+	form_class = crearRequerimientoPersonalForm
+	template_name = 'seguimiento/requerimientopersonal.html'
+	success_url = reverse_lazy('seguimiento:listaproyectos')
+	def get_context_data(self, **kwargs):
+		context = super (updateRequerimientoPersonal, self).get_context_data(**kwargs)
+		pk1=self.kwargs['pk']
+		if 'form' in context:
+			ins = self.model.objects.get(pk=pk1)
+			#print(datetime.datetime.strptime(str(ins.fecha_inicio), '%Y-%m-%d').strftime('%d-%m-%Y'))
+			context['form'] = self.form_class(instance=ins)
+		return context
+
 class listaRequerimientoPersonal(CreateView,ListView):
 	model = requerimiento_personal
 	form_class = searchForm
@@ -352,6 +394,20 @@ class requerimientoMaHe(CreateView):
 			#print ("paso2")
 			return self.render_to_response(self.get_context_data(form=form))
 
+class updateRequerimientoMaHe(UpdateView):
+	model = requerimiento_maq_he
+	form_class = crearRequerimientoMaHeForm
+	template_name = 'seguimiento/requerimientomahe.html'
+	success_url = reverse_lazy('seguimiento:listaproyectos')
+	def get_context_data(self, **kwargs):
+		context = super (updateRequerimientoMaHe, self).get_context_data(**kwargs)
+		pk1=self.kwargs['pk']
+		if 'form' in context:
+			ins = self.model.objects.get(pk=pk1)
+			#print(datetime.datetime.strptime(str(ins.fecha_inicio), '%Y-%m-%d').strftime('%d-%m-%Y'))
+			context['form'] = self.form_class(instance=ins)
+		return context
+
 class listaRequerimientoMaHe(CreateView,ListView):
 	model = requerimiento_maq_he
 	form_class = searchForm
@@ -405,6 +461,20 @@ class requerimientoMaterialesLocales(CreateView):
 		else:
 			#print ("paso2")
 			return self.render_to_response(self.get_context_data(form=form))
+
+class updateRequerimientoMaterialesLocales(UpdateView):
+	model = materiales_locales
+	form_class = crearRequerimientoMaterialLocalForm
+	template_name = 'seguimiento/requerimientomaterlocal.html'
+	success_url = reverse_lazy('seguimiento:listaproyectos')
+	def get_context_data(self, **kwargs):
+		context = super (updateRequerimientoMaterialesLocales, self).get_context_data(**kwargs)
+		pk1=self.kwargs['pk']
+		if 'form' in context:
+			ins = self.model.objects.get(pk=pk1)
+			#print(datetime.datetime.strptime(str(ins.fecha_inicio), '%Y-%m-%d').strftime('%d-%m-%Y'))
+			context['form'] = self.form_class(instance=ins)
+		return context
 
 class listaRequerimientoMaterialeLocales(CreateView,ListView):
 	model = materiales_locales
@@ -461,6 +531,20 @@ class requerimientoHerramientas(CreateView):
 			#print ("paso2")
 			return self.render_to_response(self.get_context_data(form=form))
 
+class updatePeticionHerramientas(UpdateView):
+	model = peticion_Herramientas
+	form_class = crearPeticionHerramientas
+	template_name = 'seguimiento/requerimientoherramientas.html'
+	success_url = reverse_lazy('seguimiento:listaproyectos')
+	def get_context_data(self, **kwargs):
+		context = super (updatePeticionHerramientas, self).get_context_data(**kwargs)
+		pk1=self.kwargs['pk']
+		if 'form' in context:
+			ins = self.model.objects.get(pk=pk1)
+			#print(datetime.datetime.strptime(str(ins.fecha_inicio), '%Y-%m-%d').strftime('%d-%m-%Y'))
+			context['form'] = self.form_class(instance=ins)
+		return context
+
 class listaRequerimientoHerramientas(CreateView,ListView):
 	model = peticion_Herramientas
 	form_class = searchForm
@@ -515,6 +599,20 @@ class crearInforme(CreateView):
 		else:
 			#print ("paso2")
 			return self.render_to_response(self.get_context_data(form=form))
+
+class updateCrearInforme(UpdateView):
+	model = reportes_avance
+	form_class = crearReportesAvanceForm
+	template_name = 'seguimiento/crearinforme.html'
+	success_url = reverse_lazy('seguimiento:listaproyectos')
+	def get_context_data(self, **kwargs):
+		context = super (updateCrearInforme, self).get_context_data(**kwargs)
+		pk1=self.kwargs['pk']
+		if 'form' in context:
+			ins = self.model.objects.get(pk=pk1)
+			#print(datetime.datetime.strptime(str(ins.fecha_inicio), '%Y-%m-%d').strftime('%d-%m-%Y'))
+			context['form'] = self.form_class(instance=ins)
+		return context
 
 class crearInformeFotografico(CreateView):
 	model_pk = reportes_avance

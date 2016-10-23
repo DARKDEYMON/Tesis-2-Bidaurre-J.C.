@@ -30,6 +30,7 @@
 				      	<th>Nombre de la Maquinaria/Equipo</th>
 				      	<th>Cantidad</th>
 				      	<th>Precio Total</th>
+				      	<th>Planificacion</th>
 
 				    </tr>
 				  	</thead>
@@ -45,7 +46,7 @@
 							      	<td>{{ pet.nombre_maq_he }}</td>
 							      	<td>{{ pet.cantidad }}</td>
 							      	<td>{{ pet.precio_total }}</td>
-
+							      	<td>{{ pet.planificacion }}</td>
 							     
 							{% else %}
 								<tr class="success">
@@ -53,14 +54,14 @@
 							      	<td>{{ pet.nombre_maq_he }}</td>
 							      	<td>{{ pet.cantidad }}</td>
 							      	<td>{{ pet.precio_total }}</td>
-
+							      	<td>{{ pet.planificacion }}</td>
 							     
 				  			{% endif %}
 				  					<td>
 				  						<div class="btn-group">
 				  							<div class="btn-group">
 										
-												<a type="button" class="btn btn-primary" href="#">
+												<a type="button" class="btn btn-primary" href="{% url 'seguimiento:updaterequerimientomahe' pet.id %}">
 													Editar<span class="glyphicon glyphicon-edit" aria-hidden="true">
 												</a>
 											
