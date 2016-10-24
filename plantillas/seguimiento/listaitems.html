@@ -32,6 +32,7 @@
 				      	<th>Cantidad</th>
 				      	<th>Fecha de Inicio</th>
 				      	<th>Plazo de Finalizacion</th>
+				      	<th>Avance</th>
 				      	<th>Opciones</th>
 				    </tr>
 				  	</thead>
@@ -49,6 +50,13 @@
 							      	<td>{{ item.cantidad }}</td>
 							      	<td>{{ item.fecha_inicio|date:"Y-m-d" }}</td>
 							      	<td>{{ item.plazo_finalizacion|date:"Y-m-d" }}</td>
+							      	<td>
+								      	<div class="progress">
+										  <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{ item.pocentaje_avance }}%;">
+										    <div style="color: black;">{{ item.pocentaje_avance }}%</div>
+										  </div>
+										</div>
+									</td>
 							     
 							{% else %}
 								<tr class="success">
@@ -58,6 +66,13 @@
 							      	<td>{{ item.cantidad }}</td>
 							      	<td>{{ item.fecha_inicio|date:"Y-m-d" }}</td>
 							      	<td>{{ item.plazo_finalizacion|date:"Y-m-d" }}</td>
+							      	<td>
+								      	<div class="progress">
+										  <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{ item.pocentaje_avance }}%;">
+										    <div style="color: black;">{{ item.pocentaje_avance }}%</div>
+										  </div>
+										</div>
+									</td>
 							     
 				  			{% endif %}
 				  					<td>

@@ -9,7 +9,7 @@ class Html5DateInput(forms.DateInput):
 class crearProyectoForm(ModelForm):
 	class Meta:
 		model = proyecto
-		exclude = ['']
+		exclude = ['pocentaje_avance']
 		widgets = {
 			'fecha_inicio':Html5DateInput(format=('%Y-%m-%d')),#attrs={'format':'dd/MM/yyyy'}),
 			'plazo_previsto':Html5DateInput(format=('%Y-%m-%d'))
@@ -23,7 +23,7 @@ class crearProyectoForm(ModelForm):
 class crearItemsForm(ModelForm):
 	class Meta:
 		model = item
-		exclude =['proyecto']
+		exclude =['proyecto','pocentaje_avance']
 		widgets = {
 			'fecha_inicio':Html5DateInput(format=('%Y-%m-%d')),
 			'plazo_finalizacion':Html5DateInput(format=('%Y-%m-%d'))
