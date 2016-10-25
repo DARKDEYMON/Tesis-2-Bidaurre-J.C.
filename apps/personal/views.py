@@ -74,7 +74,7 @@ class updateUsuario(UpdateView):
 		self.object = self.get_object	
 		pk = self.kwargs.get('pk',0)
 		modelRes = self.model.objects.get(id=pk)
-		modelRes2 = self.second_model.objects.get(id=modelRes.id)
+		modelRes2 = self.second_model.objects.get(user=modelRes)
 
 		form = self.form_class(request.POST,instance=modelRes)
 		form2 = self.second_form_class(request.POST,request.FILES, instance=modelRes2)
@@ -101,7 +101,7 @@ class updateUsuarioFronUser(UpdateView):
 		context = super(updateUsuarioFronUser, self).get_context_data(**kwargs)
 		pk = self.request.user.id
 		print(pk)
-		modelRes = self.model.objects.get(id=pk)
+		modelRes = self.model.objects.get(user=self.request.user)
 		if 'form' not in context:
 			context['form'] = self.form_class(instance=modelRes)
 		if 'uss' not in context:

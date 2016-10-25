@@ -341,7 +341,40 @@ class reportes_avance(models.Model):
 			current_pro.pocentaje_avance = int(current_pro_porcent['avance_grl'])
 			current_pro.save()
 			print(current_pro_porcent)
+	def delete(self, *args, **kwargs):
+		super(reportes_avance, self).delete(*args, **kwargs)
+		print("se borro algo"+str(self))
+		unidad = self.item.unidad
+		cantidad_total = self.item.cantidad
+		print('tipo '+str(self.item.unidad))
+		print('total '+str(self.item.cantidad))
+		res=None;
+		if (str(unidad) == 'Gbl'):
+			res = reportes_avance.objects.filter(item=self.item).aggregate(total_avance=Sum('alto'))
+			print('ubicado Gbl: '+str(res))
+		if (str(unidad) == 'm2'):
+			res = reportes_avance.objects.filter(item=self.item).aggregate(total_avance=Sum('alto')*Sum('largo'))
+			print('ubicado m2: '+str(res))
+		if (str(unidad) == 'm3'):
+			res = reportes_avance.objects.filter(item=self.item).aggregate(total_avance=Sum('alto')*Sum('largo')*Sum('ancho'))
+			print('ubicado m3: '+str(res))
 
+		if (res!=None):
+			porcen = (res['total_avance']/cantidad_total)*100
+			itemg = item.objects.get(id=self.item.id);
+			if(porcen>100):
+				itemg.pocentaje_avance = 100
+				itemg.save()
+				print("porcen "+str(porcen))
+			else:
+				itemg.pocentaje_avance = int(porcen)
+				itemg.save()
+				print("porcen "+str(porcen))
+			current_pro_porcent = item.objects.filter(proyecto=self.item.proyecto).aggregate(avance_grl=Avg('pocentaje_avance'))
+			current_pro = proyecto.objects.get(id=self.item.proyecto.id)
+			current_pro.pocentaje_avance = int(current_pro_porcent['avance_grl'])
+			current_pro.save()
+			print(current_pro_porcent)
 		
 
 def validate_file_extension(value):
