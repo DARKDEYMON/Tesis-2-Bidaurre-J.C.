@@ -10,6 +10,18 @@ from django.http import HttpResponseRedirect
 from django.views.generic import ListView, CreateView, UpdateView, FormView
 from django.core.urlresolvers import reverse_lazy
 
+#pdf
+from io import BytesIO
+from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import A4, cm
+from django.http import HttpResponse
+
+from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.lib.enums import TA_LEFT, TA_CENTER, TA_RIGHT, TA_JUSTIFY
+from reportlab.platypus.paragraph import Paragraph
+from reportlab.platypus import Table,TableStyle
+from reportlab.lib import colors
+
 # crear proyecto
 class crearProyecto(CreateView):
 	form_class = crearProyectoForm
@@ -678,3 +690,60 @@ class listaInformesFotos(ListView):
 		print(pk1)
 		object_list = self.model.objects.filter(reportes_avance = reportes_avance.objects.filter(id=pk1))
 		return object_list
+
+def reporteProyecto(request,pk):
+	#consultas
+	pro_ac = proyecto.objects.get(id=pk)
+
+	y,x=A4
+	#construccion
+	response = HttpResponse(content_type='application/pdf')
+	#response['Content-Disposition'] = 'attachment; filename=reporte.pdf'
+	response['Content-Disposition'] = 'filename=reporte.pdf'
+	#response["Content-Disposition"] = "inline"
+	buffer = BytesIO()
+
+	c = canvas.Canvas(buffer,pagesize=A4)
+	comienso = 750
+	print(A4)
+	#encavesado espacio abajo arriba 91
+	c.setLineWidth(.3)
+	c.setFont('Helvetica',22)
+	c.drawCentredString(y/2,comienso,'Reporte de proyecto')
+
+	c.setFont('Helvetica',15)
+	comienso=comienso-18
+	c.drawString(30,comienso,'1. Informacion General.-')
+
+	c.setFont('Helvetica',10)
+	comienso=comienso-22
+	c.drawString(30,comienso,'Objeto de la contratacion: '+pro_ac.objeto_de_la_contratacion)
+	c.drawString(y/2,comienso,'Fecha de inicio: '+str(pro_ac.fecha_inicio))
+	comienso=comienso-13
+	c.drawString(30,comienso,'Modalidad de contratacion: '+pro_ac.modalidad_de_contratacion)
+	c.drawString(y/2,comienso,'Plazo previsto de finalisacion: '+str(pro_ac.plazo_previsto))
+	comienso=comienso-13
+	c.drawString(30,comienso,'Entidad contratante: '+pro_ac.entidad_contratante)
+	c.drawString(y/2,comienso,'Uvicacion: '+str(pro_ac.ubicacion_proyecto))
+	comienso=comienso-13
+	c.drawString(30,comienso,'Telefono de la entidad contratante: '+str(pro_ac.ec_telefono))
+	c.drawString(y/2,comienso,'Presupuesto final: '+str(pro_ac.presupuesto_final))
+	comienso=comienso-13
+	c.drawString(30,comienso,'Direccion de la entidad contratante: '+str(pro_ac.ec_direccion))
+	c.drawString(y/2,comienso,'porcentaje de avance: '+str(pro_ac.pocentaje_avance)+"%")
+	comienso=comienso-13
+	c.drawString(30,comienso,'Email de la entidad contratante: '+str(pro_ac.ec_email))
+
+	#comienso=comienso-13
+	#c.line(30,comienso,y-30,comienso)
+
+	c.setFont('Helvetica',15)
+	comienso=comienso-20
+	c.drawString(30,comienso,'2. Informacion de Items.-')
+
+	#items
+
+	c.save()
+	pdf = buffer.getvalue()
+	response.write(pdf)
+	return response

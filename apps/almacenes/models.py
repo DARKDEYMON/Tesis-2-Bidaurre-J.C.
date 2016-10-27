@@ -124,6 +124,11 @@ class ingresoMaterial(models.Model):
 class salidaMaterial(models.Model):
 	almacen = models.ForeignKey(almacen)
 	material = models.ForeignKey(material)
+	confirmado = models.BooleanField(
+		blank=False,
+		null=False,
+		default=False
+	)
 	item = models.ForeignKey('seguimiento.item')
 	fecha =models.DateField(
 		null=False,
@@ -187,6 +192,11 @@ class salidaInsumos(models.Model):
 	almacen = models.ForeignKey(almacen)
 	insumos = models.ForeignKey(insumos)
 	item = models.ForeignKey('seguimiento.item')
+	confirmado = models.BooleanField(
+		blank=False,
+		null=False,
+		default=False
+	)
 	fecha =models.DateField(
 		null=False,
 		blank=False,
@@ -202,6 +212,11 @@ class salidaInsumos(models.Model):
 class herramientas(models.Model):
 	decripcion = models.CharField(
 		max_length=100,
+		blank=False,
+		null=False
+	)
+	tipo = models.CharField(
+		max_length=30,
 		blank=False,
 		null=False
 	)
@@ -270,6 +285,11 @@ class salidaHerramientas(models.Model):
 class maquinaria_equipo(models.Model):
 	decripcion = models.CharField(
 		max_length=100,
+		blank=False,
+		null=False
+	)
+	tipo = models.CharField(
+		max_length=30,
 		blank=False,
 		null=False
 	)

@@ -34,7 +34,7 @@ class crearIngresoMaterialForm(ModelForm):
 class crearSalidaMaterialForm(ModelForm):
 	class Meta:
 		model = salidaMaterial
-		exclude = ['almacen','item']
+		exclude = ['almacen','item','confirmado']
 
 #insumo
 class crearInsumoForm(ModelForm):
@@ -50,7 +50,7 @@ class crearIngresoInsumoForm(ModelForm):
 class crearSalidaInsumoForm(ModelForm):
 	class Meta:
 		model = salidaInsumos
-		exclude = ['almacen','item']
+		exclude = ['almacen','item','confirmado']
 #herramientas
 class crearHerramientasForm(ModelForm):
 	class Meta:
@@ -86,3 +86,13 @@ CHOICES = (('1', 'ID'),('2', 'Nombre'),)
 class searchForm(forms.Form):
 	search = forms.IntegerField(label="", help_text="", widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Busqueda por...'}))
 	buscar_por = forms.ChoiceField(label="", help_text="", choices=CHOICES)
+
+class crearDebolucionHerramientas(ModelForm):
+	class Meta:
+		model = salidaHerramientas
+		fields = ['debuelto']
+
+class crearDebolucionMaquinariaEquipo(ModelForm):
+	class Meta:
+		model = salidaMaquinaria_equipo
+		fields = ['debuelto']

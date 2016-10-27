@@ -64,7 +64,10 @@
 											  </button>
 											  <ul class="dropdown-menu">
 											    <li><a href="{% url 'almacenes:ingresomaterial' item.id %}">Ingreso Material<span class="glyphicon glyphicon-edit" aria-hidden="true"></a></li>
+											    <li><a href="{% url 'almacenes:listaingresoinsumo' item.id %}">Lista de Ingreso Material<span class="glyphicon glyphicon-edit" aria-hidden="true"></a></li>
+											    <li class="divider"></li>
 											    <li><a href="{% url 'almacenes:ingresoinsumo' item.id %}">Ingreso Insumo<span class="glyphicon glyphicon-wrench"></a> </li>
+											    <li><a href="{% url 'almacenes:listaingresomaterial' item.id %}">Lista de Ingreso Insumo<span class="glyphicon glyphicon-wrench"></a> </li>
 											  </ul>
 											</div>
 
@@ -74,9 +77,16 @@
 											  </button>
 											  <ul class="dropdown-menu">
 											    <li><a href="{% url 'almacenes:salidamaterial' item.id %}">Envio de Material<span class="glyphicon glyphicon-edit" aria-hidden="true"></a></li>
+											    <li><a href="{% url 'almacenes:listasalidamaterial' item.id %}">Lista de envios de Material<span class="glyphicon glyphicon-edit" aria-hidden="true"></a></li>
+											    <li class="divider"></li>
 											    <li><a href="{% url 'almacenes:salidainsumo' item.id %}">Envio de Insumos<span class="glyphicon glyphicon-edit" aria-hidden="true"></a></li>
+											    <li><a href="{% url 'almacenes:listasalidainsumo' item.id %}">Lista de envio de Insumos<span class="glyphicon glyphicon-edit" aria-hidden="true"></a></li>
+											    <li class="divider"></li>
 											    <li><a href="{% url 'almacenes:salidaherramientas' item.id %}">Envio de Herramientas<span class="glyphicon glyphicon-edit" aria-hidden="true"></a></li>
+											    <li><a href="{% url 'almacenes:listasalidaherramientas' item.id %}">Lista de envio de Herramientas<span class="glyphicon glyphicon-edit" aria-hidden="true"></a></li>
+											    <li class="divider"></li>
 											    <li><a href="{% url 'almacenes:salidaMaquinariaEquipo' item.id %}">Envio de Equipo<span class="glyphicon glyphicon-edit" aria-hidden="true"></a></li>
+											    <li><a href="{% url 'almacenes:listasalidamaquinariaequipo' item.id %}">Listo de envio de Equipo<span class="glyphicon glyphicon-edit" aria-hidden="true"></a></li>
 											  </ul>
 											</div>
 

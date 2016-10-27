@@ -18,6 +18,7 @@ from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
 
+
 # Create your views here.
 def main_page(request):
 	return render (request,"base/index.html",{})

@@ -11,3 +11,8 @@ class insumosViewSetRest(viewsets.ModelViewSet):
 	model = insumos
 	queryset = insumos.objects.all()
 	serializer_class = InsumoSerializer
+
+class salidaInsumosSerializerRest(viewsets.ModelViewSet):
+	model = salidaInsumos
+	queryset = salidaInsumos.objects.all()
+	serializer_class = SalidaInsumosSerializer

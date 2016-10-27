@@ -56,19 +56,36 @@
 				  			{% endif %}
 				  					<td>
 				  						<div class="btn-group" role="group">
-										  <a href="{% url 'almacenes:actualisarAlmacen' almacen.id %}" type="button" class="btn btn-primary">
-										  	Editar datos<span class="glyphicon glyphicon-edit" aria-hidden="true">
-										  </a>
-										  <a href="{% url 'almacenes:listaitems' almacen.ciudad %}" type="button" class="btn btn-primary">
-										  	Lista de items<span class="glyphicon glyphicon-edit" aria-hidden="true">
-										  </a>
-										  <a href="{% url 'almacenes:ingresoherramientas' almacen.ciudad %}" type="button" class="btn btn-warning">
-										  	Ingreso de Herramientas<span class="glyphicon glyphicon-remove" aria-hidden="true">
-										  </a>
-										  <a href="{% url 'almacenes:ingresomaquinariaequipo' almacen.ciudad %}" type="button" class="btn btn-warning">
-										  	Ingreso de maquinaria/equipo<span class="glyphicon glyphicon-remove" aria-hidden="true">
-										  </a>
-										  
+										  	<a href="{% url 'almacenes:actualisarAlmacen' almacen.id %}" type="button" class="btn btn-primary">
+										  		Editar datos<span class="glyphicon glyphicon-edit" aria-hidden="true">
+										  	</a>
+										  	<a href="{% url 'almacenes:listaitems' almacen.ciudad %}" type="button" class="btn btn-primary">
+										  		Lista de items<span class="glyphicon glyphicon-edit" aria-hidden="true">
+										  	</a>
+										  	<div class="btn-group">
+											  <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											    Herramientas <span class="caret"></span>
+											  </button>
+											  <ul class="dropdown-menu">
+											    <li><a href="{% url 'almacenes:ingresoherramientas' almacen.ciudad %}">Ingreso de herramientas<span class="glyphicon glyphicon-edit" aria-hidden="true"></a></li>
+											    <li><a href="{% url 'almacenes:listaconfirmacionherramientas' almacen.ciudad %}">Debolucion de herramientas<span class="glyphicon glyphicon-edit" aria-hidden="true"></a></li>
+											  </ul>
+											</div>
+											<div class="btn-group">
+											  <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											    maquinaria/equipo <span class="caret"></span>
+											  </button>
+											  <ul class="dropdown-menu">
+											    <li><a href="{% url 'almacenes:ingresomaquinariaequipo' almacen.ciudad %}">Ingreso de maquinaria/equipo<span class="glyphicon glyphicon-edit" aria-hidden="true"></a></li>
+											    <li><a href="{% url 'almacenes:listaconfirmacionmaquinariahequipo' almacen.ciudad %}">Debolucion de maquinaria/equipo<span class="glyphicon glyphicon-edit" aria-hidden="true"></a>
+											    </li>
+											  </ul>
+											</div>
+											<!--	
+											  <a href="{% url 'almacenes:ingresomaquinariaequipo' almacen.ciudad %}" type="button" class="btn btn-warning">
+											  	Ingreso de maquinaria/equipo<span class="glyphicon glyphicon-remove" aria-hidden="true">
+											  </a>
+										  	-->
 										</div>
 				  					</td>
 					  			</tr>
