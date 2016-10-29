@@ -20,3 +20,12 @@ class SalidaInsumosSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
 		model = salidaInsumos
 		fields = ('id','almacen','insumos','item','confirmado','fecha','cantidad')
+
+class SalidaMaterialSerializer(serializers.HyperlinkedModelSerializer):
+	almacen = serializers.SlugRelatedField(read_only=True, slug_field='ciudad')
+	material = serializers.SlugRelatedField(read_only=True, slug_field='decripcion')
+	item = serializers.SlugRelatedField(read_only=True, slug_field='descripcion')
+	cantidad = serializers.IntegerField(read_only=True)
+	class Meta:
+		model = salidaMaterial
+		fields = ('id','almacen','material','item','confirmado','fecha','cantidad')

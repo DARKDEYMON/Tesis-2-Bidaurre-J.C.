@@ -354,3 +354,48 @@ class salidaMaquinaria_equipo(models.Model):
 		null=False,
 		default=0
 	)
+
+class tipoActivo(models.Model):
+	tipo = models.CharField(
+		max_length=60,
+		blank=False,
+		null=False
+	)
+	años_vida_util = models.PositiveIntegerField(
+		blank=False,
+		null=False
+	)
+	observaciones = models.TextField(
+		blank=True,
+		null=True
+	)
+	def __str__(self):
+		return self.tipo
+
+class activo(models.Model):
+	tipoActivo = models.ForeignKey(tipoActivo)
+	descripcion = models.CharField(
+		max_length=100,
+		blank=False,
+		null=False
+	)
+	marca = models.CharField(
+		max_length=60,
+		blank=False,
+		null=False
+	)
+	modelo = models.CharField(
+		max_length=60,
+		blank=False,
+		null=False
+	)
+	fecha_ingreso = models.DateField(
+		blank=False,
+		null=False
+	)
+	costo_total = models.FloatField(
+		blank=False,
+		null=False
+	)
+	def __str__(self):
+		return self.descripcion

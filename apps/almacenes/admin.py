@@ -24,3 +24,6 @@ admin.site.register(maquinaria_equipo)
 admin.site.register(maquinaria_equipoAlmacen)
 admin.site.register(ingresoMaquinaria_equipo)
 admin.site.register(salidaMaquinaria_equipo)
+
+admin.site.register(tipoActivo)
+admin.site.register(activo)

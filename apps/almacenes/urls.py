@@ -29,6 +29,7 @@ router = routers.DefaultRouter()
 router.register(r'materiales', materialesViewSetRest)
 router.register(r'insumos', insumosViewSetRest)
 router.register(r'salidainsumos', salidaInsumosSerializerRest)
+router.register(r'salidamaterial', salidaMaterialSerializerRest)
 
 urlpatterns = [
     url(r'^restalmacen/', include(router.urls)),
@@ -144,7 +145,6 @@ urlpatterns = [
         login_required(listaIngresoInsumoItem.as_view()), 
         name='listaingresoinsumo'
     ),
-
     url(r'^listaingresomaterial/(?P<pk>\d+)/$',
         login_required(listaIngresoMaterialItem.as_view()), 
         name='listaingresomaterial'
@@ -181,5 +181,22 @@ urlpatterns = [
     url(r'^debolucionmaquinariahequipo/(?P<pk>\d+)/$',
         login_required(debolucionMaquinariaHequipo.as_view()), 
         name='debolucionmaquinariahequipo'
+    ),
+    url(r'^creartipoactivo/$',
+        login_required(crearTipoActivo.as_view()), 
+        name='creartipoactivo'
+    ),
+    url(r'^listacrearactivo/$',
+        login_required(listaCrearActivo.as_view()), 
+        name='listacrearactivo'
+    ),
+    
+    url(r'^crearactivodepreciasion/(?P<pk>\d+)/$',
+        login_required(crearActivoDepreciasion.as_view()), 
+        name='crearactivodepreciasion'
+    ),
+    url(r'^crearactivo/$',
+        login_required(crearActivo.as_view()), 
+        name='crearactivo'
     ),
 ]

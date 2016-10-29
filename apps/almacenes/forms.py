@@ -2,6 +2,9 @@ from django.forms import ModelForm
 from django import forms
 from apps.almacenes.models import *
 
+class Html5DateInput(forms.DateInput):
+	input_type = 'date'
+
 class crearAlmacenForm(ModelForm):
 	class Meta:
 		model = almacen
@@ -96,3 +99,16 @@ class crearDebolucionMaquinariaEquipo(ModelForm):
 	class Meta:
 		model = salidaMaquinaria_equipo
 		fields = ['debuelto']
+
+class crearTipoActivoForm(ModelForm):
+	class Meta:
+		model = tipoActivo
+		exclude = ['']
+		
+class crearActivoForm(ModelForm):
+	class Meta:
+		model = activo
+		exclude = ['']
+		widgets = {
+			'fecha_ingreso':Html5DateInput(format=('%Y-%m-%d')),
+		}

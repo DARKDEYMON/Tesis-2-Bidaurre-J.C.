@@ -969,3 +969,72 @@ class debolucionMaquinariaHequipo(UpdateView):
 		else:
 			#print ("paso2")
 			return self.render_to_response(self.get_context_data(form=form))
+
+class crearTipoActivo(CreateView):
+	form_class = crearTipoActivoForm
+	template_name ='almacen/creartipoactivo.html'
+	success_url = "/"
+	
+class crearActivo(CreateView):
+	form_class = crearActivoForm
+	template_name ='almacen/crearactivo.html'
+	success_url = "/"
+
+class listaCrearActivo(CreateView,ListView):
+	model = activo
+	form_class = searchForm
+	template_name = 'almacen/listaactivo.html'
+	paginate_by = 10
+	def get_context_data(self, **kwargs):
+		context = super (listaCrearActivo, self).get_context_data(**kwargs)
+		if 'form' in context:
+			context['form'] = self.form_class()
+		return context
+	def get(self, request, *args, **kwargs):
+		self.object = self.get_object
+		form = self.form_class()
+		if request.GET:
+			form = self.form_class(request.GET)
+		self.object_list = self.get_queryset()
+		return self.render_to_response(self.get_context_data(object_list=self.object_list , form=form))
+	def get_queryset(self):
+		#ct=self.kwargs['ct']
+		id = None
+		if self.request.method == "GET":
+			form = self.form_class(self.request.GET)
+			print (form.is_valid())
+			if form.is_valid():
+				print(self.request.GET)
+				print(form)
+				id = form.cleaned_data['search']
+				#kwargs['id']
+				print(id)
+		if (id):
+			#object_list = self.model.objects.filter(name__icontains = id)
+			object_list = self.model.objects.filter(id = id)
+		else:
+			object_list = self.model.objects.filter().order_by('id')
+		return object_list
+
+class crearActivoDepreciasion(CreateView):
+	form_class = crearActivoForm
+	template_name ='almacen/crearactivodepre.html'
+	success_url = "/"
+	def get_context_data(self, **kwargs):
+		context = super (crearActivoDepreciasion, self).get_context_data(**kwargs)
+		import datetime
+		datenow = datetime.datetime.now()
+
+		pk=self.kwargs['pk']
+		a = activo.objects.get(id=pk)
+
+		act = datenow.year - a.fecha_ingreso.year
+		dep = a.costo_total / a.tipoActivo.años_vida_util
+
+		tdep = dep*act
+		res= a.costo_total-tdep
+
+		if 'form' not in context or 'res' not in context:
+			context['form'] = self.form_class()
+			context['res'] = res
+		return context
