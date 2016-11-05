@@ -1,0 +1,58 @@
+{% extends "base/index.html" %}	
+
+
+	
+	{% block body %}
+	<div class="col-sm-3"></div>
+		<div class="col-sm-6">
+			<div class="well bs-component">
+		
+			<div id='calendar'></div>
+			<script>
+			$(document).ready(function() {
+					/*
+					$.ajax({
+					     	url: "{# url 'seguimiento:data_calendar' pk #}",
+					  		//datatype: 'json',
+					      	success: function(data){
+					            console.log(data);         
+					      	},
+					      	error:function(){
+					          $("#result").html('There was an error updating the settings');
+					          $("#result").addClass('msg_error');
+					          $("#result").fadeIn(1500);
+					      }   
+					}); 
+					*/
+					
+					$('#calendar').fullCalendar({
+						lang: 'es',
+						header: {
+							left: 'prev,next today',
+							center: 'title',
+							right: 'month,basicWeek,basicDay'
+						},
+						defaultDate: '{{ pro.fecha_inicio|date:"Y-m-d" }}',
+						navLinks: true, // can click day/week names to navigate views
+						editable: true,
+						eventLimit: true, // allow "more" link when too many events
+						events: [
+							{% for a in res %}
+								{
+									title: '{{ a.descripcion }}',
+									start: '{{ a.fecha_inicio|date:"Y-m-d" }}',
+									end: '{{ a.plazo_finalizacion|date:"Y-m-d" }}'
+								},
+							{% endfor %}
+						]
+					});
+					
+			});
+
+			</script>
+			</div>
+		</div>
+
+	<div class="col-sm-3"></div>
+		
+	{% endblock body %}

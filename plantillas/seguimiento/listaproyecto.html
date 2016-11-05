@@ -90,15 +90,26 @@
 										  <a href="{% url 'seguimiento:listaitems' proyecto.id %}" type="button" class="btn btn-warning">
 										  	Items<span class="glyphicon glyphicon-wrench" aria-hidden="true">
 										  </a>
-										  <a href="{% url 'seguimiento:listapersonal' proyecto.id %}" type="button" class="btn btn-success">
-										  	Lista del Personal <span class="glyphicon glyphicon-th-list" aria-hidden="true">
-										  </a>
-										  
 										  <a href="{% url 'seguimiento:reporteproyecto' proyecto.id %}" type="button" class="btn btn-success">
 										  	Reporte<span class="glyphicon glyphicon-list-alt" aria-hidden="true">
 										  </a>
-										  
+										  <div class="btn-group" role="group">
+												<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+													Extras <span class="glyphicon glyphicon-info-sign"></span>
+												</button>
+												<ul class="dropdown-menu">
+													<li>
+														<a href="{% url 'seguimiento:listapersonal' proyecto.id %}">
+														  	Lista del Personal <span class="glyphicon glyphicon-th-list" aria-hidden="true">
+														</a>
+														<a href="{% url 'seguimiento:calendar' proyecto.id %}">
+														  	Calendario <span class="glyphicon glyphicon-calendar" aria-hidden="true">
+														</a>
+													</li>
+												</ul>
+											</div>
 										</div>
+										
 				  					</td>
 					  			</tr>
 					  		

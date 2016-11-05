@@ -4,6 +4,8 @@ from apps.seguimiento.models import *
 from apps.personal.models import designacion
 
 from django.http import HttpResponseRedirect
+from django.http import JsonResponse
+
 
 # Create your views here. D:\Maritza-2012\PUNA-Proy Ecoturistico Thalaqocha\A-PROPUESTA\1-TDRs
 
@@ -747,3 +749,21 @@ def reporteProyecto(request,pk):
 	pdf = buffer.getvalue()
 	response.write(pdf)
 	return response
+
+def calendar_proyecto(request,pk):
+	import json
+	dat = []
+
+	query1 = item.objects.filter(proyecto__id=pk)
+	query2 = query1[0].proyecto
+	print(query1)
+	for r in query1:
+		dat.append({'title': r.descripcion})
+		dat.append({'start': str(r.fecha_inicio)})
+		dat.append({'end': str(r.plazo_finalizacion)})
+	print(dat)
+	res = {}
+	res['result'] = dat
+	print(res)
+
+	return render (request,"seguimiento/calendar.html",{"pk":pk,"res":query1,"pro":query2})

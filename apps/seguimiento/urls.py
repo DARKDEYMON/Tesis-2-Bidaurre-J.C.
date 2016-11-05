@@ -160,4 +160,10 @@ urlpatterns = [
         login_required(reporteProyecto), 
         name='reporteproyecto'
     ),
+
+    url(r'^calendar/(?P<pk>\d+)/$',
+        login_required(calendar_proyecto), 
+        name='calendar'
+    ),
+    
 ]
