@@ -755,6 +755,8 @@ def calendar_proyecto(request,pk):
 	dat = []
 
 	query1 = item.objects.filter(proyecto__id=pk)
+	if(len(query1)==0):
+		return render (request,"seguimiento/calendar.html",{"error":"no existen items aun !!!!!"})
 	query2 = query1[0].proyecto
 	print(query1)
 	for r in query1:

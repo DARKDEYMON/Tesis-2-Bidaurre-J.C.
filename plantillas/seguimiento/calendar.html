@@ -7,6 +7,10 @@
 		<div class="col-sm-6">
 			<div class="well bs-component">
 		
+			{% if error %}
+				<div class="alert alert-danger" role="alert"><strong>Alerta!!!!</strong> {{ error }}</div>
+			
+			{% else %}
 			<div id='calendar'></div>
 			<script>
 			$(document).ready(function() {
@@ -50,6 +54,10 @@
 			});
 
 			</script>
+
+			
+
+			{% endif %}
 			</div>
 		</div>
 
