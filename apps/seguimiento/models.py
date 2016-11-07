@@ -1,6 +1,6 @@
 from django.db import models
 
-from django.core.exceptions import ValidationError
+from django.core.exceptions import ValidationError,NON_FIELD_ERRORS
 from django.core.validators import RegexValidator
 from apps.almacenes.models import material, insumos, herramientas, maquinaria_equipo
 
@@ -75,6 +75,17 @@ class proyecto(models.Model):
 	)
 	def __str__(self):
 		return (self.objeto_de_la_contratacion)
+	def clean(self):
+		ini = self.fecha_inicio
+		fin = self.plazo_previsto
+		print("algo")
+		print(ini)
+		print(fin)
+		if ini and fin and (fin<ini):
+			raise ValidationError("El plazo previsto deve ser mayor al de la fecha de inicio")
+	def save(self, *args, **kwargs):
+		self.full_clean()
+		return super(proyecto, self).save(*args, **kwargs)
 
 class item(models.Model):
 	proyecto = models.ForeignKey(proyecto)

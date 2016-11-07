@@ -166,4 +166,8 @@ urlpatterns = [
         name='calendar'
     ),
     
+    #url(r'^json_calendar/(?P<pk>\d+)/$',
+    #    login_required(json_calendar), 
+    #    name='json_calendar'
+    #),
 ]

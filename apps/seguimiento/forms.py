@@ -20,6 +20,7 @@ class crearProyectoForm(ModelForm):
 			'ec_email':'Email de la entidad contratante'
 		}
 
+
 class crearItemsForm(ModelForm):
 	class Meta:
 		model = item

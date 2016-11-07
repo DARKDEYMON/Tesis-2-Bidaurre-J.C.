@@ -30,6 +30,12 @@ class crearProyecto(CreateView):
 	template_name = 'seguimiento/nuevoproyecto.html'
 	success_url = reverse_lazy('seguimiento:listaproyectos')
 
+class updateProyecto(UpdateView):
+	model = proyecto
+	form_class = crearProyectoForm
+	template_name = 'seguimiento/nuevoproyecto.html'
+	success_url = reverse_lazy('seguimiento:listaproyectos')
+
 # lista proyectos
 class listaProyectos(CreateView,ListView):
 	model = proyecto
@@ -132,23 +138,6 @@ class listaItems(CreateView,ListView):
 		else:
 			object_list = self.model.objects.filter(proyecto = pk1).order_by('id')
 		return object_list
-
-class updateProyecto(UpdateView):
-	model = proyecto
-	form_class = crearProyectoForm
-	template_name = 'seguimiento/nuevoproyecto.html'
-	success_url = reverse_lazy('seguimiento:listaproyectos')
-	def get_context_data(self, **kwargs):
-		context = super (updateProyecto, self).get_context_data(**kwargs)
-		pk1=self.kwargs['pk']
-		if 'form' in context:
-			import datetime
-			ins = self.model.objects.get(pk=pk1)
-			print(ins.fecha_inicio)
-			#print(datetime.datetime.strptime(str(ins.fecha_inicio), '%Y-%m-%d').strftime('%d-%m-%Y'))
-			
-			context['form'] = self.form_class(instance=ins, initial={'fecha':str(ins.fecha_inicio)})
-		return context
 
 class listaPersonalProyecto(CreateView,ListView):
 	model = designacion
@@ -760,12 +749,26 @@ def calendar_proyecto(request,pk):
 	query2 = query1[0].proyecto
 	print(query1)
 	for r in query1:
-		dat.append({'title': r.descripcion})
-		dat.append({'start': str(r.fecha_inicio)})
-		dat.append({'end': str(r.plazo_finalizacion)})
+		res = {}
+		res['title'] = r.descripcion
+		res['start'] = str(r.fecha_inicio)
+		res['end'] = str(r.plazo_finalizacion)
+		dat.append(res)
 	print(dat)
-	res = {}
-	res['result'] = dat
-	print(res)
 
 	return render (request,"seguimiento/calendar.html",{"pk":pk,"res":query1,"pro":query2})
+
+"""
+def json_calendar(request,pk):
+	import json
+	dat = []
+	query1 = item.objects.filter(proyecto__id=pk)
+	for r in query1:
+		res = {}
+		res['title'] = r.descripcion
+		res['start'] = str(r.fecha_inicio)
+		res['end'] = str(r.plazo_finalizacion)
+		dat.append(res)
+	print(dat)
+	return HttpResponse(json.dumps(dat), content_type="application/json")
+"""
