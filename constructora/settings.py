@@ -26,7 +26,7 @@ SECRET_KEY = 'w3rdc@hpzl*v#@#s63z9rijpd4ds2rfoin=2v*e-nisp*retax'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition

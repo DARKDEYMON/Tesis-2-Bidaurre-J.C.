@@ -9,6 +9,17 @@ from django.views.generic import ListView, CreateView, UpdateView, FormView
 from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponseRedirect
 
+from io import BytesIO
+from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import A4, cm
+from django.http import HttpResponse
+
+from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.lib.enums import TA_LEFT, TA_CENTER, TA_RIGHT, TA_JUSTIFY
+from reportlab.platypus.paragraph import Paragraph
+from reportlab.platypus import Table,TableStyle
+from reportlab.lib import colors
+
 class crearAlmacen(CreateView):
 	form_class = crearAlmacenForm
 	template_name = 'almacen/crearalmacen.html'
@@ -1038,3 +1049,29 @@ class crearActivoDepreciasion(CreateView):
 			context['form'] = self.form_class()
 			context['res'] = res
 		return context
+
+def reporteAlmacen(request,ct):
+	#consultas
+
+	y,x=A4
+	#construccion
+	response = HttpResponse(content_type='application/pdf')
+	#response['Content-Disposition'] = 'attachment; filename=reporte.pdf'
+	response['Content-Disposition'] = 'filename=reporte.pdf'
+	#response["Content-Disposition"] = "inline"
+	buffer = BytesIO()
+
+	c = canvas.Canvas(buffer,pagesize=A4)
+	comienso = 750
+	print(A4)
+	#encavesado espacio abajo arriba 91
+	c.setLineWidth(.3)
+	c.setFont('Helvetica',22)
+	c.drawCentredString(y/2,comienso,'Reporte de Almacen')
+
+	#items
+
+	c.save()
+	pdf = buffer.getvalue()
+	response.write(pdf)
+	return response

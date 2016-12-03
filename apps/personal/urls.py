@@ -44,20 +44,20 @@ urlpatterns = [
     ),
     #url(r'^listausuario/(?P<id>\d*)/*$', login_required(listaUsuario.as_view()), name='listausuario'),
     url(r'^listausuario/$', 
-        login_required(csrf_exempt(listaUsuario.as_view())), 
+        permission_required('auth.view_personal') (login_required(csrf_exempt(listaUsuario.as_view()))), 
         name='listausuario'
     ),
     url(r'^updateusuario/(?P<pk>\d+)/$', 
-        login_required(updateUsuario.as_view()), 
+        permission_required('auth.view_personal')(login_required(updateUsuario.as_view())), 
         name='updateusuario'
     ),
     url(r'^darbaja/(?P<pk>\d+)/$', 
-        login_required(updateDarBaja.as_view()), 
+        permission_required('auth.view_personal')(login_required(updateDarBaja.as_view())), 
         name='updatedarbaja'
     ),
     #actualisacion de cuenta por el usuario
     url(r'^updateusuario_user/$', 
-        login_required(updateUsuarioFronUser.as_view()), 
+        permission_required('auth.view_personal')(login_required(updateUsuarioFronUser.as_view())), 
         name='updateusuariofronuser'
     ),
     #login_required metodo de forsado de login, logout_then_login metodos de logeo de django
@@ -71,20 +71,20 @@ urlpatterns = [
         name='logout'
     ),
     url(r'^reset_pass/$',
-        auth_views.password_change,
+        permission_required('auth.view_personal')(auth_views.password_change),
         {'template_name':'personal/password_reset_form.html','post_change_redirect' : '/'}, 
         name='reset_password'
     ),
     url(r'^añadirpermisos/(?P<pk>\d+)/$',
-        login_required(añadirPermisos.as_view()), 
+        permission_required('auth.view_personal') (login_required(añadirPermisos.as_view())), 
         name='añadirpermisos'
     ),
     url(r'^crearcargo/$', 
-        login_required(crearCargo.as_view()), 
+        permission_required('auth.view_personal') (login_required(crearCargo.as_view())), 
         name='crearcargo'
     ),
     url(r'^listacargo/$', 
-        login_required(listaCargo.as_view()), 
+        permission_required('auth.view_personal') (login_required(listaCargo.as_view())), 
         name='listacargo'
     ),
     url(r'^designacion/(?P<pk>\d+)/$',
@@ -103,7 +103,7 @@ urlpatterns = [
         name='borrardesig'
     ),
     url(r'^updatecargo/(?P<pk>\d+)/$', 
-        login_required(updateCargo.as_view()), 
+        permission_required('auth.view_personal') (login_required(updateCargo.as_view())), 
         name='updatecargo'
     ),
 ]
