@@ -186,6 +186,7 @@ urlpatterns = [
         login_required(crearTipoActivo.as_view()), 
         name='creartipoactivo'
     ),
+    
     url(r'^listacrearactivo/$',
         login_required(listaCrearActivo.as_view()), 
         name='listacrearactivo'

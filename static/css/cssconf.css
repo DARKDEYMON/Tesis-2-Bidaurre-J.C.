@@ -29,3 +29,6 @@
 #porcent{
     color: black;
 }
+.well{
+    overflow-x: scroll;
+}

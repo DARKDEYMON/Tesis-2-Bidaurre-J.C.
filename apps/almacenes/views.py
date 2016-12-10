@@ -68,13 +68,13 @@ class listaAlmacenes(CreateView,ListView):
 class crearMaterialAlmacen(CreateView):
 	form_class = crearMaterialForm
 	template_name = 'almacen/nuevomaterial.html'
-	success_url = '/'
+	success_url = reverse_lazy('almacenes:listamaterial')
 
 class MaterialUpdate(UpdateView):
 	model = material
 	form_class = crearMaterialForm
 	template_name = 'almacen/nuevomaterial.html'
-	success_url = '/'
+	success_url = reverse_lazy('almacenes:listamaterial')
 
 class listaMaterial(CreateView,ListView):
 	model = material
@@ -114,13 +114,13 @@ class listaMaterial(CreateView,ListView):
 class crearInsumoAlmacen(CreateView):
 	form_class = crearInsumoForm
 	template_name = 'almacen/nuevoinsumo.html'
-	success_url = '/'
+	success_url = reverse_lazy('almacenes:listainsumos')
 
 class updateInsumo(UpdateView):
 	model = insumos
 	form_class = crearInsumoForm
 	template_name = 'almacen/nuevoinsumo.html'
-	success_url = '/'
+	success_url = reverse_lazy('almacenes:listainsumos')
 
 class listaInsumos(CreateView,ListView):
 	model = insumos
@@ -160,13 +160,13 @@ class listaInsumos(CreateView,ListView):
 class crearHerramientas(CreateView):
 	form_class = crearHerramientasForm
 	template_name = 'almacen/nuevaherramienta.html'
-	success_url = '/'
+	success_url = reverse_lazy('almacenes:listaherramientas')
 
 class updateHerramientas(UpdateView):
 	model = herramientas
 	form_class = crearHerramientasForm
 	template_name = 'almacen/nuevaherramienta.html'
-	success_url = '/'
+	success_url = reverse_lazy('almacenes:listaherramientas')
 
 class listaHerramientas(CreateView,ListView):
 	model = herramientas
@@ -206,13 +206,13 @@ class listaHerramientas(CreateView,ListView):
 class crearProveedor(CreateView):
 	form_class = crearProveedorForm
 	template_name = 'almacen/nuevoproveedor.html'
-	success_url = '/'
+	success_url = reverse_lazy('almacenes:listaproveedor')
 
 class updateProveedor(UpdateView):
 	model = proveedor
 	form_class = crearProveedorForm
 	template_name = 'almacen/nuevaherramienta.html'
-	success_url = '/'
+	success_url = reverse_lazy('almacenes:listaproveedor')
 
 class listaProveedor(CreateView,ListView):
 	model = proveedor
@@ -252,13 +252,13 @@ class listaProveedor(CreateView,ListView):
 class crearMaquinariaEquipo(CreateView):
 	form_class = crearMaquinariaEquipoForm
 	template_name = 'almacen/crearmaquinariaequipo.html'
-	success_url = '/'
+	success_url = reverse_lazy('almacenes:listamaquinariaequipo')
 
 class updateMaquinariaEquipo(UpdateView):
 	model = maquinaria_equipo
 	form_class = crearMaquinariaEquipoForm
 	template_name = 'almacen/nuevaherramienta.html'
-	success_url = '/'
+	success_url = reverse_lazy('almacenes:listamaquinariaequipo')
 
 class listaMaquinariaEquipo(CreateView,ListView):
 	model = maquinaria_equipo
@@ -330,12 +330,12 @@ class listaItemsPedidos(CreateView,ListView):
 		else:
 			object_list = self.model.objects.filter(proyecto__ubicacion_proyecto=ct).order_by('id')
 		return object_list
-
+# lazys complejos
 class ingresoInsumoItem(CreateView):
 	model_pk = item
 	form_class = crearIngresoInsumoForm
 	template_name = 'almacen/crearingresoinsumo.html'
-	success_url = '/'
+	success_url = 'almacenes:listaingresoinsumo'
 	def post(self, request, *args, **kwargs):
 		self.object = self.get_object	
 		form = self.form_class(request.POST)
@@ -350,7 +350,7 @@ class ingresoInsumoItem(CreateView):
 			a=insumosAlmacen.objects.get_or_create(almacen=form.almacen,insumos=form.insumos)
 			a[0].cantidad = a[0].cantidad + form.cantidad
 			a[0].save()
-			return  HttpResponseRedirect(self.success_url)
+			return  HttpResponseRedirect(reverse_lazy(self.success_url, kwargs = {'pk': pk1}))
 		else:
 			#print ("paso2")
 			return self.render_to_response(self.get_context_data(form=form))
@@ -395,7 +395,7 @@ class salidaInsumoItem(CreateView):
 	model_pk = item
 	form_class = crearSalidaInsumoForm
 	template_name = 'almacen/salidainsumo.html'
-	success_url = '/'
+	success_url = 'almacenes:listasalidainsumo'
 
 	def post(self, request, *args, **kwargs):
 		self.object = self.get_object	
@@ -433,7 +433,7 @@ class salidaInsumoItem(CreateView):
 				a=insumosAlmacen.objects.get(almacen=form.almacen,insumos=form.insumos)
 				a.cantidad = a.cantidad - form.cantidad
 				a.save()
-				return  HttpResponseRedirect(self.success_url)
+				return  HttpResponseRedirect(reverse_lazy(self.success_url, kwargs = {'pk': pk1}))
 		else:
 			#print ("paso2")
 			return self.render_to_response(self.get_context_data(form=form))
@@ -478,7 +478,7 @@ class ingresoMaterialItem(CreateView):
 	model_pk = item
 	form_class = crearIngresoMaterialForm
 	template_name = 'almacen/crearingresomaterial.html'
-	success_url = '/'
+	success_url = 'almacenes:listaingresomaterial'
 	def post(self, request, *args, **kwargs):
 		self.object = self.get_object	
 		form = self.form_class(request.POST)
@@ -493,7 +493,7 @@ class ingresoMaterialItem(CreateView):
 			a=materialAlmacen.objects.get_or_create(almacen=form.almacen,material=form.material)
 			a[0].cantidad = a[0].cantidad + form.cantidad
 			a[0].save()
-			return  HttpResponseRedirect(self.success_url)
+			return  HttpResponseRedirect(reverse_lazy(self.success_url, kwargs = {'pk': pk1}))
 		else:
 			#print ("paso2")
 			return self.render_to_response(self.get_context_data(form=form))
@@ -538,7 +538,7 @@ class salidaMaterialItem(CreateView):
 	model_pk = item
 	form_class = crearSalidaMaterialForm
 	template_name = 'almacen/salidamaterial.html'
-	success_url = '/'
+	success_url = 'almacenes:listaingresomaterial'
 
 	def post(self, request, *args, **kwargs):
 		self.object = self.get_object	
@@ -578,7 +578,7 @@ class salidaMaterialItem(CreateView):
 				a=materialAlmacen.objects.get(almacen=form.almacen,material=form.material)
 				a.cantidad = a.cantidad - form.cantidad
 				a.save()
-				return  HttpResponseRedirect(self.success_url)
+				return  HttpResponseRedirect(reverse_lazy(self.success_url, kwargs = {'pk': pk1}))
 		else:
 			#print ("paso2")
 			return self.render_to_response(self.get_context_data(form=form))
@@ -648,7 +648,7 @@ class salidaHerramientasView(CreateView):
 	model_pk = item
 	form_class = crearSalidaHerramientasForm
 	template_name = 'almacen/salidaherramientas.html'
-	success_url = '/'
+	success_url = 'almacenes:listasalidaherramientas'
 
 	def post(self, request, *args, **kwargs):
 		self.object = self.get_object	
@@ -693,8 +693,7 @@ class salidaHerramientasView(CreateView):
 				a.cantidad = a.cantidad - form.cantidad
 				a.save()
 			
-				return  HttpResponseRedirect(self.success_url)
-
+				return  HttpResponseRedirect(reverse_lazy(self.success_url, kwargs = {'pk': pk1}))
 		else:
 			#print ("paso2")
 			return self.render_to_response(self.get_context_data(form=form))
@@ -764,7 +763,7 @@ class salidaMaquinariaEquipo(CreateView):
 	model_pk = item
 	form_class = crearSalidaMaquinariaEquipoForm
 	template_name = 'almacen/salidamaquinariaequipo.html'
-	success_url = '/'
+	success_url = 'almacenes:listasalidamaquinariaequipo'
 
 	def post(self, request, *args, **kwargs):
 		self.object = self.get_object	
@@ -809,7 +808,7 @@ class salidaMaquinariaEquipo(CreateView):
 				a.cantidad = a.cantidad - form.cantidad
 				a.save()
 			
-				return  HttpResponseRedirect(self.success_url)
+				return  HttpResponseRedirect(reverse_lazy(self.success_url, kwargs = {'pk': pk1}))
 
 		else:
 			#print ("paso2")
@@ -891,7 +890,7 @@ class debolucionHerramientas(UpdateView):
 	model = salidaHerramientas
 	form_class = crearDebolucionHerramientas
 	template_name = 'almacen/nuevaherramienta.html'
-	success_url = '/'
+	success_url = 'almacenes:debolucionherramientas'
 	def post(self, request, *args, **kwargs):
 		self.object = self.get_object	
 		pk = self.kwargs.get('pk',0)
@@ -911,7 +910,7 @@ class debolucionHerramientas(UpdateView):
 				print (a)
 				#print ("paso")
 			
-			return  HttpResponseRedirect(self.success_url)
+			return  HttpResponseRedirect(reverse_lazy(self.success_url, kwargs = {'pk': pk}))
 		else:
 			#print ("paso2")
 			return self.render_to_response(self.get_context_data(form=form))
@@ -956,7 +955,7 @@ class debolucionMaquinariaHequipo(UpdateView):
 	model = salidaMaquinaria_equipo
 	form_class = crearDebolucionMaquinariaEquipo
 	template_name = 'almacen/nuevaherramienta.html'
-	success_url = '/'
+	success_url = 'almacenes:debolucionmaquinariahequipo'
 	def post(self, request, *args, **kwargs):
 		self.object = self.get_object	
 		pk = self.kwargs.get('pk',0)
@@ -976,7 +975,7 @@ class debolucionMaquinariaHequipo(UpdateView):
 				print (a)
 				#print ("paso")
 			
-			return  HttpResponseRedirect(self.success_url)
+			return  HttpResponseRedirect(reverse_lazy(self.success_url, kwargs = {'pk': pk}))
 		else:
 			#print ("paso2")
 			return self.render_to_response(self.get_context_data(form=form))
@@ -989,7 +988,7 @@ class crearTipoActivo(CreateView):
 class crearActivo(CreateView):
 	form_class = crearActivoForm
 	template_name ='almacen/crearactivo.html'
-	success_url = "/"
+	success_url = reverse_lazy('almacenes:listacrearactivo')
 
 class listaCrearActivo(CreateView,ListView):
 	model = activo
