@@ -15,6 +15,9 @@
 		    </div>
 		{% endfor %}
 		{% endcomment %}
+		{% if error %}
+			<div class="alert alert-danger" role="alert"><strong>Alerta!!!!</strong> {{ error }}</div>
+		{% endif %}
 		{% load bootstrap3 %}
 		{% bootstrap_form form %}
 

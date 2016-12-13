@@ -119,6 +119,27 @@ class item(models.Model):
 	)
 	def __str__(self):
 		return (self.proyecto.objeto_de_la_contratacion+':'+self.descripcion)
+	def clean(self):
+		#print(self)
+		ini = self.fecha_inicio
+		fin = self.plazo_finalizacion
+		if ini and fin and (fin<ini):
+			raise ValidationError("El plazo de finalisacion deve ser mayor al de la fecha de inicio")
+	"""
+		print(self)
+		inip = self.proyecto.fecha_inicio
+		finp = self.proyecto.plazo_previsto
+		if (inip <= ini <= finp) and (inip <= fin <= finp):
+			raise ValidationError("Las fechas no estas entre los plasos del proyecto")
+		
+	def save(self, *args, **kwargs):
+		ini = self.fecha_inicio
+		fin = self.plazo_finalizacion
+		inip = self.proyecto.fecha_inicio
+		finp = self.proyecto.plazo_previsto
+		if (inip <= ini <= finp) and (inip <= fin <= finp):
+			raise ValidationError("Las fechas no estas entre los plasos del proyecto")
+	"""
 	class Meta:
 		#verbose_name = _('actividad')
 		verbose_name_plural = _('items')

@@ -80,10 +80,30 @@ class crearItem(CreateView):
 	def post(self, request, *args, **kwargs):
 		self.object = self.get_object	
 		form = self.form_class(request.POST)
-		#print (form.is_valid())
-		#print (form2.is_valid())
+		#pk1=self.kwargs['pk']
+		#proyectoval = self.model_pk.objects.get(id=pk1)
 		if form.is_valid():
 			pk1=self.kwargs['pk']
+
+			dat = self.model_pk.objects.get(id=pk1)
+			ini = form.cleaned_data['fecha_inicio']
+			fin = form.cleaned_data['plazo_finalizacion']
+			inip = dat.fecha_inicio
+			finp = dat.plazo_previsto
+			"""
+			print(ini)
+			print(fin)
+			print(inip)
+			print(finp)
+			print(inip <= ini <= finp)
+			print(inip <= fin <= finp)
+			print(not((inip <= ini <= finp) and (inip <= fin <= finp)))
+			return
+			"""
+			if (not((inip <= ini <= finp) and (inip <= fin <= finp))):
+				return self.render_to_response(self.get_context_data(form=form,error='Las fechas no estas entre los plasos del proyecto'))
+
+			#pk1=self.kwargs['pk']
 			form =form.save(commit=False)
 			form.proyecto = self.model_pk.objects.get(id=pk1)
 			form.save()
