@@ -753,7 +753,86 @@ def reporteProyecto(request,pk):
 	c.drawString(30,comienso,'2. Informacion de Items.-')
 
 	#items
+	c.setFont('Helvetica',10)
+	comienso=comienso-22
+	items = pro_ac.item_set.all()
 
+	for i in items:
+		comienso=comienso-20
+		c.setFont('Helvetica',15)
+		c.drawString(30,comienso,'Descripcion de Item: '+str(i.descripcion))
+		comienso=comienso-13
+		c.setFont('Helvetica',10)
+		c.drawString(30,comienso,'Fecha de inicio: '+str(i.fecha_inicio))
+		comienso=comienso-13
+		c.drawString(30,comienso,'Plazo de finalizacion: '+str(i.plazo_finalizacion))
+		comienso=comienso-13
+		c.drawString(30,comienso,'Unidad: '+str(i.unidad))
+		comienso=comienso-13
+		c.drawString(30,comienso,'Cantidad: '+str(i.cantidad))
+		comienso=comienso-13
+		c.drawString(30,comienso,'Porcentaje de avance: '+str(i.pocentaje_avance)+"%")
+		comienso=comienso-13
+
+		"""
+		if comienso<=300:
+			print("ya")
+			c.showPage()
+			comienso = 750
+		"""
+
+		re = i.reportes_avance_set.all()
+
+		for r in re:
+			comienso=comienso-20
+			c.setFont('Helvetica',15)
+			c.drawString(50,comienso,'Reporte N°: '+str(r.id))
+			comienso=comienso-13
+			c.setFont('Helvetica',10)
+			c.drawString(50,comienso,'date: '+str(r.date))
+			comienso=comienso-13
+			if(i.unidad == 'Gbl'):
+				c.drawString(50,comienso,'alto: '+str(r.alto))
+				comienso=comienso-13
+			if(i.unidad == 'm2'):
+				c.drawString(50,comienso,'alto: '+str(r.alto))
+				comienso=comienso-13
+				c.drawString(50,comienso,'largo: '+str(r.largo))
+				comienso=comienso-13
+			if(i.unidad == 'm3'):
+				c.drawString(50,comienso,'alto: '+str(r.alto))
+				comienso=comienso-13
+				c.drawString(50,comienso,'largo: '+str(r.largo))
+				comienso=comienso-13
+				c.drawString(50,comienso,'ancho: '+str(r.ancho))
+				comienso=comienso-13
+			c.drawString(50,comienso,'observaciones: '+str(r.observaciones))
+			comienso=comienso-13
+			"""
+			if comienso<=300:
+				print("ya")
+				c.showPage()
+				comienso = 750
+			"""
+			rf = r.reporte_fotografico_set.all()
+			#from django.contrib.sites.models import Site
+			for xf in rf:
+				from constructora.settings import BASE_DIR
+				APP_ROOT = BASE_DIR
+				comienso=comienso-155
+				c.drawImage(APP_ROOT + xf.fotos_reporte.url,  200,comienso, width=145,height=180, preserveAspectRatio=True)#, anchor='c')
+				print("ya")
+				"""
+				if comienso<=200:
+					c.showPage()
+					comienso = 750
+				"""
+		#c.save()
+		c.showPage()
+		comienso = 750
+	print(comienso)
+
+	# otro
 	c.save()
 	pdf = buffer.getvalue()
 	response.write(pdf)

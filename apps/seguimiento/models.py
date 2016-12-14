@@ -83,6 +83,13 @@ class proyecto(models.Model):
 		print(fin)
 		if ini and fin and (fin<ini):
 			raise ValidationError("El plazo previsto deve ser mayor al de la fecha de inicio")
+	def enTiempo(self):
+		import datetime
+		n = datetime.datetime.now().date()
+		if (self.fecha_inicio <= n <= self.plazo_previsto) or (self.pocentaje_avance>=100):
+			return True
+		else:
+			return False
 	def save(self, *args, **kwargs):
 		self.full_clean()
 		return super(proyecto, self).save(*args, **kwargs)
@@ -125,6 +132,13 @@ class item(models.Model):
 		fin = self.plazo_finalizacion
 		if ini and fin and (fin<ini):
 			raise ValidationError("El plazo de finalisacion deve ser mayor al de la fecha de inicio")
+	def enTiempo(self):
+		import datetime
+		n = datetime.datetime.now().date()
+		if (self.fecha_inicio <= n <= self.plazo_finalizacion) or (self.pocentaje_avance>=100):
+			return True
+		else:
+			return False
 	"""
 		print(self)
 		inip = self.proyecto.fecha_inicio

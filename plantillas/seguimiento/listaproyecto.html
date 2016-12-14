@@ -48,7 +48,13 @@
 				  			{% if forloop.counter|divisibleby:2 %}
 				  				<tr class="info">
 							      	<td>{{ proyecto.id }}</td>
-							      	<td>{{ proyecto.objeto_de_la_contratacion }}</td>
+							      	<td>{{ proyecto.objeto_de_la_contratacion }} 
+							      		{% if proyecto.enTiempo %}
+							      			<span class="label label-success">En tiempo</span>
+							      		{% else %}
+							      		    <span class="label label-danger">Retrasado</span>
+							      		{% endif %}
+							      	</td>
 							      	<td>{{ proyecto.modalidad_de_contratacion }}</td>
 							      	<td>{{ proyecto.ubicacion_proyecto }}</td>
 							      	<td>{{ proyecto.ec_telefono }}</td>
@@ -66,7 +72,13 @@
 							{% else %}
 								<tr class="success">
 							      	<td>{{ proyecto.id }}</td>
-							      	<td>{{ proyecto.objeto_de_la_contratacion }}</td>
+							      	<td>{{ proyecto.objeto_de_la_contratacion }} 
+							      		{% if proyecto.enTiempo %}
+							      			<span class="label label-success">En tiempo</span>
+							      		{% else %}
+							      		    <span class="label label-danger">Retrasado</span>
+							      		{% endif %}
+							      	</td>
 							      	<td>{{ proyecto.modalidad_de_contratacion }}</td>
 							      	<td>{{ proyecto.ubicacion_proyecto }}</td>
 							      	<td>{{ proyecto.ec_telefono }}</td>

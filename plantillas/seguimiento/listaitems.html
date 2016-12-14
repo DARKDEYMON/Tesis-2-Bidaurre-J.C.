@@ -45,7 +45,13 @@
 				  			{% if forloop.counter|divisibleby:2 %}
 				  				<tr class="info">
 							      	<td>{{ item.id }}</td>
-							      	<td>{{ item.descripcion }}</td>
+							      	<td>{{ item.descripcion }}
+							      		{% if item.enTiempo %}
+							      			<span class="label label-success">En tiempo</span>
+							      		{% else %}
+							      		    <span class="label label-danger">Retrasado</span>
+							      		{% endif %}
+							      	</td>
 							      	<td>{{ item.unidad }}</td>
 							      	<td>{{ item.cantidad }}</td>
 							      	<td>{{ item.fecha_inicio|date:"Y-m-d" }}</td>
@@ -61,7 +67,13 @@
 							{% else %}
 								<tr class="success">
 							      	<td>{{ item.id }}</td>
-							      	<td>{{ item.descripcion }}</td>
+							      	<td>{{ item.descripcion }}
+							      		{% if item.enTiempo %}
+							      			<span class="label label-success">En tiempo</span>
+							      		{% else %}
+							      		    <span class="label label-danger">Retrasado</span>
+							      		{% endif %}
+							      	</td>
 							      	<td>{{ item.unidad }}</td>
 							      	<td>{{ item.cantidad }}</td>
 							      	<td>{{ item.fecha_inicio|date:"Y-m-d" }}</td>
