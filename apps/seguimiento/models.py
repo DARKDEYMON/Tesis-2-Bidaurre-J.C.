@@ -66,7 +66,8 @@ class proyecto(models.Model):
 	)
 	presupuesto_final = models.FloatField(
 		null=False,
-		blank=False
+		blank=False,
+		validators=[MinValueValidator(10000,"El presupuesto minimo de un proyecto esta por ensima de los 10000")]
 	)
 	pocentaje_avance = models.PositiveIntegerField(
 		null=False,
@@ -93,6 +94,8 @@ class proyecto(models.Model):
 	def save(self, *args, **kwargs):
 		self.full_clean()
 		return super(proyecto, self).save(*args, **kwargs)
+	class Meta:
+		ordering = ['pk']
 
 class item(models.Model):
 	proyecto = models.ForeignKey(proyecto)
@@ -157,6 +160,7 @@ class item(models.Model):
 	class Meta:
 		#verbose_name = _('actividad')
 		verbose_name_plural = _('items')
+		ordering = ['pk']
 class peticion_materiales(models.Model):
 	item = models.ForeignKey(item)
 	material = models.ForeignKey(material)
@@ -177,8 +181,16 @@ class peticion_materiales(models.Model):
 		blank=True,
 		null=True
 	)
+	def totalItem(self):
+		res = peticion_materiales.objects.filter(item=self.item).aggregate(total=Sum('precio_estimado_total'))
+		return res['total']
+	def total(self):
+		res = peticion_materiales.objects.filter(item__in=item.objects.filter(proyecto=self.item.proyecto)).aggregate(total=Sum('precio_estimado_total'))
+		return res['total']
 	def __str__(self):
 		return (self.material.decripcion)
+	class Meta:
+		ordering = ['pk']
 
 class peticion_insumos(models.Model):
 	item = models.ForeignKey(item)
@@ -200,8 +212,16 @@ class peticion_insumos(models.Model):
 		blank=True,
 		null=True
 	)
+	def totalItem(self):
+		res = peticion_insumos.objects.filter(item=self.item).aggregate(total=Sum('precio_estimado_total'))
+		return res['total']
+	def total(self):
+		res = peticion_insumos.objects.filter(item__in=item.objects.filter(proyecto=self.item.proyecto)).aggregate(total=Sum('precio_estimado_total'))
+		return res['total']
 	def __str__(self):
 		return (self.insumos.decripcion)
+	class Meta:
+		ordering = ['pk']
 
 class peticion_Herramientas(models.Model):
 	item = models.ForeignKey(item)
@@ -221,6 +241,8 @@ class peticion_Herramientas(models.Model):
 	)
 	def __str__(self):
 		return (self.herramientas.decripcion)
+	class Meta:
+		ordering = ['pk']
 
 class peticion_maquinaria_equipo(models.Model):
 	item = models.ForeignKey(item)
@@ -240,6 +262,8 @@ class peticion_maquinaria_equipo(models.Model):
 	)
 	def __str__(self):
 		return (self.maquinaria_equipo.decripcion)
+	class Meta:
+		ordering = ['pk']
 #externos
 class requerimiento_personal(models.Model):
 	item = models.ForeignKey(item)
@@ -265,8 +289,16 @@ class requerimiento_personal(models.Model):
 		blank=True,
 		null=True
 	)
+	def totalItem(self):
+		res = requerimiento_personal.objects.filter(item=self.item).aggregate(total=Sum('precio_total'))
+		return res['total']
+	def total(self):
+		res = requerimiento_personal.objects.filter(item__in=item.objects.filter(proyecto=self.item.proyecto)).aggregate(total=Sum('precio_total'))
+		return res['total']
 	def __str__(self):
 		return (self.funcion)
+	class Meta:
+		ordering = ['pk']
 
 class requerimiento_maq_he(models.Model):
 	item = models.ForeignKey(item)
@@ -292,8 +324,16 @@ class requerimiento_maq_he(models.Model):
 		blank=True,
 		null=True
 	)
+	def totalItem(self):
+		res = requerimiento_maq_he.objects.filter(item=self.item).aggregate(total=Sum('precio_total'))
+		return res['total']
+	def total(self):
+		res = requerimiento_maq_he.objects.filter(item__in=item.objects.filter(proyecto=self.item.proyecto)).aggregate(total=Sum('precio_total'))
+		return res['total']
 	def __str__(self):
 		return (self.nombre_maq_he)
+	class Meta:
+		ordering = ['pk']
 
 class materiales_locales(models.Model):
 	item = models.ForeignKey(item)
@@ -320,8 +360,16 @@ class materiales_locales(models.Model):
 		blank=False,
 		null=False,
 	)
+	def totalItem(self):
+		res = materiales_locales.objects.filter(item=self.item).aggregate(total=Sum('precio_total'))
+		return res['total']
+	def total(self):
+		res = materiales_locales.objects.filter(item__in=item.objects.filter(proyecto=self.item.proyecto)).aggregate(total=Sum('precio_total'))
+		return res['total']
 	def __str__(self):
 		return (self.descripcion)
+	class Meta:
+		ordering = ['pk']
 # reportes
 class reportes_avance(models.Model):
 	item = models.ForeignKey(item)
@@ -421,7 +469,8 @@ class reportes_avance(models.Model):
 			current_pro.pocentaje_avance = int(current_pro_porcent['avance_grl'])
 			current_pro.save()
 			print(current_pro_porcent)
-		
+	class Meta:
+		ordering = ['pk']
 
 def validate_file_extension(value):
 	import os
@@ -445,3 +494,5 @@ class reporte_fotografico(models.Model):
 	)
 	def __str__(self):
 		return (self.reportes_avance.item.descripcion)
+	class Meta:
+		ordering = ['pk']

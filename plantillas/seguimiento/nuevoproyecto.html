@@ -1,7 +1,13 @@
 {% extends "base/baseform.html" %}	
 
-
+	{% block tituloform %}
+		Nuevo proyecto
+	{% endblock tituloform %}
 	
+	{% block iddanger %}
+	    id="danger"
+	{% endblock iddanger %}
+
 	{% block formulario %}
 
 	
@@ -21,7 +27,7 @@
 
 		{% buttons %}
 	        <button type="submit" class="btn btn-primary center-block">
-	            {% bootstrap_icon "glyphicon glyphicon-ok" %} Submit
+	            {% bootstrap_icon "glyphicon glyphicon-ok" %} Enviar
 	        </button>
 	    {% endbuttons %}
 		<!--

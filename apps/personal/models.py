@@ -6,6 +6,8 @@ from django.core.validators import RegexValidator
 
 from apps.seguimiento.models  import proyecto
 
+from django.core.validators import MaxValueValidator, MinValueValidator
+
 
 # Create your models here.
 
@@ -97,7 +99,8 @@ class cargo(models.Model):
 	)
 	salario = models.FloatField(
 		null=False,
-		blank=False
+		blank=False,
+		validators=[MinValueValidator(1800,"El salario minimo nacional es 1800")]
 	)
 	encargado_de_reportes_avance = models.BooleanField(
 		null=False,

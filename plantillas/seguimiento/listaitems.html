@@ -7,7 +7,9 @@
 				
 				<div class="row">
 					<div class="col-lg-12">
-						
+						<h2 style="text-align: center;">
+							Lista de items de proyecto
+						</h2>
 						<form role="form" class="form-inline" action="" method="get" accept-charset="utf-8">
 								{% load bootstrap3 %}
 				
@@ -15,7 +17,7 @@
 								
 								{% bootstrap_form form layout='inline' %}
 
-								{% buttons submit='Search' layout='inline' %}{% endbuttons %}
+								{% buttons submit='Buscar' layout='inline' %}{% endbuttons %}
 
 						    	<a class="btn btn-warning" type="submit"  href="{% url 'seguimiento:crearitem' pk1 %}">Crear Nuevo Item </a>
 						</form>
@@ -143,23 +145,23 @@
 												<ul class="dropdown-menu">
 												    <li>
 												    	<a href="{% url 'seguimiento:requerimientopersonal' item.id %}">
-												    		Mano de Hobra<span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true">
+												    		Mano de obra<span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true">
 												    	</a>
 												    </li>
 												    <li>
 												    	<a href="{% url 'seguimiento:listareqpersonal' item.id %}">
-												    		Lista requerimiento mano de hobra<span class="glyphicon glyphicon glyphicon-plus">
+												    		Lista requerimiento mano de obra<span class="glyphicon glyphicon glyphicon-plus">
 												    	</a> 
 												    </li>
 												    <li class="divider"></li>
 												    <li>
 												    	<a href="{% url 'seguimiento:requerimientoMaHe' item.id %}">
-												    		Contrato de Maquinaria/Hequipo<span class="glyphicon glyphicon glyphicon-plus">
+												    		Contrato de Maquinaria/Equipo<span class="glyphicon glyphicon glyphicon-plus">
 												    	</a> 
 												    </li>
 												    <li>
 												    	<a href="{% url 'seguimiento:listarequerimientomahe' item.id %}">
-												    		Lista de contrato de Maquinaria/Hequipo<span class="glyphicon glyphicon glyphicon-plus">
+												    		Lista de contrato de Maquinaria/Equipo<span class="glyphicon glyphicon glyphicon-plus">
 												    	</a> 
 												    </li>
 												    <li class="divider"></li>

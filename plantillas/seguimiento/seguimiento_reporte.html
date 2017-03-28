@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ title|default:"Reporte" }}</title>
+    <meta charset="utf-8">
+    {% block style_base %}
+        {% comment %}
+            See DEFAULT_CSS in https://github.com/chrisglass/xhtml2pdf/blob/master/xhtml2pdf/default.py
+            for base style.
+        {% endcomment %}
+
+        {% block layout_style %}
+            <style type="text/css">
+                @page {
+                    size: {{ pagesize|default:"A4" }};
+                    margin-left: 2.5cm;
+                    margin-right: 2.5cm;
+                    margin-top: 2.5cm;
+                    margin-bottom: 2cm;
+                    @frame header {
+                        -pdf-frame-content: page-header;
+                        margin-top: 0.7cm;
+                        margin-right: 2mm;
+                        margin-bottom: 0cm;
+                        margin-left: 1.2cm;
+                    }
+                    @frame footer {
+                        -pdf-frame-content: page-footer;
+                        bottom: 0cm;
+                        margin-left: 1cm;
+                        margin-right: 1cm;
+                        height: 1cm;
+                    }
+                }
+
+                html{
+                    font-size: 10pt;
+                }
+                .tittle_report h1{
+                    text-align: center;
+                    margin: 5px;
+                }
+                .general{
+                    margin: 20px;
+                }
+                .general table, tr, th{
+                    text-align: left;
+                }
+                .lineal table{
+                    padding-top: 3px;
+                    padding-right: 3px;
+                    padding-left: 3px;
+                    border: 1px solid black;
+                }
+                .lineal th{
+                    text-align: center;
+                }
+            </style>
+        {%endblock%}
+        {% block extra_style %}{% endblock %}
+    {% endblock %}
+</head>
+<body>
+    <div>
+        {%block page_header%}
+            <div class="tittle_report">
+                 <h1>Reporte de Avance Proyecto</h1>
+                 <h1>{{ res.objeto_de_la_contratacion }}</h1>
+            </div>
+           
+        {%endblock%}
+        	
+        {%block content%}
+            
+                <h3><b>1. Informacion General.-</b></h3>
+                <div class="general">
+                    <table>
+                        <tr>
+                            <th>
+                                Objeto de la contratacion:
+                            </th>
+                            <td>
+                                {{ res.objeto_de_la_contratacion }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Modalidad de contratacion:
+                            </th>
+                            <td>
+                                {{ res.modalidad_de_contratacion }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Entidad contratante:
+                            </th>
+                            <td>
+                                {{ res.entidad_contratante }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Telefono de la entidad contratante:
+                            </th>
+                            <td>
+                                {{ res.ec_telefono }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Direccion de la entidad contratante:
+                            </th>
+                            <td>
+                                {{ res.ec_direccion }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Email de la entidad contratante:
+                            </th>
+                            <td>
+                                {{ res.ec_email }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Fecha de inicio:
+                            </th>
+                            <td>
+                                {{ res.fecha_inicio }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Plazo previsto:
+                            </th>
+                            <td>
+                                {{ res.plazo_previsto }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Ubicacion del proyecto:
+                            </th>
+                            <td>
+                                {{ res.ubicacion_proyecto }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Presupuesto final:
+                            </th>
+                            <td>
+                                {{ res.presupuesto_final }} Bs.
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Porcentaje de avance:
+                            </th>
+                            <td>
+                                {{ res.pocentaje_avance }}%
+                            </td>
+                        </tr> 
+                        <tr>
+                            <th>
+                                A tiempo :
+                            </th>
+                            <td>
+                                {% if res.enTiempo %}
+                                    Si
+                                {% else %}
+                                    No
+                                {% endif %}
+                            </td>
+                        </tr> 
+                    </table>
+                </div>
+                <h3><b>2. Informacion de Items.-</b></h3>
+                {% if res.item_set.all %}
+
+                {% for i in res.item_set.all %}
+                    <h3><b>2.{{ forloop.counter }}. Item {{ i.descripcion }}.-</b></h3>
+                    <div class="general">
+                        <table>
+                            <tr>
+                                <th>
+                                    Descripcion:
+                                </th>
+                                <td>
+                                    {{ i.descripcion }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Fecha de inicio:
+                                </th>
+                                <td>
+                                    {{ i.fecha_inicio }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Plazo de finalizacion:
+                                </th>
+                                <td>
+                                    {{ i.plazo_finalizacion }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Unidad de medida:
+                                </th>
+                                <td>
+                                    {{ i.unidad }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Cantidad:
+                                </th>
+                                <td>
+                                    {{ i.cantidad }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Porcenteja de avance:
+                                </th>
+                                <td>
+                                    {{ i.pocentaje_avance }}%
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    En tiempo:
+                                </th>
+                                <td>
+                                    {{ i.enTiempo }}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- materiales -->
+                    <h3><b>2.{{ forloop.counter }}.1 Peticion de Materiales Item {{ i.descripcion }}.-</b></h3>
+                    {% if i.peticion_materiales_set.all %}
+                    <div class="lineal">
+                        <table border="1">
+                            <tr>
+                                <th>
+                                    Material
+                                </th>
+                                <th>
+                                    Cantidad
+                                </th>
+                                <th>
+                                    Precio estimado total
+                                </th>
+                                <th>
+                                    Petion de planificacion
+                                </th>
+                                <th>
+                                    Observaciones
+                                </th>
+                            </tr>
+                            {% for pm in i.peticion_materiales_set.all %}
+                            <tr>
+                                <td>
+                                    {{ pm.material.decripcion }}
+                                </td>
+                                <td>
+                                    {{ pm.cantidad }}
+                                </td>
+                                <td>
+                                    {{ pm.precio_estimado_total }} Bs
+                                </td>
+                                <td>
+                                    {% if pm.petion_de_planificacion %}
+                                        Si
+                                    {% else %}
+                                        No
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {{ pm.observaciones }}
+                                </td>
+                            </tr>
+                            {% if forloop.last %}
+                                <tr>
+                                    <td colspan="2">
+                                        Total
+                                    </td>
+                                    <td colspan="3">
+                                        {{ pm.totalItem }} Bs
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            {% endfor %}
+                        </table>
+                    </div>
+                    {% else %}
+                        <p>No contiene incluidos el detalle de materiales aun</p>
+                    {% endif %}
+                    <!-- materiales -->
+
+                    <!-- insumos -->
+                    <h3><b>2.{{ forloop.counter }}.2 Peticion de Insumos Item {{ i.descripcion }}.-</b></h3>
+                    {% if i.peticion_insumos_set.all %}
+                    <div class="lineal">
+                        <table>
+                            <tr>
+                                <th>
+                                    Insumo
+                                </th>
+                                <th>
+                                    Cantidad
+                                </th>
+                                <th>
+                                    Precio estimado total
+                                </th>
+                                <th>
+                                    Petion de planificacion
+                                </th>
+                                <th>
+                                    Observaciones
+                                </th>
+                            </tr>
+                            {% for ins in i.peticion_insumos_set.all %}
+                            <tr>
+                                <td>
+                                    {{ ins.insumos.decripcion }}
+                                </td>
+                                <td>
+                                    {{ ins.cantidad }}
+                                </td>
+                                <td>
+                                    {{ ins.precio_estimado_total }} Bs
+                                </td>
+                                <td>
+                                    {% if ins.petion_de_planificacion %}
+                                        Si
+                                    {% else %}
+                                        No
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {{ ins.observaciones }}
+                                </td>
+                            </tr>
+                            {% if forloop.last %}
+                                <tr>
+                                    <td colspan="2">
+                                        Total
+                                    </td>
+                                    <td colspan="3">
+                                        {{ ins.totalItem }} Bs
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            {% endfor %}
+                        </table>
+                    </div>
+                    {% else %}
+                        <p>No contiene incluidos el detalle de insumos aun</p>
+                    {% endif %}
+                    <!-- insumos -->
+
+                    <!-- herramientas -->
+                    <h3><b>2.{{ forloop.counter }}.3 Peticion de Herramientas Item {{ i.descripcion }}.-</b></h3>
+                    {% if i.peticion_herramientas_set.all %}
+                    <div class="lineal">
+                        <table>
+                            <tr>
+                                <th>
+                                    Descripcion Herramienta
+                                </th>
+                                <th>
+                                    Cantidad
+                                </th>
+                                <th>
+                                    Petion de planificacion
+                                </th>
+                                <th>
+                                    Observaciones
+                                </th>
+                            </tr>
+                            {% for peth in i.peticion_herramientas_set.all %}
+                            <tr>
+                                <td>
+                                    {{ peth.herramientas.decripcion }}
+                                </td>
+                                <td>
+                                    {{ peth.cantidad }}
+                                </td>
+                                <td>
+                                    {% if peth.petion_de_planificacion %}
+                                        Si
+                                    {% else %}
+                                        No
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {{ peth.observaciones }}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                    {% else %}
+                        <p>No contiene incluidos el detalle de herramientas aun</p>
+                    {% endif %}
+                    <!-- herramientas -->
+
+                    <!-- mano de obra -->
+                    <h3><b>2.{{ forloop.counter }}.4 Mano de Obra Item {{ i.descripcion }}.-</b></h3>
+                    {% if i.requerimiento_personal_set.all %}
+                    <div class="lineal">
+                        <table>
+                            <tr>
+                                <th>
+                                    Funcion
+                                </th>
+                                <th>
+                                    Cantidad
+                                </th>
+                                <th>
+                                    Precio total
+                                </th>
+                                <th>
+                                    Petion de planificacion
+                                </th>
+                                <th>
+                                    Observaciones
+                                </th>
+                            </tr>
+                            {% for pers in i.requerimiento_personal_set.all %}
+                            <tr>
+                                <td>
+                                    {{ pers.funcion }}
+                                </td>
+                                <td>
+                                    {{ pers.cantidad }}
+                                </td>
+                                <td>
+                                    {{ pers.precio_total }} Bs
+                                </td>
+                                <td>
+                                    {% if pers.petion_de_planificacion %}
+                                        Si
+                                    {% else %}
+                                        No
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {{ pers.observaciones }}
+                                </td>
+                            </tr>
+                            {% if forloop.last %}
+                                <tr>
+                                    <td colspan="2">
+                                        Total
+                                    </td>
+                                    <td colspan="3">
+                                        {{ pers.totalItem }} Bs
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            {% endfor %}
+                        </table>
+                    </div>
+                    {% else %}
+                        <p>No contiene incluidos el detalle de mano de obra aun</p>
+                    {% endif %}
+                    <!-- mano de obra -->
+
+                    <!-- maquinaria/equipo -->
+                    <h3><b>2.{{ forloop.counter }}.5 Requerimiento Maquinaria/Equipo Item {{ i.descripcion }}.-</b></h3>
+                    {% if i.requerimiento_maq_he_set.all %}
+                    <div class="lineal">
+                        <table>
+                            <tr>
+                                <th>
+                                    Descripcion
+                                </th>
+                                <th>
+                                    Cantidad
+                                </th>
+                                <th>
+                                    Precio total
+                                </th>
+                                <th>
+                                    Petion de planificacion
+                                </th>
+                                <th>
+                                    Observaciones
+                                </th>
+                            </tr>
+                            {% for pers in i.requerimiento_maq_he_set.all %}
+                            <tr>
+                                <td>
+                                    {{ pers.nombre_maq_he }}
+                                </td>
+                                <td>
+                                    {{ pers.cantidad }}
+                                </td>
+                                <td>
+                                    {{ pers.precio_total }} Bs
+                                </td>
+                                <td>
+                                    {% if pers.petion_de_planificacion %}
+                                        Si
+                                    {% else %}
+                                        No
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {{ pers.observaciones }}
+                                </td>
+                            </tr>
+                            {% if forloop.last %}
+                                <tr>
+                                    <td colspan="2">
+                                        Total
+                                    </td>
+                                    <td colspan="3">
+                                        {{ pers.totalItem }} Bs
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            {% endfor %}
+                        </table>
+                    </div>
+                    {% else %}
+                        <p>No contiene incluidos el detalle de maquinaria/equipo aun</p>
+                    {% endif %}
+                    <!-- maquinaria/equipo -->
+
+
+                    <!-- material local -->
+                    <h3><b>2.{{ forloop.counter }}.6 Requerimiento Material Local Item {{ i.descripcion }}.-</b></h3>
+                    {% if i.materiales_locales_set.all %}
+                    <div class="lineal">
+                        <table>
+                            <tr>
+                                <th>
+                                    Descripcion
+                                </th>
+                                <th>
+                                    Cantidad
+                                </th>
+                                <th>
+                                    Unidad
+                                </th>
+                                <th>
+                                    Precio total
+                                </th>
+                                <th>
+                                    Petion de planificacion
+                                </th>
+                                <th>
+                                    Observaciones
+                                </th>
+                            </tr>
+                            {% for matl in i.materiales_locales_set.all %}
+                            <tr>
+                                <td>
+                                    {{ matl.descripcion }}
+                                </td>
+                                <td>
+                                    {{ matl.cantidad }}
+                                </td>
+                                <td>
+                                    {{ matl.unidad }}
+                                </td>
+                                <td>
+                                    {{ matl.precio_total }} Bs
+                                </td>
+                                <td>
+                                    {% if matl.petion_de_planificacion %}
+                                        Si
+                                    {% else %}
+                                        No
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {{ matl.observaciones }}
+                                </td>
+                            </tr>
+                            {% if forloop.last %}
+                                <tr>
+                                    <td colspan="2">
+                                        Total
+                                    </td>
+                                    <td colspan="3">
+                                        {{ matl.totalItem }} Bs
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            {% endfor %}
+                        </table>
+                    </div>
+                    {% else %}
+                        <p>No contiene incluidos el detalle de material local aun aun</p>
+                    {% endif %}
+                    <!-- material local -->
+
+                    <!-- reportes -->
+                    <h3><b>2.{{ forloop.counter }}.7 Informes de Abance Item {{ i.descripcion }}.-</b></h3>
+                    {% if i.reportes_avance_set.all %}
+                    {% for inf in i.reportes_avance_set.all %} 
+                        <h3><b>{{ forloop.counter }}.a) Informe general de Abance de fecha {{ inf.date }}.-</b></h3>
+                        <div class="general">
+                            <table>
+                                <tr>
+                                    <th>
+                                        Fecha:
+                                    </th>
+                                    <td>
+                                        {{ inf.date }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        Alto(m):
+                                    </th>
+                                    <td>
+                                        {{ inf.alto }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        Largo(m):
+                                    </th>
+                                    <td>
+                                        {% ifequal inf.item.unidad "m2" %}
+                                            {% ifequal inf.item.unidad "m3" %} 
+                                                {{ inf.largo }}
+                                            {% else %}
+                                                -
+                                            {% endifequal %}
+                                        {% else %}     
+                                            -
+                                        {% endifequal %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        Ancho(m):
+                                    </th>
+                                    <td>
+                                        {% ifequal inf.item.unidad 'm3' %}
+                                            {{ inf.ancho }}
+                                        {% else %}     
+                                            -
+                                        {% endifequal %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        Observaciones:
+                                    </th>
+                                    <td>
+                                        {{ inf.observaciones }}
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <h3><b>{{ forloop.counter }}.b) Informe fotofrafico de Abance de fecha {{ inf.date }}.-</b></h3>
+                        <div class="lineal">
+                            {% for rfot in inf.reporte_fotografico_set.all %}
+                            
+                            <table>  
+                                <tr>
+                                    <td style="text-align:center;">
+                                        Foto fecha:{{ rfot.date|date:"Y-m-d" }}
+                                        <img width="550" src="{{ rfot.fotos_reporte.url }}">
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                            {% endfor %}
+                        </div>
+
+                    {% endfor %}
+                    {% else %}
+                        <p>No contiene incluidos el detalles de reportes aun</p>
+                    {% endif %}
+                    <!-- reportes -->
+
+                {% endfor %}
+                {% else %}
+                    <p>No contiene items aun</p>
+                {% endif %}
+            
+        {%endblock%}
+    </div>
+
+    <div id="page-footer">
+        {%block page_foot%}
+            
+                <pdf:pagenumber />
+           
+        {%endblock%}
+    </div>
+</body>
+</html>

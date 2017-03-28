@@ -1,9 +1,11 @@
 {% extends "base/baseform.html" %}	
 
+	{% block tituloform %}
+		Añadir Permisos
+	{% endblock tituloform %}
 	
 	{% block formulario %}
 
-	
 		{% csrf_token %}
 		{% comment %}
 		{% for field in form %}
@@ -19,7 +21,7 @@
 
 		{% buttons %}
 	        <button type="submit" class="btn btn-primary center-block">
-	            {% bootstrap_icon "glyphicon glyphicon-ok" %} Submit
+	            {% bootstrap_icon "glyphicon glyphicon-ok" %} Enviar
 	        </button>
 	    {% endbuttons %}
 		<!--

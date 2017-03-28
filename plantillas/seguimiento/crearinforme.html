@@ -1,7 +1,9 @@
 {% extends "base/baseform.html" %}	
 
 
-	
+	{% block tituloform %}
+		Informe de abance
+	{% endblock tituloform %}
 	{% block formulario %}
 
 	
@@ -20,7 +22,7 @@
 
 		{% buttons %}
 	        <button type="submit" class="btn btn-primary center-block">
-	            {% bootstrap_icon "glyphicon glyphicon-ok" %} Submit
+	            {% bootstrap_icon "glyphicon glyphicon-ok" %} Enviar
 	        </button>
 	    {% endbuttons %}
 		<!--

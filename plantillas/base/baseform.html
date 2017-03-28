@@ -13,8 +13,16 @@
 			{% block errores %}
 				
 			{% endblock errores %}
+
 			
-			<form action="{% block urlEnvio %} {% endblock urlEnvio %}" method="post" enctype="multipart/form-data" class="form-horizontal">
+			<h2 style="text-align: center;">
+				{% block tituloform %}
+
+				{% endblock tituloform %}
+			</h2>
+			
+			
+			<form {% block iddanger %} {% endblock iddanger %} action="{% block urlEnvio %} {% endblock urlEnvio %}" method="post" enctype="multipart/form-data" class="form-horizontal">
 				{% block formulario %}
 					
 				{% endblock formulario %}

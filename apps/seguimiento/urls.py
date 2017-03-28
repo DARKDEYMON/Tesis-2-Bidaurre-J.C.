@@ -157,7 +157,7 @@ urlpatterns = [
         name='listainformesfotos'
     ),
     url(r'^reporteproyecto/(?P<pk>\d+)/$',
-        login_required(reporteProyecto), 
+        login_required(reporteProyecto.as_view()), 
         name='reporteproyecto'
     ),
 

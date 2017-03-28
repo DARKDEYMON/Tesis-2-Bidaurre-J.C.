@@ -15,6 +15,9 @@
 	<script src="{% static "calendar/lib/jquery.min.js" %}"></script>
 	<script src="{% static "calendar/fullcalendar.min.js" %}"></script>
 	<script src="{% static "calendar/locale/es.js" %}"></script>
+	
+	<link rel="stylesheet" href="{% static "css/jquery-ui.css" %}">
+
 </head>
 <body>
 	{% block nav %}
@@ -29,6 +32,43 @@
 	<!-- jQuery -->
     <!--<script src="{% static "js/jquery-3.1.0.min.js"%}"></script>-->
     <!-- Plugin boostrap -->
+    {% block advertencia %}
+    	<script>
+			$(document).ready(function(){
+				//console.log("hola");
+				$('#danger').submit(function(){
+					currentForm = this;
+					console.log("holas");
+					$('#dialog-confirm').dialog({
+						position: { my: "center", at: "center", of: window },
+						resizable: false,
+						//height:200,
+						modal: true,
+						draggable: false,
+						buttons: {
+							'Enviar': function() 
+							{
+								currentForm.submit();
+							},
+							Cancelar: function() {
+								$(this).dialog('close');
+							}
+						},
+					});
+					return false;
+				});
+			});	
+		</script>
+        <div id="dialog-confirm" title="Cuidado!!!" style="display: none;">
+        	<div class="alert alert-danger" role="alert">
+        		 <span class="glyphicon glyphicon-alert" aria-hidden="true"></span>
+        		El siguiente formulario contiene informacion sencible por fabor verifique los datos antes de ingresarlos
+        	</div>
+		</div>
+
+    {% endblock advertencia %}
+    
     <script src="{% static "js/bootstrap.min.js"%}"></script>
+    <script src="{% static "js/jquery-ui.min.js" %}"></script>
 </body>
 </html>

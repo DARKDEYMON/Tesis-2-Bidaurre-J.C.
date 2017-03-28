@@ -1,6 +1,13 @@
 {% extends "base/baseform.html" %}	
 
 
+	{% block tituloform %}
+		Nuevo Usuario
+	{% endblock tituloform %}
+
+	{% block iddanger %}
+	    id="danger"
+	{% endblock iddanger %}
 	
 	{% block formulario %}
 
@@ -15,13 +22,17 @@
 		    </div>
 		{% endfor %}
 		{% endcomment %}
+
+		
+
+
 		{% load bootstrap3 %}
 		{% bootstrap_form form %}
 		{% bootstrap_form form2 %}
 
 		{% buttons %}
 	        <button type="submit" class="btn btn-primary center-block">
-	            {% bootstrap_icon "glyphicon glyphicon-ok" %} Submit
+	            {% bootstrap_icon "glyphicon glyphicon-ok" %} Enviar
 	        </button>
 	    {% endbuttons %}
 		<!--

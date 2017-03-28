@@ -201,7 +201,7 @@ urlpatterns = [
         name='crearactivo'
     ),
     url(r'^reportealmacen/(?P<ct>\w+)/$',
-        login_required(reporteAlmacen), 
+        login_required(reporteAlmacen.as_view()), 
         name='reportealmacen'
     ),
 ]

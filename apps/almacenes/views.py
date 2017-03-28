@@ -7,8 +7,10 @@ from apps.seguimiento.models import *
 
 from django.views.generic import ListView, CreateView, UpdateView, FormView
 from django.core.urlresolvers import reverse_lazy
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 
+from easy_pdf.views import PDFTemplateView
+"""
 from io import BytesIO
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import A4, cm
@@ -19,6 +21,7 @@ from reportlab.lib.enums import TA_LEFT, TA_CENTER, TA_RIGHT, TA_JUSTIFY
 from reportlab.platypus.paragraph import Paragraph
 from reportlab.platypus import Table,TableStyle
 from reportlab.lib import colors
+"""
 
 class crearAlmacen(CreateView):
 	form_class = crearAlmacenForm
@@ -890,7 +893,7 @@ class debolucionHerramientas(UpdateView):
 	model = salidaHerramientas
 	form_class = crearDebolucionHerramientas
 	template_name = 'almacen/nuevaherramienta.html'
-	success_url = 'almacenes:debolucionherramientas'
+	success_url = 'almacenes:listaconfirmacionherramientas'
 	def post(self, request, *args, **kwargs):
 		self.object = self.get_object	
 		pk = self.kwargs.get('pk',0)
@@ -904,15 +907,18 @@ class debolucionHerramientas(UpdateView):
 			if(form.debuelto):
 
 				a = herramientasAlmacen.objects.get(almacen=form.almacen,herramientas=form.herramientas)
+				
+				ct = a.almacen.ciudad
+				
 				a.cantidad = a.cantidad + form.cantidad
 				a.save()
 				form.save()
 				print (a)
-				#print ("paso")
-			
-			return  HttpResponseRedirect(reverse_lazy(self.success_url, kwargs = {'pk': pk}))
+				print ("paso")
+				
+			return  HttpResponseRedirect(reverse_lazy(self.success_url, kwargs = {'ct': ct}))
 		else:
-			#print ("paso2")
+			print ("paso2")
 			return self.render_to_response(self.get_context_data(form=form))
 
 class listaConfirmacionMaquinariaHequipo(CreateView,ListView):
@@ -955,7 +961,7 @@ class debolucionMaquinariaHequipo(UpdateView):
 	model = salidaMaquinaria_equipo
 	form_class = crearDebolucionMaquinariaEquipo
 	template_name = 'almacen/nuevaherramienta.html'
-	success_url = 'almacenes:debolucionmaquinariahequipo'
+	success_url = 'almacenes:listaconfirmacionmaquinariahequipo'
 	def post(self, request, *args, **kwargs):
 		self.object = self.get_object	
 		pk = self.kwargs.get('pk',0)
@@ -969,13 +975,15 @@ class debolucionMaquinariaHequipo(UpdateView):
 			if(form.debuelto):
 
 				a = maquinaria_equipoAlmacen.objects.get(almacen=form.almacen,maquinaria_equipo=form.maquinaria_equipo)
+				ct = a.almacen.ciudad
+
 				a.cantidad = a.cantidad + form.cantidad
 				a.save()
 				form.save()
 				print (a)
 				#print ("paso")
 			
-			return  HttpResponseRedirect(reverse_lazy(self.success_url, kwargs = {'pk': pk}))
+			return  HttpResponseRedirect(reverse_lazy(self.success_url, kwargs = {'ct': ct}))
 		else:
 			#print ("paso2")
 			return self.render_to_response(self.get_context_data(form=form))
@@ -1049,6 +1057,20 @@ class crearActivoDepreciasion(CreateView):
 			context['res'] = res
 		return context
 
+
+class reporteAlmacen(PDFTemplateView):
+	template_name = "almacen/almacenes_reporte.html"
+	def get_context_data(self, **kwargs):
+		context = super(reporteAlmacen, self).get_context_data(**kwargs)
+		pk = self.kwargs.get('ct')
+		print(pk)
+		try:
+			context['res'] = almacen.objects.get(ciudad=pk)
+		except:
+			raise Http404
+		return context
+
+"""
 def reporteAlmacen(request,ct):
 	#consultas
 
@@ -1074,3 +1096,4 @@ def reporteAlmacen(request,ct):
 	pdf = buffer.getvalue()
 	response.write(pdf)
 	return response
+"""

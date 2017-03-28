@@ -1,6 +1,10 @@
 {% extends "base/baseform.html" %}	
 
-
+	<h2 style="text-align: center;">
+		{% block tituloform %}
+			Ingreso de maquinaria/equipo
+		{% endblock tituloform %}
+	</h2>
 	
 	{% block formulario %}
 
@@ -20,7 +24,7 @@
 
 		{% buttons %}
 	        <button type="submit" class="btn btn-primary center-block">
-	            {% bootstrap_icon "glyphicon glyphicon-ok" %} Submit
+	            {% bootstrap_icon "glyphicon glyphicon-ok" %} Enviar
 	        </button>
 	    {% endbuttons %}
 		<!--

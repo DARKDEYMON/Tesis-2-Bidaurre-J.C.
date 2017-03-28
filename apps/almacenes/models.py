@@ -40,7 +40,8 @@ class proveedor(models.Model):
 	rason_social = models.CharField(
 		max_length=100,
 		blank=False,
-		null=False
+		null=False,
+		unique=True
 	)
 	telefono = models.PositiveIntegerField(
 		null=False, 
@@ -75,7 +76,8 @@ class material(models.Model):
 	decripcion = models.CharField(
 		max_length=100,
 		blank=False,
-		null=False
+		null=False,
+		unique=True
 	)
 	unidad = models.CharField(
 		max_length=10,
@@ -146,7 +148,8 @@ class insumos(models.Model):
 	decripcion = models.CharField(
 		max_length=100,
 		blank=False,
-		null=False
+		null=False,
+		unique=True
 	)
 	unidad = models.CharField(
 		max_length=10,
@@ -213,7 +216,8 @@ class herramientas(models.Model):
 	decripcion = models.CharField(
 		max_length=100,
 		blank=False,
-		null=False
+		null=False,
+		unique=True
 	)
 	tipo = models.CharField(
 		max_length=30,
@@ -286,7 +290,8 @@ class maquinaria_equipo(models.Model):
 	decripcion = models.CharField(
 		max_length=100,
 		blank=False,
-		null=False
+		null=False,
+		unique=True
 	)
 	tipo = models.CharField(
 		max_length=30,
@@ -359,7 +364,8 @@ class tipoActivo(models.Model):
 	tipo = models.CharField(
 		max_length=60,
 		blank=False,
-		null=False
+		null=False,
+		unique=True
 	)
 	años_vida_util = models.PositiveIntegerField(
 		blank=False,

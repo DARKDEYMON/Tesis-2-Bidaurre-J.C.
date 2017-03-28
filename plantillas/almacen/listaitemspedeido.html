@@ -8,6 +8,9 @@
 				<div class="row">
 					<div class="col-lg-12">
 						
+						<h2 style="text-align: center;">
+							Lista de pedidos de items
+						</h2>
 						<form role="form" class="form-inline" action="" method="get" accept-charset="utf-8">
 								{% load bootstrap3 %}
 				
@@ -15,7 +18,7 @@
 								
 								{% bootstrap_form form layout='inline' %}
 
-								{% buttons submit='Search' layout='inline' %}{% endbuttons %}
+								{% buttons submit='Buscar' layout='inline' %}{% endbuttons %}
 
 						    
 						</form>
@@ -85,8 +88,8 @@
 											    <li><a href="{% url 'almacenes:salidaherramientas' item.id %}">Envio de Herramientas<span class="glyphicon glyphicon-edit" aria-hidden="true"></a></li>
 											    <li><a href="{% url 'almacenes:listasalidaherramientas' item.id %}">Lista de envio de Herramientas<span class="glyphicon glyphicon-edit" aria-hidden="true"></a></li>
 											    <li class="divider"></li>
-											    <li><a href="{% url 'almacenes:salidaMaquinariaEquipo' item.id %}">Envio de Equipo<span class="glyphicon glyphicon-edit" aria-hidden="true"></a></li>
-											    <li><a href="{% url 'almacenes:listasalidamaquinariaequipo' item.id %}">Listo de envio de Equipo<span class="glyphicon glyphicon-edit" aria-hidden="true"></a></li>
+											    <li><a href="{% url 'almacenes:salidaMaquinariaEquipo' item.id %}">Envio de Maquinaria/Equipo<span class="glyphicon glyphicon-edit" aria-hidden="true"></a></li>
+											    <li><a href="{% url 'almacenes:listasalidamaquinariaequipo' item.id %}">Lista de envio de Maquinaria/Equipo<span class="glyphicon glyphicon-edit" aria-hidden="true"></a></li>
 											  </ul>
 											</div>
 

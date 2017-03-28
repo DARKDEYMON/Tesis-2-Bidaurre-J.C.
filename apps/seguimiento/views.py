@@ -3,7 +3,7 @@ from apps.seguimiento.forms import *
 from apps.seguimiento.models import *
 from apps.personal.models import designacion
 
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.http import JsonResponse
 
 
@@ -13,6 +13,7 @@ from django.views.generic import ListView, CreateView, UpdateView, FormView
 from django.core.urlresolvers import reverse_lazy
 
 #pdf
+"""
 from io import BytesIO
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import A4, cm
@@ -23,6 +24,8 @@ from reportlab.lib.enums import TA_LEFT, TA_CENTER, TA_RIGHT, TA_JUSTIFY
 from reportlab.platypus.paragraph import Paragraph
 from reportlab.platypus import Table,TableStyle
 from reportlab.lib import colors
+"""
+from easy_pdf.views import PDFTemplateView
 
 # crear proyecto
 class crearProyecto(CreateView):
@@ -702,8 +705,42 @@ class listaInformesFotos(ListView):
 		object_list = self.model.objects.filter(reportes_avance = reportes_avance.objects.filter(id=pk1))
 		return object_list
 
+def calendar_proyecto(request,pk):
+	import json
+	dat = []
+
+	query1 = item.objects.filter(proyecto__id=pk)
+	if(len(query1)==0):
+		return render (request,"seguimiento/calendar.html",{"error":"no existen items aun !!!!!"})
+	query2 = query1[0].proyecto
+	"""
+	print(query1)
+	for r in query1:
+		res = {}
+		res['title'] = r.descripcion
+		res['start'] = str(r.fecha_inicio)
+		res['end'] = str(r.plazo_finalizacion)
+		dat.append(res)
+	print(dat)
+	"""
+	return render (request,"seguimiento/calendar.html",{"pk":pk,"res":query1,"pro":query2})
+
+
+class reporteProyecto(PDFTemplateView):
+	template_name = "seguimiento/seguimiento_reporte.html"
+	def get_context_data(self, **kwargs):
+		context = super(reporteProyecto, self).get_context_data(**kwargs)
+		pk = self.kwargs.get('pk')
+		#print(pk)
+		try:
+			context['res'] = proyecto.objects.get(id=pk)
+		except:
+			raise Http404
+		return context
+"""
 def reporteProyecto(request,pk):
 	#consultas
+
 	pro_ac = proyecto.objects.get(id=pk)
 
 	y,x=A4
@@ -774,12 +811,12 @@ def reporteProyecto(request,pk):
 		c.drawString(30,comienso,'Porcentaje de avance: '+str(i.pocentaje_avance)+"%")
 		comienso=comienso-13
 
-		"""
-		if comienso<=300:
-			print("ya")
-			c.showPage()
-			comienso = 750
-		"""
+		
+		#if comienso<=300:
+		#	print("ya")
+		#	c.showPage()
+		#	comienso = 750
+		
 
 		re = i.reportes_avance_set.all()
 
@@ -808,12 +845,12 @@ def reporteProyecto(request,pk):
 				comienso=comienso-13
 			c.drawString(50,comienso,'observaciones: '+str(r.observaciones))
 			comienso=comienso-13
-			"""
-			if comienso<=300:
-				print("ya")
-				c.showPage()
-				comienso = 750
-			"""
+			
+			#if comienso<=300:
+			#	print("ya")
+			#	c.showPage()
+			#	comienso = 750
+			
 			rf = r.reporte_fotografico_set.all()
 			#from django.contrib.sites.models import Site
 			for xf in rf:
@@ -822,11 +859,11 @@ def reporteProyecto(request,pk):
 				comienso=comienso-155
 				c.drawImage(APP_ROOT + xf.fotos_reporte.url,  200,comienso, width=145,height=180, preserveAspectRatio=True)#, anchor='c')
 				print("ya")
-				"""
-				if comienso<=200:
-					c.showPage()
-					comienso = 750
-				"""
+				
+				#if comienso<=200:
+				#	c.showPage()
+				#	comienso = 750
+				
 		#c.save()
 		c.showPage()
 		comienso = 750
@@ -838,26 +875,7 @@ def reporteProyecto(request,pk):
 	response.write(pdf)
 	return response
 
-def calendar_proyecto(request,pk):
-	import json
-	dat = []
 
-	query1 = item.objects.filter(proyecto__id=pk)
-	if(len(query1)==0):
-		return render (request,"seguimiento/calendar.html",{"error":"no existen items aun !!!!!"})
-	query2 = query1[0].proyecto
-	print(query1)
-	for r in query1:
-		res = {}
-		res['title'] = r.descripcion
-		res['start'] = str(r.fecha_inicio)
-		res['end'] = str(r.plazo_finalizacion)
-		dat.append(res)
-	print(dat)
-
-	return render (request,"seguimiento/calendar.html",{"pk":pk,"res":query1,"pro":query2})
-
-"""
 def json_calendar(request,pk):
 	import json
 	dat = []
