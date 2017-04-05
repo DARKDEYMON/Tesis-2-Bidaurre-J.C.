@@ -1,8 +1,13 @@
 from django.db import models
+from django.apps import apps
 from django.utils.translation import ugettext_lazy as _
 #from apps.seguimiento.models import item
 
 from django.core.validators import RegexValidator
+
+from django.db.models import F
+from django.db.models import Sum
+from django.db.models import Avg
 
 # Create your models here.
 class almacen(models.Model):
@@ -123,6 +128,16 @@ class ingresoMaterial(models.Model):
 		null=False,
 		default=0
 	)
+	def totalItem(self):
+		res = ingresoMaterial.objects.filter(item=self.item).aggregate(total=Sum('costo_total'))
+		return res['total']
+	def total(self):
+		item = apps.get_model('seguimiento', 'item')
+		res = ingresoMaterial.objects.filter(item__in=item.objects.filter(proyecto=self.item.proyecto)).aggregate(total=Sum('costo_total'))
+		return res['total']
+	def unitario(self):
+		return round(self.costo_total/self.cantidad,3)
+		
 class salidaMaterial(models.Model):
 	almacen = models.ForeignKey(almacen)
 	material = models.ForeignKey(material)
@@ -191,6 +206,16 @@ class ingresoInsumos(models.Model):
 		null=False,
 		default=0
 	)
+	def totalItem(self):
+		res = ingresoInsumos.objects.filter(item=self.item).aggregate(total=Sum('costo_total'))
+		return res['total']
+	def total(self):
+		item = apps.get_model('seguimiento', 'item')
+		res = ingresoInsumos.objects.filter(item__in=item.objects.filter(proyecto=self.item.proyecto)).aggregate(total=Sum('costo_total'))
+		return res['total']
+	def unitario(self):
+		return round(self.costo_total/self.cantidad,3)
+		
 class salidaInsumos(models.Model):
 	almacen = models.ForeignKey(almacen)
 	insumos = models.ForeignKey(insumos)

@@ -1,4 +1,5 @@
 from django.db import models
+from django.apps import apps
 
 from django.core.exceptions import ValidationError,NON_FIELD_ERRORS
 from django.core.validators import RegexValidator
@@ -76,12 +77,48 @@ class proyecto(models.Model):
 	)
 	def __str__(self):
 		return (self.objeto_de_la_contratacion)
+
+	def tMaterialPla(self):
+		return self.item_set.all()[0].peticion_materiales_set.all()[0].total()
+	def tMaterialEjec(self):
+		return self.item_set.all()[0].ingresomaterial_set.all()[0].total()
+	def resEjecMaterial(self):
+		if (not self.tMaterialPla() == None and not self.tMaterialEjec() == None):
+			return (self.tMaterialPla() - self.tMaterialEjec())
+		return None
+
+	def tInsumosPla(self):
+		return self.item_set.all()[0].peticion_insumos_set.all()[0].total()
+	def tInsumosEjec(self):
+		return self.item_set.all()[0].ingresoinsumos_set.all()[0].total()
+	def resEjecInsumos(self):
+		if (not self.tInsumosPla() == None and not self.tInsumosEjec() == None):
+			return (self.tInsumosPla() - self.tInsumosEjec())
+		return None
+
+	def tPersonalEjec(self):
+		return self.item_set.all()[0].requerimiento_personal_set.all()[0].total()
+
+	def tMaqEqEjec(self):
+		return self.item_set.all()[0].requerimiento_maq_he_set.all()[0].total()
+
+	def tMatLocEjec(self):
+		return self.item_set.all()[0].materiales_locales_set.all()[0].total()
+
+	def totalSueldo(self):
+		n = (self.plazo_previsto.year - self.fecha_inicio.year)*12 + self.plazo_previsto.month - self.fecha_inicio.month
+		if n== 0:
+			n=1
+		cargo = apps.get_model('personal', 'cargo')
+		designacion = apps.get_model('personal', 'designacion')
+		res = cargo.objects.filter(id__in=designacion.objects.filter(proyecto=proyecto.objects.get(id=self.id))).aggregate(sueldos=Sum('salario'))
+		return res['sueldos'] * n+1
 	def clean(self):
 		ini = self.fecha_inicio
 		fin = self.plazo_previsto
-		print("algo")
-		print(ini)
-		print(fin)
+		#print("algo")
+		#print(ini)
+		#print(fin)
 		if ini and fin and (fin<ini):
 			raise ValidationError("El plazo previsto deve ser mayor al de la fecha de inicio")
 	def enTiempo(self):

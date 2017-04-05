@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>{{ title|default:"" }}</title>
+    <title>{{ title|default:"Reporte" }}</title>
 
     {% block style_base %}
         {% comment %}
@@ -32,13 +32,28 @@
                         height: 1cm;
                     }
                 }
+
                 html{
                     font-size: 10pt;
                 }
-                
                 .tittle_report h1{
                     text-align: center;
                     margin: 5px;
+                }
+                .general{
+                    margin: 20px;
+                }
+                .general table, tr, th{
+                    text-align: left;
+                }
+                .lineal table{
+                    padding-top: 3px;
+                    padding-right: 3px;
+                    padding-left: 3px;
+                    border: 1px solid black;
+                }
+                .lineal th{
+                    text-align: center;
                 }
             </style>
         {%endblock%}
@@ -46,14 +61,114 @@
     {% endblock %}
 </head>
 <body>
-    <div>
-        <div class="tittle_report">
-            <h1>Reporte de Avance Proyecto</h1>
-            <h1>{{ res.ciudad }}.</h1>
+    
+    <div class="tittle_report">
+        <h1>Reporte de Almacen</h1>
+        <h1>{{ res.ciudad }}.</h1>
+    </div>
+
+    {% block content %}
+        <!-- general -->
+        <h3><b>1. Informacion General.-</b></h3>
+        <div class="general">
+            <table>
+                <tr>
+                    <th>
+                        Ciudad:
+                    </th>
+                    <td>
+                        {{ res.ciudad }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Direccion:
+                    </th>
+                    <td>
+                        {{ res.direccion }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Telefono:
+                    </th>
+                    <td>
+                        {{ res.telefono }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Observaciones:
+                    </th>
+                    <td>
+                        {{ res.observaciones }}
+                    </td>
+                </tr>
+            </table>
         </div>
 
+        <h3><b>2. Reporte de stock.-</b></h3>
 
-    </div>
+        <!-- mateliales stock -->
+        <h3><b>2.1 Reporte de stock materiales.-</b></h3>
+        {% if res.materialalmacen_set.all %}
+            <div class="lineal">
+                <table border="1">
+                    <tr>
+                        <th>
+                            Material
+                        </th>
+                        <th>
+                            Cantidad en stock disponible
+                        </th>
+                    </tr>
+                    {% for ma  in res.materialalmacen_set.all %}
+                    <tr>
+                        <td>
+                            {{ ma.material }}
+                        </td>
+                        <td>
+                            {{ ma.cantidad }} {{ ma.material.unidad }}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        {% else %}
+            <p>No se encuntra materiales en el amacen aun</p>
+        {% endif %}
+        <!-- mateliales stock -->
+
+        <!-- insumos stock -->
+        <h3><b>2.2 Reporte de stock insumos.-</b></h3>
+        {% if res.insumosalmacen_set.all %}
+            <div class="lineal">
+                <table border="1">
+                    <tr>
+                        <th>
+                            Insumo
+                        </th>
+                        <th>
+                            Cantidad en stock disponible
+                        </th>
+                    </tr>
+                    {% for ia  in res.insumosalmacen_set.all %}
+                    <tr>
+                        <td>
+                            {{ ia.insumos }}
+                        </td>
+                        <td>
+                            {{ ia.cantidad }} {{ ia.insumos.unidad }}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        {% else %}
+            <p>No se encuntra insumos en el amacen aun</p>
+        {% endif %}
+        <!-- insumos stock -->
+    {% endblock content %}
 
     <div id="page-footer">
         {%block page_foot%}

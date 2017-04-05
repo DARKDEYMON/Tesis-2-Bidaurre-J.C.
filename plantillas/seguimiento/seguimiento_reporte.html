@@ -245,6 +245,9 @@
 
                     <!-- materiales -->
                     <h3><b>2.{{ forloop.counter }}.1 Peticion de Materiales Item {{ i.descripcion }}.-</b></h3>
+                    <ul>
+                        <h3><li>Peticiones</li></h3>
+                    </ul>
                     {% if i.peticion_materiales_set.all %}
                     <div class="lineal">
                         <table border="1">
@@ -303,10 +306,78 @@
                     {% else %}
                         <p>No contiene incluidos el detalle de materiales aun</p>
                     {% endif %}
+
+                    <ul>
+                        <h3><li>Ejecutado</li></h3>
+                    </ul>
+
+                    {% if i.ingresomaterial_set.all %}
+                    <div class="lineal">
+                        <table border="1">
+                            <tr>
+                                <th>
+                                    Material
+                                </th>
+                                <th>
+                                    Proveedor
+                                </th>
+                                <th>
+                                    Ingreso
+                                </th>
+                                <th>
+                                    Costo total
+                                </th>
+                                <th>
+                                    Precio Un.
+                                </th>
+                                <th>
+                                    Cantidad
+                                </th>
+                            </tr>
+                            {% for em in i.ingresomaterial_set.all %}
+                            <tr>
+                                <td>
+                                    {{ em.material }}
+                                </td>
+                                <td>
+                                    {{ em.proveedor }}
+                                </td>
+                                <td>
+                                    {{ em.fecha }}
+                                </td>
+                                <td>
+                                    {{ em.costo_total }}
+                                </td>
+                                <td>
+                                    {{ em.unitario }}
+                                </td>
+                                <td>
+                                    {{ em.cantidad }}
+                                </td>
+                            </tr>
+                            {% if forloop.last %}
+                                <tr>
+                                    <td colspan="2">
+                                        Total
+                                    </td>
+                                    <td colspan="3">
+                                        {{ em.totalItem }} Bs
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            {% endfor %}
+                        </table>
+                    </div>
+                    {% else %}
+                        <p>No contiene incluidos el detalle de entradas ejecutas aun</p>
+                    {% endif %}
                     <!-- materiales -->
 
                     <!-- insumos -->
                     <h3><b>2.{{ forloop.counter }}.2 Peticion de Insumos Item {{ i.descripcion }}.-</b></h3>
+                    <ul>
+                        <h3><li>Peticiones</li></h3>
+                    </ul>
                     {% if i.peticion_insumos_set.all %}
                     <div class="lineal">
                         <table>
@@ -364,6 +435,71 @@
                     </div>
                     {% else %}
                         <p>No contiene incluidos el detalle de insumos aun</p>
+                    {% endif %}
+
+                    <ul>
+                        <h3><li>Ejecutado</li></h3>
+                    </ul>
+
+                    {% if i.ingresoinsumos_set.all %}
+                    <div class="lineal">
+                        <table border="1">
+                            <tr>
+                                <th>
+                                    Insumo
+                                </th>
+                                <th>
+                                    Proveedor
+                                </th>
+                                <th>
+                                    Ingreso
+                                </th>
+                                <th>
+                                    Costo total
+                                </th>
+                                <th>
+                                    Precio Un.
+                                </th>
+                                <th>
+                                    Cantidad
+                                </th>
+                            </tr>
+                            {% for ei in i.ingresoinsumos_set.all %}
+                            <tr>
+                                <td>
+                                    {{ ei.insumos }}
+                                </td>
+                                <td>
+                                    {{ ei.proveedor }}
+                                </td>
+                                <td>
+                                    {{ ei.fecha }}
+                                </td>
+                                <td>
+                                    {{ ei.costo_total }}
+                                </td>
+                                <td>
+                                    {{ ei.unitario }}
+                                </td>
+                                <td>
+                                    {{ ei.cantidad }}
+                                </td>
+                            </tr>
+                            {% if forloop.last %}
+                                <tr>
+                                    <td colspan="2">
+                                        Total
+                                    </td>
+                                    <td colspan="4">
+                                        {{ ei.totalItem }} Bs
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            {% endfor %}
+                        </table>
+                    </div>
+                    {% else %}
+                        <p>No contiene incluidos el detalle de entradas ejecutas aun</p>
                     {% endif %}
                     <!-- insumos -->
 
@@ -675,7 +811,7 @@
                                 <tr>
                                     <td style="text-align:center;">
                                         Foto fecha:{{ rfot.date|date:"Y-m-d" }}
-                                        <img width="550" src="{{ rfot.fotos_reporte.url }}">
+                                        <img  src="{{ rfot.fotos_reporte.url }}">
                                     </td>
                                 </tr>
                             </table>
@@ -693,7 +829,120 @@
                 {% else %}
                     <p>No contiene items aun</p>
                 {% endif %}
-            
+
+                <!-- ejecutado -->
+                <h3><b>3. Análisis Comparativo.-</b></h3>
+                <div class="lineal">
+                    <table>
+                        <tr>
+                            <th>
+                                Descripcion
+                            </th>
+                            <th>
+                                Total planificacion
+                            </th>
+                            <th>
+                                Ejecutado
+                            </th>
+                            <th>
+                                Restante a Ejecutar
+                            </th>
+                        </tr>
+                        <tr>
+                            <td>
+                                Sueldos por el total del proyecto
+                            </td>
+                            <td>
+                                -
+                            </td>
+                            <td>
+                                {{ res.totalSueldo }} Bs
+                            </td>
+                            <td>
+                                -
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Materiales
+                            </td>
+                            <td>
+                                {{ res.tMaterialPla }} Bs
+                            </td>
+                            <td>
+                                {{ res.tMaterialEjec }} Bs
+                            </td>
+                            <td>
+                                {% if res.resEjecMaterial %}
+                                    {{ res.resEjecMaterial }}
+                                {% else %}
+                                    -                           
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Insumos
+                            </td>
+                            <td>
+                                {{ res.tInsumosPla }} Bs
+                            </td>
+                            <td>
+                                {{ res.tInsumosEjec }} Bs
+                            </td>
+                            <td>
+                                {% if res.resEjecInsumos %}
+                                    {{ res.resEjecInsumos }}
+                                {% else %}
+                                    -                           
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Personal
+                            </td>
+                            <td>
+                                -
+                            </td>
+                            <td>
+                                {{ res.tPersonalEjec }} Bs
+                            </td>
+                            <td>
+                                -
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Maquinaria/Equipo
+                            </td>
+                            <td>
+                                -
+                            </td>
+                            <td>
+                                {{ res.tMaqEqEjec }} Bs
+                            </td>
+                            <td>
+                                -
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Materiales Locales
+                            </td>
+                            <td>
+                                -
+                            </td>
+                            <td>
+                                {{ res.tMatLocEjec }} Bs
+                            </td>
+                            <td>
+                                -
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <!-- ejecutado -->
         {%endblock%}
     </div>
 
