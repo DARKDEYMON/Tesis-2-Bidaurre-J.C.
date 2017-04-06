@@ -79,40 +79,71 @@ class proyecto(models.Model):
 		return (self.objeto_de_la_contratacion)
 
 	def tMaterialPla(self):
-		return self.item_set.all()[0].peticion_materiales_set.all()[0].total()
+		r = self.item_set.all()[0].peticion_materiales_set.all()[0].total()
+		return 0 if r == None else r
 	def tMaterialEjec(self):
-		return self.item_set.all()[0].ingresomaterial_set.all()[0].total()
+		r = self.item_set.all()[0].ingresomaterial_set.all()[0].total()
+		return 0 if r == None else r
 	def resEjecMaterial(self):
-		if (not self.tMaterialPla() == None and not self.tMaterialEjec() == None):
-			return (self.tMaterialPla() - self.tMaterialEjec())
-		return None
+		return (self.tMaterialPla() - self.tMaterialEjec())
 
 	def tInsumosPla(self):
-		return self.item_set.all()[0].peticion_insumos_set.all()[0].total()
+		r = self.item_set.all()[0].peticion_insumos_set.all()[0].total()
+		return 0 if r == None else r
 	def tInsumosEjec(self):
-		return self.item_set.all()[0].ingresoinsumos_set.all()[0].total()
+		r = self.item_set.all()[0].ingresoinsumos_set.all()[0].total()
+		return 0 if r == None else r
 	def resEjecInsumos(self):
-		if (not self.tInsumosPla() == None and not self.tInsumosEjec() == None):
-			return (self.tInsumosPla() - self.tInsumosEjec())
-		return None
+		return (self.tInsumosPla() - self.tInsumosEjec())
 
+	def tPersonalPla(self):
+		r = self.item_set.all()[0].requerimiento_personal_set.all()[0].total()
+		return 0 if r == None else r
 	def tPersonalEjec(self):
-		return self.item_set.all()[0].requerimiento_personal_set.all()[0].total()
+		return self.tPersonalPla() * (self.pocentaje_avance/100)
+	def resPersonalEjec(self):
+		return (self.tPersonalPla() -self.tPersonalEjec())
 
+	def tMaqEqPla(self):
+		r = self.item_set.all()[0].requerimiento_maq_he_set.all()[0].total()
+		return 0 if r == None else r
 	def tMaqEqEjec(self):
-		return self.item_set.all()[0].requerimiento_maq_he_set.all()[0].total()
+		return self.tMaqEqPla() * (self.pocentaje_avance/100)
+	def resMaqEqEjec(self):
+		return (self.tMaqEqPla() -self.tMaqEqEjec())
 
+
+	def tMatLocPla(self):
+		r = self.item_set.all()[0].materiales_locales_set.all()[0].total()
+		return 0 if r == None else r
 	def tMatLocEjec(self):
-		return self.item_set.all()[0].materiales_locales_set.all()[0].total()
+		return self.tMatLocPla() * (self.pocentaje_avance/100)
+	def resMatLocEjec(self):
+		return (self.tMatLocPla() -self.tMatLocEjec())
 
-	def totalSueldo(self):
+	def tSueldoPLa(self):
 		n = (self.plazo_previsto.year - self.fecha_inicio.year)*12 + self.plazo_previsto.month - self.fecha_inicio.month
 		if n== 0:
 			n=1
 		cargo = apps.get_model('personal', 'cargo')
 		designacion = apps.get_model('personal', 'designacion')
 		res = cargo.objects.filter(id__in=designacion.objects.filter(proyecto=proyecto.objects.get(id=self.id))).aggregate(sueldos=Sum('salario'))
-		return res['sueldos'] * n+1
+		return (0 if res['sueldos'] == None else res['sueldos']) * n+1
+	def tSueldoEjec(self):
+		return self.tSueldoPLa() * (self.pocentaje_avance/100)
+	def resSueldoEjec(self):
+		return (self.tSueldoPLa() -self.tSueldoEjec())
+
+	def totalPlani(self):
+		return self.tMaterialPla() + self.tInsumosPla() + self.tPersonalEjec() + self.tMaqEqPla() + self. tMatLocPla() + self.tSueldoPLa()
+	def totalGanPla(self):
+		return self.presupuesto_final -self.totalPlani()
+
+	def totalEje(self):
+		return self.tMaterialEjec() + self.tInsumosEjec() + self.tPersonalEjec() + self.tMaqEqEjec() + self. tMatLocEjec() + self.tSueldoEjec()
+	def totalGanEje(self):
+		return self.presupuesto_final -self.totalEje()
+			
 	def clean(self):
 		ini = self.fecha_inicio
 		fin = self.plazo_previsto

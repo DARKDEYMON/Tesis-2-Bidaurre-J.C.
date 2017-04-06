@@ -853,13 +853,13 @@
                                 Sueldos por el total del proyecto
                             </td>
                             <td>
-                                -
+                                {{ res.tSueldoPLa }} Bs
                             </td>
                             <td>
-                                {{ res.totalSueldo }} Bs
+                                {{ res.tSueldoEjec }} Bs
                             </td>
                             <td>
-                                -
+                                {{ res.resSueldoEjec }} Bs
                             </td>
                         </tr>
                         <tr>
@@ -873,11 +873,7 @@
                                 {{ res.tMaterialEjec }} Bs
                             </td>
                             <td>
-                                {% if res.resEjecMaterial %}
-                                    {{ res.resEjecMaterial }}
-                                {% else %}
-                                    -                           
-                                {% endif %}
+                                {{ res.resEjecMaterial }}
                             </td>
                         </tr>
                         <tr>
@@ -891,25 +887,21 @@
                                 {{ res.tInsumosEjec }} Bs
                             </td>
                             <td>
-                                {% if res.resEjecInsumos %}
-                                    {{ res.resEjecInsumos }}
-                                {% else %}
-                                    -                           
-                                {% endif %}
+                                {{ res.resEjecInsumos }}
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                Personal
+                                Mano de Obra
                             </td>
                             <td>
-                                -
+                                {{ res.tPersonalPla }} Bs
                             </td>
                             <td>
                                 {{ res.tPersonalEjec }} Bs
                             </td>
                             <td>
-                                -
+                                {{ res.resPersonalEjec }} Bs
                             </td>
                         </tr>
                         <tr>
@@ -917,13 +909,13 @@
                                 Maquinaria/Equipo
                             </td>
                             <td>
-                                -
+                                {{ res.tMaqEqPla }} Bs
                             </td>
                             <td>
                                 {{ res.tMaqEqEjec }} Bs
                             </td>
                             <td>
-                                -
+                                {{ res.resMaqEqEjec }} Bs
                             </td>
                         </tr>
                         <tr>
@@ -931,13 +923,63 @@
                                 Materiales Locales
                             </td>
                             <td>
-                                -
+                                {{ res.tMatLocPla }} Bs
                             </td>
                             <td>
                                 {{ res.tMatLocEjec }} Bs
                             </td>
                             <td>
-                                -
+                                {{ res.resMatLocEjec }} Bs
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <ul>
+                    <h3><li>precupuesto a fecha actual</li></h3>
+                </ul>
+
+                <div class="lineal">
+                    <table>
+                        <tr>
+                            <th>
+                                Presupuesto Final
+                            </th>
+                            <td colspan="2">
+                                {{ res.presupuesto_final }} Bs
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Descripcion
+                            </th>
+                            <th>
+                                Total
+                            </th>
+                            <th>
+                                Ganancia
+                            </th>
+                        </tr>
+                        <tr>
+                            <td>
+                                Planificado
+                            </td>
+                            <td>
+                                {{ res.totalPlani }} Bs
+                            </td>
+                            <td>
+                                {{ res.totalGanPla }} Bs
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Ejecutado
+                            </td>
+                            <td>
+                                {{ res.totalEje }} Bs
+                            </td>
+                            <td>
+                                {{ res.totalGanEje }} Bs
                             </td>
                         </tr>
                     </table>
