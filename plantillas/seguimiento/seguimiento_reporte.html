@@ -729,7 +729,7 @@
                                     <td colspan="2">
                                         Total
                                     </td>
-                                    <td colspan="3">
+                                    <td colspan="4">
                                         {{ matl.totalItem }} Bs
                                     </td>
                                 </tr>
@@ -743,10 +743,10 @@
                     <!-- material local -->
 
                     <!-- reportes -->
-                    <h3><b>2.{{ forloop.counter }}.7 Informes de Abance Item {{ i.descripcion }}.-</b></h3>
+                    <h3><b>2.{{ forloop.counter }}.7 Informes de avance Item {{ i.descripcion }}.-</b></h3>
                     {% if i.reportes_avance_set.all %}
                     {% for inf in i.reportes_avance_set.all %} 
-                        <h3><b>{{ forloop.counter }}.a) Informe general de Abance de fecha {{ inf.date }}.-</b></h3>
+                        <h3><b>{{ forloop.counter }}.a) Informe general de avance de fecha {{ inf.date }}.-</b></h3>
                         <div class="general">
                             <table>
                                 <tr>
@@ -832,6 +832,11 @@
 
                 <!-- ejecutado -->
                 <h3><b>3. Análisis Comparativo.-</b></h3>
+
+                <ul>
+                    <h3><li>Presupuesto comparativo por rubro</li></h3>
+                </ul>
+
                 <div class="lineal">
                     <table>
                         <tr>
@@ -850,7 +855,7 @@
                         </tr>
                         <tr>
                             <td>
-                                Sueldos por el total del proyecto
+                                Sueldos
                             </td>
                             <td>
                                 {{ res.tSueldoPLa }} Bs
@@ -936,7 +941,7 @@
                 </div>
 
                 <ul>
-                    <h3><li>precupuesto a fecha actual</li></h3>
+                    <h3><li>Presupuesto global a la fecha</li></h3>
                 </ul>
 
                 <div class="lineal">
@@ -957,7 +962,7 @@
                                 Total
                             </th>
                             <th>
-                                Ganancia
+                                Saldos
                             </th>
                         </tr>
                         <tr>

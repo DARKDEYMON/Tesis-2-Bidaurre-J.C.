@@ -38,6 +38,9 @@ class almacen(models.Model):
 		null=True,
 		blank=True,
 	)
+	def items(self):
+		item = apps.get_model('seguimiento', 'item')
+		return item.objects.filter(proyecto__ubicacion_proyecto=str(self.ciudad))
 	def __str__(self):
 		return self.ciudad
 

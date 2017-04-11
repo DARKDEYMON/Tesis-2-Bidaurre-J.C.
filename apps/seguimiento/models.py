@@ -79,34 +79,52 @@ class proyecto(models.Model):
 		return (self.objeto_de_la_contratacion)
 
 	def tMaterialPla(self):
-		r = self.item_set.all()[0].peticion_materiales_set.all()[0].total()
-		return 0 if r == None else r
+		try:
+			r = self.item_set.all()[0].peticion_materiales_set.all()[0].total()
+			return 0 if r == None else r
+		except:
+			return 0
 	def tMaterialEjec(self):
-		r = self.item_set.all()[0].ingresomaterial_set.all()[0].total()
-		return 0 if r == None else r
+		try:
+			r = self.item_set.all()[0].ingresomaterial_set.all()[0].total()
+			return 0 if r == None else r
+		except:
+			return 0
 	def resEjecMaterial(self):
 		return (self.tMaterialPla() - self.tMaterialEjec())
 
 	def tInsumosPla(self):
-		r = self.item_set.all()[0].peticion_insumos_set.all()[0].total()
-		return 0 if r == None else r
+		try:
+			r = self.item_set.all()[0].peticion_insumos_set.all()[0].total()
+			return 0 if r == None else r
+		except:
+			return 0
 	def tInsumosEjec(self):
-		r = self.item_set.all()[0].ingresoinsumos_set.all()[0].total()
-		return 0 if r == None else r
+		try:
+			r = self.item_set.all()[0].ingresoinsumos_set.all()[0].total()
+			return 0 if r == None else r
+		except:
+			return 0
 	def resEjecInsumos(self):
 		return (self.tInsumosPla() - self.tInsumosEjec())
 
 	def tPersonalPla(self):
-		r = self.item_set.all()[0].requerimiento_personal_set.all()[0].total()
-		return 0 if r == None else r
+		try:
+			r = self.item_set.all()[0].requerimiento_personal_set.all()[0].total()
+			return 0 if r == None else r
+		except:
+			return 0
 	def tPersonalEjec(self):
 		return self.tPersonalPla() * (self.pocentaje_avance/100)
 	def resPersonalEjec(self):
 		return (self.tPersonalPla() -self.tPersonalEjec())
 
 	def tMaqEqPla(self):
-		r = self.item_set.all()[0].requerimiento_maq_he_set.all()[0].total()
-		return 0 if r == None else r
+		try:
+			r = self.item_set.all()[0].requerimiento_maq_he_set.all()[0].total()
+			return 0 if r == None else r
+		except:
+			return 0
 	def tMaqEqEjec(self):
 		return self.tMaqEqPla() * (self.pocentaje_avance/100)
 	def resMaqEqEjec(self):
@@ -114,8 +132,11 @@ class proyecto(models.Model):
 
 
 	def tMatLocPla(self):
-		r = self.item_set.all()[0].materiales_locales_set.all()[0].total()
-		return 0 if r == None else r
+		try:
+			r = self.item_set.all()[0].materiales_locales_set.all()[0].total()
+			return 0 if r == None else r
+		except:
+			return 0
 	def tMatLocEjec(self):
 		return self.tMatLocPla() * (self.pocentaje_avance/100)
 	def resMatLocEjec(self):

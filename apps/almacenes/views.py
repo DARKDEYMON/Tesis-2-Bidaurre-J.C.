@@ -541,7 +541,7 @@ class salidaMaterialItem(CreateView):
 	model_pk = item
 	form_class = crearSalidaMaterialForm
 	template_name = 'almacen/salidamaterial.html'
-	success_url = 'almacenes:listaingresomaterial'
+	success_url = 'almacenes:listasalidamaterial'
 
 	def post(self, request, *args, **kwargs):
 		self.object = self.get_object	
