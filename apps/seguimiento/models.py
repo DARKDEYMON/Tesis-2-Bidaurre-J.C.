@@ -149,7 +149,7 @@ class proyecto(models.Model):
 		cargo = apps.get_model('personal', 'cargo')
 		designacion = apps.get_model('personal', 'designacion')
 		res = cargo.objects.filter(id__in=designacion.objects.filter(proyecto=proyecto.objects.get(id=self.id))).aggregate(sueldos=Sum('salario'))
-		return (0 if res['sueldos'] == None else res['sueldos']) * n+1
+		return (0 if res['sueldos'] == None else res['sueldos']) * (n+1)
 	def tSueldoEjec(self):
 		return self.tSueldoPLa() * (self.pocentaje_avance/100)
 	def resSueldoEjec(self):

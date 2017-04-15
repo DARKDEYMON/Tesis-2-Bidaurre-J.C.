@@ -267,6 +267,8 @@ class herramientasAlmacen(models.Model):
 		null=False,
 		default=0
 	)
+	def stock(self):
+		return ingresoHerramientas.objects.filter(almacen=self.almacen,herramientas=self.herramientas).aggregate(total=Sum('cantidad'))['total']
 	class Meta:
 		unique_together = (('almacen', 'herramientas'),)
 
@@ -288,11 +290,13 @@ class ingresoHerramientas(models.Model):
 		null=False,
 		blank=False
 	)
+	"""
 	cantidad = models.PositiveIntegerField(
 		blank=False,
 		null=False,
 		default=0
 	)
+	"""
 
 class salidaHerramientas(models.Model):
 	almacen = models.ForeignKey(almacen)
@@ -341,6 +345,8 @@ class maquinaria_equipoAlmacen(models.Model):
 		null=False,
 		default=0
 	)
+	def stock(self):
+		return ingresoMaquinaria_equipo.objects.filter(almacen=self.almacen,maquinaria_equipo=self.maquinaria_equipo).aggregate(total=Sum('cantidad'))['total']
 	class Meta:
 		unique_together = (('almacen', 'maquinaria_equipo'),)
 
@@ -362,11 +368,13 @@ class ingresoMaquinaria_equipo(models.Model):
 		null=False,
 		blank=False
 	)
+	"""
 	cantidad = models.PositiveIntegerField(
 		blank=False,
 		null=False,
 		default=0
 	)
+	"""
 
 class salidaMaquinaria_equipo(models.Model):
 	almacen = models.ForeignKey(almacen)
@@ -431,5 +439,16 @@ class activo(models.Model):
 		blank=False,
 		null=False
 	)
+	def depreciasion(self):
+		import datetime
+		datenow = datetime.datetime.now()
+
+		act = datenow.year - self.fecha_ingreso.year
+		dep = self.costo_total / self.tipoActivo.años_vida_util
+
+		tdep = dep*act
+		res= self.costo_total-tdep
+
+		return res
 	def __str__(self):
 		return self.descripcion

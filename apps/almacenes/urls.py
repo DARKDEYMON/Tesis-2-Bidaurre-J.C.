@@ -204,4 +204,8 @@ urlpatterns = [
         login_required(reporteAlmacen.as_view()), 
         name='reportealmacen'
     ),
+    url(r'^reporteactivo/$',
+        login_required(reporteActivo.as_view()), 
+        name='reporteactivo'
+    ),
 ]

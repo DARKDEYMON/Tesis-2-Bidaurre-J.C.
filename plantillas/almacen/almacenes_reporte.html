@@ -191,6 +191,9 @@
                             Descripcion
                         </th>
                         <th>
+                            Stock
+                        </th>
+                        <th>
                             Cantidad en stock disponible
                         </th>
                         <th>
@@ -201,6 +204,9 @@
                     <tr>
                         <td>
                             {{ he.herramientas }}
+                        </td>
+                        <td>
+                            {{ he.stock }}
                         </td>
                         <td>
                             {{ he.cantidad }} 
@@ -227,6 +233,9 @@
                             Descripcion
                         </th>
                         <th>
+                            Stock
+                        </th>
+                        <th>
                             Cantidad en stock disponible
                         </th>
                         <th>
@@ -237,6 +246,9 @@
                     <tr>
                         <td>
                             {{ me.maquinaria_equipo }}
+                        </td>
+                        <td>
+                            {{ me.stock }}
                         </td>
                         <td>
                             {{ me.cantidad }} 
@@ -458,6 +470,104 @@
                         <p>No se encuntra ingresos de insumo al item aun</p>
                     {% endif %}
                     <!-- item insumo stock -->
+
+                    <!-- item herramientas stock -->
+                    <ul>
+                        <h3><b><li>Salida/Estado de envio de herramientas </li></b></h3>
+                    </ul>
+                    {% if it.salidaherramientas_set.all %}
+                 
+                    <div class="lineal">
+                        <table border="1">
+                            <tr>
+                                <th>
+                                    Descripcion
+                                </th>
+                                <th>
+                                    Fecha
+                                </th>
+                                <th>
+                                    Cantidad
+                                </th>
+                                <th>
+                                    Debuelto
+                                </th>
+                            </tr>
+                            {% for ing in it.salidaherramientas_set.all %}
+                                <tr>
+                                    <td>
+                                        {{ ing.herramientas }}
+                                    </td>
+                                    <td>
+                                        {{ ing.fecha }}
+                                    </td>
+                                    <td>
+                                        {{ ing.cantidad }}
+                                    </td>
+                                    <td>
+                                        {% if ing.debuelto %}
+                                            si
+                                        {% else %}
+                                            no
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                    {% else %}
+                        <p>No se encuntra ingresos de herramientas al item aun</p>
+                    {% endif %}
+                    <!-- item herramientas stock -->
+
+                    <!-- item maquinaria/equipo stock -->
+                    <ul>
+                        <h3><b><li>Salida/Estado de envio de maquinaria/equipo </li></b></h3>
+                    </ul>
+                    {% if it.salidamaquinaria_equipo_set.all %}
+                 
+                    <div class="lineal">
+                        <table border="1">
+                            <tr>
+                                <th>
+                                    Descripcion
+                                </th>
+                                <th>
+                                    Fecha
+                                </th>
+                                <th>
+                                    Cantidad
+                                </th>
+                                <th>
+                                    Debuelto
+                                </th>
+                            </tr>
+                            {% for ing in it.salidamaquinaria_equipo_set.all %}
+                                <tr>
+                                    <td>
+                                        {{ ing.maquinaria_equipo }}
+                                    </td>
+                                    <td>
+                                        {{ ing.fecha }}
+                                    </td>
+                                    <td>
+                                        {{ ing.cantidad }}
+                                    </td>
+                                    <td>
+                                        {% if ing.debuelto %}
+                                            si
+                                        {% else %}
+                                            no
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                    {% else %}
+                        <p>No se encuntra ingresos de maquinaria/equipo al item aun</p>
+                    {% endif %}
+                    <!-- item maquinaria/equipo stock -->
 
             {% endfor %}
         {% else %}

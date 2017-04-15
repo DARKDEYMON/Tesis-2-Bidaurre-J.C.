@@ -1070,6 +1070,16 @@ class reporteAlmacen(PDFTemplateView):
 			raise Http404
 		return context
 
+class reporteActivo(PDFTemplateView):
+	template_name = "almacen/activo_reporte.html"
+	def get_context_data(self, **kwargs):
+		context = super(reporteActivo, self).get_context_data(**kwargs)
+		try:
+			context['res'] = activo.objects.all()
+		except:
+			raise Http404
+		return context
+
 """
 def reporteAlmacen(request,ct):
 	#consultas
