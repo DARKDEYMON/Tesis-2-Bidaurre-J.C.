@@ -1063,7 +1063,6 @@ class reporteAlmacen(PDFTemplateView):
 	def get_context_data(self, **kwargs):
 		context = super(reporteAlmacen, self).get_context_data(**kwargs)
 		pk = self.kwargs.get('ct')
-		print(pk)
 		try:
 			context['res'] = almacen.objects.get(ciudad=pk)
 		except:
@@ -1080,6 +1079,28 @@ class reporteActivo(PDFTemplateView):
 			raise Http404
 		return context
 
+class envio_reporte_material(PDFTemplateView):
+	template_name = "almacen/envio_reporte_material.html"
+	def get_context_data(self, **kwargs):
+		context = super(envio_reporte_material, self).get_context_data(**kwargs)
+		pk = self.kwargs.get('pk')
+		try:
+			context['res'] = salidaMaterial.objects.get(pk=pk)
+			context['usuario'] = self.request.user
+		except:
+			raise Http404
+		return context
+class envio_reporte_insumo(PDFTemplateView):
+	template_name = "almacen/envio_reporte_insumo.html"
+	def get_context_data(self, **kwargs):
+		context = super(envio_reporte_insumo, self).get_context_data(**kwargs)
+		pk = self.kwargs.get('pk')
+		try:
+			context['res'] = salidaInsumos.objects.get(pk=pk)
+			context['usuario'] = self.request.user
+		except:
+			raise Http404
+		return context
 """
 def reporteAlmacen(request,ct):
 	#consultas

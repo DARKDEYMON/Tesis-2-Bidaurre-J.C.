@@ -208,4 +208,12 @@ urlpatterns = [
         login_required(reporteActivo.as_view()), 
         name='reporteactivo'
     ),
+    url(r'^reportematerial/(?P<pk>\d+)/$',
+        login_required(envio_reporte_material.as_view()), 
+        name='reportematerial'
+    ),
+    url(r'^envioinsumo/(?P<pk>\d+)/$',
+        login_required(envio_reporte_insumo.as_view()), 
+        name='envioinsumo'
+    ),
 ]
