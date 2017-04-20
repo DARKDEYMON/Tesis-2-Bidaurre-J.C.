@@ -197,7 +197,7 @@
                                     Fecha de inicio:
                                 </th>
                                 <td>
-                                    {{ i.fecha_inicio }}
+                                    {{ i.fecha_inicio|date:"Y-m-d" }}
                                 </td>
                             </tr>
                             <tr>
@@ -205,7 +205,7 @@
                                     Plazo de finalizacion:
                                 </th>
                                 <td>
-                                    {{ i.plazo_finalizacion }}
+                                    {{ i.plazo_finalizacion|date:"Y-m-d" }}
                                 </td>
                             </tr>
                             <tr>
@@ -343,7 +343,7 @@
                                     {{ em.proveedor }}
                                 </td>
                                 <td>
-                                    {{ em.fecha }}
+                                    {{ em.fecha|date:"Y-m-d" }}
                                 </td>
                                 <td>
                                     {{ em.costo_total }}
@@ -473,7 +473,7 @@
                                     {{ ei.proveedor }}
                                 </td>
                                 <td>
-                                    {{ ei.fecha }}
+                                    {{ ei.fecha|date:"Y-m-d" }}
                                 </td>
                                 <td>
                                     {{ ei.costo_total }}

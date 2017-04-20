@@ -290,6 +290,9 @@
                                     Proveedor
                                 </th>
                                 <th>
+                                    No factura
+                                </th>
+                                <th>
                                     Fecha
                                 </th>
                                 <th>
@@ -308,7 +311,10 @@
                                         {{ ing.proveedor }}
                                     </td>
                                     <td>
-                                        {{ ing.fecha }}
+                                        {{ ing.no_factura }}
+                                    </td>
+                                    <td>
+                                        {{ ing.fecha|date:"Y-m-d" }}
                                     </td>
                                     <td>
                                         {{ ing.costo_total }}
@@ -358,7 +364,7 @@
                                         {% endif %}
                                     </td>
                                     <td>
-                                        {{ sal.fecha }}
+                                        {{ sal.fecha|date:"Y-m-d" }}
                                     </td>
                                     <td>
                                         {{ sal.cantidad }}
@@ -389,6 +395,9 @@
                                     Proveedor
                                 </th>
                                 <th>
+                                    No factura
+                                </th>
+                                <th>
                                     Fecha
                                 </th>
                                 <th>
@@ -407,7 +416,10 @@
                                         {{ ing.proveedor }}
                                     </td>
                                     <td>
-                                        {{ ing.fecha }}
+                                        {{ ing.no_factura }}
+                                    </td>
+                                    <td>
+                                        {{ ing.fecha|date:"Y-m-d" }}
                                     </td>
                                     <td>
                                         {{ ing.costo_total }}
@@ -457,7 +469,7 @@
                                         {% endif %}
                                     </td>
                                     <td>
-                                        {{ sal.fecha }}
+                                        {{ sal.fecha|date:"Y-m-d" }}
                                     </td>
                                     <td>
                                         {{ sal.cantidad }}
@@ -499,7 +511,7 @@
                                         {{ ing.herramientas }}
                                     </td>
                                     <td>
-                                        {{ ing.fecha }}
+                                        {{ ing.fecha|date:"Y-m-d" }}
                                     </td>
                                     <td>
                                         {{ ing.cantidad }}
@@ -548,7 +560,7 @@
                                         {{ ing.maquinaria_equipo }}
                                     </td>
                                     <td>
-                                        {{ ing.fecha }}
+                                        {{ ing.fecha|date:"Y-m-d" }}
                                     </td>
                                     <td>
                                         {{ ing.cantidad }}

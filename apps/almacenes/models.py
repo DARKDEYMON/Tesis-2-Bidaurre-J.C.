@@ -117,6 +117,17 @@ class ingresoMaterial(models.Model):
 	material = models.ForeignKey(material)
 	proveedor = models.ForeignKey(proveedor)
 	item = models.ForeignKey('seguimiento.item')
+	no_factura = models.PositiveIntegerField(
+		null=False,
+		blank=False,
+		validators=[
+			RegexValidator(
+				regex=r'^[0-9]{7,8}$', 
+				message='El numero de factura tiene de 5 a 20 cifras', 
+				code='Numero Invalido'
+			)
+		]
+	)
 	fecha =models.DateField(
 		null=False,
 		blank=False,
@@ -195,6 +206,17 @@ class ingresoInsumos(models.Model):
 	insumos = models.ForeignKey(insumos)
 	proveedor = models.ForeignKey(proveedor)
 	item = models.ForeignKey('seguimiento.item')
+	no_factura = models.PositiveIntegerField(
+		null=False,
+		blank=False,
+		validators=[
+			RegexValidator(
+				regex=r'^[0-9]{7,8}$', 
+				message='El numero de factura tiene de 5 a 20 cifras', 
+				code='Numero Invalido'
+			)
+		]
+	)
 	fecha =models.DateField(
 		null=False,
 		blank=False,
