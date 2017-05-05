@@ -9,6 +9,8 @@ from django.db.models import F
 from django.db.models import Sum
 from django.db.models import Avg
 
+import re
+
 # Create your models here.
 class almacen(models.Model):
 	ciudad = models.CharField(
@@ -96,6 +98,9 @@ class material(models.Model):
 		null=True,
 		blank=True,
 	)
+	def clean(self):
+		aux = re.sub(' +',' ',self.decripcion)
+		self.decripcion = aux.capitalize()
 	def __str__(self):
 		return self.decripcion
 
@@ -122,7 +127,7 @@ class ingresoMaterial(models.Model):
 		blank=False,
 		validators=[
 			RegexValidator(
-				regex=r'^[0-9]{7,8}$', 
+				regex=r'^[0-9]{5,20}$', 
 				message='El numero de factura tiene de 5 a 20 cifras', 
 				code='Numero Invalido'
 			)
@@ -211,7 +216,7 @@ class ingresoInsumos(models.Model):
 		blank=False,
 		validators=[
 			RegexValidator(
-				regex=r'^[0-9]{7,8}$', 
+				regex=r'^[0-9]{5,20}$', 
 				message='El numero de factura tiene de 5 a 20 cifras', 
 				code='Numero Invalido'
 			)
@@ -298,6 +303,17 @@ class ingresoHerramientas(models.Model):
 	almacen = models.ForeignKey(almacen)
 	herramientas = models.ForeignKey(herramientas)
 	proveedor = models.ForeignKey(proveedor)
+	no_factura = models.PositiveIntegerField(
+		null=False,
+		blank=False,
+		validators=[
+			RegexValidator(
+				regex=r'^[0-9]{5,20}$', 
+				message='El numero de factura tiene de 5 a 20 cifras', 
+				code='Numero Invalido'
+			)
+		]
+	)
 	cantidad = models.PositiveIntegerField(
 		blank=False,
 		null=False,
