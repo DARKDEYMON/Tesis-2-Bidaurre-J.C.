@@ -209,7 +209,8 @@ class item(models.Model):
 	)
 	cantidad = models.PositiveIntegerField(
 		null=False,
-		blank=False
+		blank=False,
+		validators=[MinValueValidator(1,"El valor no puede ser cero")]
 	)
 	pocentaje_avance = models.PositiveIntegerField(
 		null=False,
@@ -255,11 +256,13 @@ class peticion_materiales(models.Model):
 	material = models.ForeignKey(material)
 	cantidad = models.PositiveIntegerField(
 		blank=False,
-		null=False
+		null=False,
+		validators=[MinValueValidator(1,"El valor no puede ser cero")]
 	)
 	precio_estimado_total = models.FloatField(
 		blank=False,
-		null=False
+		null=False,
+		validators=[MinValueValidator(1,"El valor no puede ser cero")]
 	)
 	petion_de_planificacion = models.BooleanField(
 		blank=False,
@@ -286,11 +289,13 @@ class peticion_insumos(models.Model):
 	insumos = models.ForeignKey(insumos)
 	cantidad = models.PositiveIntegerField(
 		blank=False,
-		null=False
+		null=False,
+		validators=[MinValueValidator(1,"El valor no puede ser cero")]
 	)
 	precio_estimado_total = models.FloatField(
 		blank=False,
-		null=False
+		null=False,
+		validators=[MinValueValidator(1,"El valor no puede ser cero")]
 	)
 	petion_de_planificacion = models.BooleanField(
 		blank=False,
@@ -317,7 +322,8 @@ class peticion_Herramientas(models.Model):
 	herramientas = models.ForeignKey(herramientas)
 	cantidad = models.PositiveIntegerField(
 		blank=False,
-		null=False
+		null=False,
+		validators=[MinValueValidator(1,"El valor no puede ser cero")]
 	)
 	petion_de_planificacion = models.BooleanField(
 		blank=False,
@@ -338,7 +344,8 @@ class peticion_maquinaria_equipo(models.Model):
 	maquinaria_equipo = models.ForeignKey(maquinaria_equipo)
 	cantidad = models.PositiveIntegerField(
 		blank=False,
-		null=False
+		null=False,
+		validators=[MinValueValidator(1,"El valor no puede ser cero")]
 	)
 	observaciones = models.TextField(
 		blank=True,
@@ -363,11 +370,13 @@ class requerimiento_personal(models.Model):
 	)
 	cantidad = models.PositiveIntegerField(
 		null=False,
-		blank=False
+		blank=False,
+		validators=[MinValueValidator(1,"El valor no puede ser cero")]
 	)
 	precio_total = models.FloatField(
 		null=False,
-		blank=False
+		blank=False,
+		validators=[MinValueValidator(1,"El valor no puede ser cero")]
 	)
 	planificacion = models.BooleanField(
 		blank=False,
@@ -398,11 +407,13 @@ class requerimiento_maq_he(models.Model):
 	)
 	cantidad = models.PositiveIntegerField(
 		null=False,
-		blank=False
+		blank=False,
+		validators=[MinValueValidator(1,"El valor no puede ser cero")]
 	)
 	precio_total = models.FloatField(
 		null=False,
-		blank=False
+		blank=False,
+		validators=[MinValueValidator(1,"El valor no puede ser cero")]
 	)
 	planificacion = models.BooleanField(
 		blank=False,
@@ -433,7 +444,8 @@ class materiales_locales(models.Model):
 	)
 	cantidad = models.PositiveIntegerField(
 		blank=False,
-		null=False
+		null=False,
+		validators=[MinValueValidator(1,"El valor no puede ser cero")]
 	)
 	unidad =models.CharField(
 		max_length=10,
@@ -448,6 +460,7 @@ class materiales_locales(models.Model):
 	precio_total = models.FloatField(
 		blank=False,
 		null=False,
+		validators=[MinValueValidator(1,"El valor no puede ser cero")]
 	)
 	def totalItem(self):
 		res = materiales_locales.objects.filter(item=self.item).aggregate(total=Sum('precio_total'))

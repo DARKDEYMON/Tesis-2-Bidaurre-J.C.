@@ -4,6 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 #from apps.seguimiento.models import item
 
 from django.core.validators import RegexValidator
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 from django.db.models import F
 from django.db.models import Sum
@@ -140,12 +141,14 @@ class ingresoMaterial(models.Model):
 	)
 	costo_total = models.PositiveIntegerField(
 		null=False,
-		blank=False
+		blank=False,
+		validators=[MinValueValidator(1,"El valor no puede ser cero")]
 	)
 	cantidad = models.PositiveIntegerField(
 		blank=False,
 		null=False,
-		default=0
+		default=0,
+		validators=[MinValueValidator(1,"El valor no puede ser cero")]
 	)
 	def totalItem(self):
 		res = ingresoMaterial.objects.filter(item=self.item).aggregate(total=Sum('costo_total'))
@@ -174,7 +177,8 @@ class salidaMaterial(models.Model):
 	cantidad = models.PositiveIntegerField(
 		blank=False,
 		null=False,
-		default=0
+		default=0,
+		validators=[MinValueValidator(1,"El valor no puede ser cero")]
 	)
 
 #insumos
@@ -229,12 +233,14 @@ class ingresoInsumos(models.Model):
 	)
 	costo_total = models.PositiveIntegerField(
 		null=False,
-		blank=False
+		blank=False,
+		validators=[MinValueValidator(1,"El valor no puede ser cero")]
 	)
 	cantidad = models.PositiveIntegerField(
 		blank=False,
 		null=False,
-		default=0
+		default=0,
+		validators=[MinValueValidator(1,"El valor no puede ser cero")]
 	)
 	def totalItem(self):
 		res = ingresoInsumos.objects.filter(item=self.item).aggregate(total=Sum('costo_total'))
@@ -263,7 +269,8 @@ class salidaInsumos(models.Model):
 	cantidad = models.PositiveIntegerField(
 		blank=False,
 		null=False,
-		default=0
+		default=0,
+		validators=[MinValueValidator(1,"El valor no puede ser cero")]
 	)
 
 #herraminetas
@@ -317,7 +324,8 @@ class ingresoHerramientas(models.Model):
 	cantidad = models.PositiveIntegerField(
 		blank=False,
 		null=False,
-		default=0
+		default=0,
+		validators=[MinValueValidator(1,"El valor no puede ser cero")]
 	)
 	fecha =models.DateField(
 		null=False,
@@ -326,7 +334,8 @@ class ingresoHerramientas(models.Model):
 	)
 	costo_total = models.PositiveIntegerField(
 		null=False,
-		blank=False
+		blank=False,
+		validators=[MinValueValidator(1,"El valor no puede ser cero")]
 	)
 	"""
 	cantidad = models.PositiveIntegerField(
@@ -353,7 +362,8 @@ class salidaHerramientas(models.Model):
 	cantidad = models.PositiveIntegerField(
 		blank=False,
 		null=False,
-		default=0
+		default=0,
+		validators=[MinValueValidator(1,"El valor no puede ser cero")]
 	)
 #maquinaria/equipo
 class maquinaria_equipo(models.Model):
@@ -395,7 +405,8 @@ class ingresoMaquinaria_equipo(models.Model):
 	cantidad = models.PositiveIntegerField(
 		blank=False,
 		null=False,
-		default=0
+		default=0,
+		validators=[MinValueValidator(1,"El valor no puede ser cero")]
 	)
 	fecha =models.DateField(
 		null=False,
@@ -404,7 +415,8 @@ class ingresoMaquinaria_equipo(models.Model):
 	)
 	costo_total = models.PositiveIntegerField(
 		null=False,
-		blank=False
+		blank=False,
+		validators=[MinValueValidator(1,"El valor no puede ser cero")]
 	)
 	"""
 	cantidad = models.PositiveIntegerField(
@@ -431,7 +443,8 @@ class salidaMaquinaria_equipo(models.Model):
 	cantidad = models.PositiveIntegerField(
 		blank=False,
 		null=False,
-		default=0
+		default=0,
+		validators=[MinValueValidator(1,"El valor no puede ser cero")]
 	)
 
 class tipoActivo(models.Model):
