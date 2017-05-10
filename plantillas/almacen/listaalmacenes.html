@@ -9,7 +9,7 @@
 					<div class="col-lg-12">
 						
 						<h2 style="text-align: center;">
-							Lista de almacenes
+							Lista de Almacenes
 						</h2>
 
 						<form role="form" class="form-inline" action="" method="get" accept-charset="utf-8">
@@ -31,9 +31,9 @@
 				  <thead>
 				    <tr>
 				      <th>#id</th>
-				      <th>Localicacion</th>
-				      <th>Direccion</th>
-				      <th>Telefono</th>
+				      <th>Localización</th>
+				      <th>Dirección</th>
+				      <th>Teléfono</th>
 				    </tr>
 				  </thead>
 				  <tbody>
@@ -75,7 +75,7 @@
 											  </button>
 											  <ul class="dropdown-menu">
 											    <li><a href="{% url 'almacenes:ingresoherramientas' almacen.ciudad %}">Ingreso de herramientas<span class="glyphicon glyphicon-edit" aria-hidden="true"></a></li>
-											    <li><a href="{% url 'almacenes:listaconfirmacionherramientas' almacen.ciudad %}">Devolucion de herramientas<span class="glyphicon glyphicon-edit" aria-hidden="true"></a></li>
+											    <li><a href="{% url 'almacenes:listaconfirmacionherramientas' almacen.ciudad %}">Devolución de herramientas<span class="glyphicon glyphicon-edit" aria-hidden="true"></a></li>
 											  </ul>
 											</div>
 											<div class="btn-group">
@@ -84,7 +84,7 @@
 											  </button>
 											  <ul class="dropdown-menu">
 											    <li><a href="{% url 'almacenes:ingresomaquinariaequipo' almacen.ciudad %}">Ingreso de maquinaria/equipo<span class="glyphicon glyphicon-edit" aria-hidden="true"></a></li>
-											    <li><a href="{% url 'almacenes:listaconfirmacionmaquinariahequipo' almacen.ciudad %}">Debolucion de maquinaria/equipo<span class="glyphicon glyphicon-edit" aria-hidden="true"></a>
+											    <li><a href="{% url 'almacenes:listaconfirmacionmaquinariahequipo' almacen.ciudad %}">Devolución de maquinaria/equipo<span class="glyphicon glyphicon-edit" aria-hidden="true"></a>
 											    </li>
 											  </ul>
 											</div>

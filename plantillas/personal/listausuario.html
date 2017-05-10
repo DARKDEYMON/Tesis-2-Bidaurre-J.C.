@@ -41,7 +41,7 @@
 				      <th>#id</th>
 				      <th>Nombre</th>
 				      <th>Apellido</th>
-				      <th>Correo electronico</th>
+				      <th>Correo electrónico</th>
 				      <th>Curriculum </th>
 				      <th>Confiabilidad </th>
 				      <th>Opciones </th>
@@ -89,14 +89,14 @@
 											  <ul class="dropdown-menu">
 											    <li><a href="{% url 'personal:updateusuario' user.id %}">Editar<span class="glyphicon glyphicon-edit" aria-hidden="true"></a></li>
 											    <li><a href="{% url 'personal:añadirpermisos' user.id %}">Añadir Permisos<span class="glyphicon glyphicon-wrench" </li>
-											    <li><a href="{% url 'personal:updatedarbaja' user.id %}">Dar Baja/alta<span class="glyphicon glyphicon-remove" aria-hidden="true"></a></li>
+											    <li><a href="{% url 'personal:updatedarbaja' user.id %}">Dar baja/alta<span class="glyphicon glyphicon-remove" aria-hidden="true"></a></li>
 											    
 											  </ul>
 											</div>
 
 											<div class="btn-group">
 											  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-											    Gestion Administrativa <span class="caret"></span>
+											    Gestión Administrativa <span class="caret"></span>
 											  </button>
 											  <ul class="dropdown-menu">
 											    <li><a href="{% url 'personal:designacion' user.id%}">Designar<span class="glyphicon glyphicon-edit" aria-hidden="true"></a></li>

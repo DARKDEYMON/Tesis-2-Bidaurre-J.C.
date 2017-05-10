@@ -9,15 +9,15 @@
 			
 	{% block errores %}
 		{% if form.errors %}
-				<p>Tu nombre de usuario o password no se an Encontrado. Intente Denuebo</p>
+				<p>Tu nombre de usuario o password no se a encontrado. Intente de nuevo</p>
 		{% endif %}
 
 		{% if next %}
 			{% if user.is_authenticated %}
-			    <p>Tu cuenta no tiene acceso a esta pagina. Para continuar,
-			    logeese con una cuenta q cuente con los permisos nesesarios.</p>
+			    <p>Tu cuenta no tiene acceso a esta página. Para continuar,
+			    logeese con una cuenta que cuente con los permisos nesesarios.</p>
 			{% else %}
-			    <p>Porfabor Logeate Para ver esta pagina.</p>
+			    <p>Por favor Logeate para ver esta página.</p>
 			{% endif %}
 		{% endif %}	
 	{% endblock errores %}		

@@ -30,7 +30,7 @@ class crearItemsForm(ModelForm):
 			'plazo_finalizacion':Html5DateInput(format=('%Y-%m-%d'))
 		}
 		labels = {
-			'plazo_finalizacion':'Plazo de Finalisacion',
+			'plazo_finalizacion':'Plazo de finalizacion',
 		}
 
 CHOICES = (('1', 'ID'),('2', 'Nombre'),)
@@ -48,16 +48,27 @@ class crearPeticionMaterialForm(ModelForm):
 	class Meta:
 		model = peticion_materiales
 		exclude = ['item']
+		#marcado de cambio verificar
+		labels = {
+			'petion_de_planificacion':'Peticion de planificacion',
+		}
 
 class crearPeticionInsumosForm(ModelForm):
 	class Meta:
 		model = peticion_insumos
 		exclude = ['item']
+		labels = {
+			'petion_de_planificacion':'Peticion de planificacion',
+		}
+
 
 class crearPeticionHerramientas(ModelForm):
 	class Meta:
 		model = peticion_Herramientas
 		exclude = ['item']
+		labels = {
+			'petion_de_planificacion':'Peticion de planificacion',
+		}
 
 class crearRequerimientoPersonalForm(ModelForm):
 	class Meta:

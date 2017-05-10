@@ -1,7 +1,7 @@
 {% extends "base/baseform.html" %}	
 
 	{% block tituloform %}
-		Borrar Designacion
+		Borrar Designación
 	{% endblock tituloform %}
 	
 	{% block formulario %}
@@ -20,7 +20,7 @@
 
 		<form action="" method="post">
 		{% csrf_token %}
-			<div class="alert alert-danger" role="alert"><strong>Alerta!!!!</strong> Esta Seguro de Borrar la designacion para <strong>"{{ object.user.first_name }}" </strong>?</div>
+			<div class="alert alert-danger" role="alert"><strong>Alerta!!!!</strong> Esta seguro de borrar la designación para <strong>"{{ object.user.first_name }}" </strong>?</div>
 		    
 		    {% buttons %}
 	        	<button type="submit" class="btn btn-primary center-block">

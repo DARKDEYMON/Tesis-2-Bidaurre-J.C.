@@ -72,12 +72,12 @@
         	
         {%block content%}
             
-                <h3><b>1. Informacion General.-</b></h3>
+                <h3><b>1. Información General.-</b></h3>
                 <div class="general">
                     <table>
                         <tr>
                             <th>
-                                Objeto de la contratacion:
+                                Objeto de la contratación:
                             </th>
                             <td>
                                 {{ res.objeto_de_la_contratacion }}
@@ -85,7 +85,7 @@
                         </tr>
                         <tr>
                             <th>
-                                Modalidad de contratacion:
+                                Modalidad de contratación:
                             </th>
                             <td>
                                 {{ res.modalidad_de_contratacion }}
@@ -101,7 +101,7 @@
                         </tr>
                         <tr>
                             <th>
-                                Telefono de la entidad contratante:
+                                Teléfono de la entidad contratante:
                             </th>
                             <td>
                                 {{ res.ec_telefono }}
@@ -109,7 +109,7 @@
                         </tr>
                         <tr>
                             <th>
-                                Direccion de la entidad contratante:
+                                Dirección de la entidad contratante:
                             </th>
                             <td>
                                 {{ res.ec_direccion }}
@@ -141,7 +141,7 @@
                         </tr>
                         <tr>
                             <th>
-                                Ubicacion del proyecto:
+                                Ubicación del proyecto:
                             </th>
                             <td>
                                 {{ res.ubicacion_proyecto }}
@@ -165,7 +165,7 @@
                         </tr> 
                         <tr>
                             <th>
-                                A tiempo :
+                                A tiempo:
                             </th>
                             <td>
                                 {% if res.enTiempo %}
@@ -186,7 +186,7 @@
                         <table>
                             <tr>
                                 <th>
-                                    Descripcion:
+                                    Descripción:
                                 </th>
                                 <td>
                                     {{ i.descripcion }}
@@ -202,7 +202,7 @@
                             </tr>
                             <tr>
                                 <th>
-                                    Plazo de finalizacion:
+                                    Plazo de finalización:
                                 </th>
                                 <td>
                                     {{ i.plazo_finalizacion|date:"Y-m-d" }}
@@ -244,7 +244,7 @@
                     </div>
 
                     <!-- materiales -->
-                    <h3><b>2.{{ forloop.counter }}.1 Peticion de Materiales Item {{ i.descripcion }}.-</b></h3>
+                    <h3><b>2.{{ forloop.counter }}.1 Petición de Materiales Item {{ i.descripcion }}.-</b></h3>
                     <ul>
                         <h3><li>Peticiones</li></h3>
                     </ul>
@@ -262,7 +262,7 @@
                                     Precio estimado total
                                 </th>
                                 <th>
-                                    Petion de planificacion
+                                    Petición de planificación
                                 </th>
                                 <th>
                                     Observaciones
@@ -304,7 +304,7 @@
                         </table>
                     </div>
                     {% else %}
-                        <p>No contiene incluidos el detalle de materiales aun</p>
+                        <p>No contiene incluido el detalle de materiales aún</p>
                     {% endif %}
 
                     <ul>
@@ -369,12 +369,12 @@
                         </table>
                     </div>
                     {% else %}
-                        <p>No contiene incluidos el detalle de entradas ejecutas aun</p>
+                        <p>No contiene incluido el detalle de entradas ejecutas aún</p>
                     {% endif %}
                     <!-- materiales -->
 
                     <!-- insumos -->
-                    <h3><b>2.{{ forloop.counter }}.2 Peticion de Insumos Item {{ i.descripcion }}.-</b></h3>
+                    <h3><b>2.{{ forloop.counter }}.2 Petición de Insumos Item {{ i.descripcion }}.-</b></h3>
                     <ul>
                         <h3><li>Peticiones</li></h3>
                     </ul>
@@ -392,7 +392,7 @@
                                     Precio estimado total
                                 </th>
                                 <th>
-                                    Petion de planificacion
+                                    Petición de planificación
                                 </th>
                                 <th>
                                     Observaciones
@@ -434,7 +434,7 @@
                         </table>
                     </div>
                     {% else %}
-                        <p>No contiene incluidos el detalle de insumos aun</p>
+                        <p>No contiene incluido el detalle de insumos aún</p>
                     {% endif %}
 
                     <ul>
@@ -499,24 +499,24 @@
                         </table>
                     </div>
                     {% else %}
-                        <p>No contiene incluidos el detalle de entradas ejecutas aun</p>
+                        <p>No contiene incluidos el detalle de entradas ejecutas aún</p>
                     {% endif %}
                     <!-- insumos -->
 
                     <!-- herramientas -->
-                    <h3><b>2.{{ forloop.counter }}.3 Peticion de Herramientas Item {{ i.descripcion }}.-</b></h3>
+                    <h3><b>2.{{ forloop.counter }}.3 Petición de Herramientas Item {{ i.descripcion }}.-</b></h3>
                     {% if i.peticion_herramientas_set.all %}
                     <div class="lineal">
                         <table>
                             <tr>
                                 <th>
-                                    Descripcion Herramienta
+                                    Descripción herramienta
                                 </th>
                                 <th>
                                     Cantidad
                                 </th>
                                 <th>
-                                    Petion de planificacion
+                                    Petición de planificación
                                 </th>
                                 <th>
                                     Observaciones
@@ -545,7 +545,7 @@
                         </table>
                     </div>
                     {% else %}
-                        <p>No contiene incluidos el detalle de herramientas aun</p>
+                        <p>No contiene incluido el detalle de herramientas aún</p>
                     {% endif %}
                     <!-- herramientas -->
 
@@ -556,7 +556,7 @@
                         <table>
                             <tr>
                                 <th>
-                                    Funcion
+                                    Función
                                 </th>
                                 <th>
                                     Cantidad
@@ -565,7 +565,7 @@
                                     Precio total
                                 </th>
                                 <th>
-                                    Petion de planificacion
+                                    Petición de planificación
                                 </th>
                                 <th>
                                     Observaciones
@@ -607,7 +607,7 @@
                         </table>
                     </div>
                     {% else %}
-                        <p>No contiene incluidos el detalle de mano de obra aun</p>
+                        <p>No contiene incluido el detalle de mano de obra aún</p>
                     {% endif %}
                     <!-- mano de obra -->
 
@@ -618,7 +618,7 @@
                         <table>
                             <tr>
                                 <th>
-                                    Descripcion
+                                    Descripción
                                 </th>
                                 <th>
                                     Cantidad
@@ -627,7 +627,7 @@
                                     Precio total
                                 </th>
                                 <th>
-                                    Petion de planificacion
+                                    Petición de planificación
                                 </th>
                                 <th>
                                     Observaciones
@@ -669,7 +669,7 @@
                         </table>
                     </div>
                     {% else %}
-                        <p>No contiene incluidos el detalle de maquinaria/equipo aun</p>
+                        <p>No contiene incluido el detalle de maquinaria/equipo aún</p>
                     {% endif %}
                     <!-- maquinaria/equipo -->
 
@@ -681,7 +681,7 @@
                         <table>
                             <tr>
                                 <th>
-                                    Descripcion
+                                    Descripción
                                 </th>
                                 <th>
                                     Cantidad
@@ -693,7 +693,7 @@
                                     Precio total
                                 </th>
                                 <th>
-                                    Petion de planificacion
+                                    Petición de planificación
                                 </th>
                                 <th>
                                     Observaciones
@@ -738,7 +738,7 @@
                         </table>
                     </div>
                     {% else %}
-                        <p>No contiene incluidos el detalle de material local aun</p>
+                        <p>No contiene incluido el detalle de material local aún</p>
                     {% endif %}
                     <!-- material local -->
 
@@ -803,7 +803,7 @@
                                 </tr>
                             </table>
                         </div>
-                        <h3><b>{{ forloop.counter }}.b) Informe fotofrafico de Abance de fecha {{ inf.date }}.-</b></h3>
+                        <h3><b>{{ forloop.counter }}.b) Informe fotográfico de avance de fecha {{ inf.date }}.-</b></h3>
                         <div class="lineal">
                             {% for rfot in inf.reporte_fotografico_set.all %}
                             
@@ -821,13 +821,13 @@
 
                     {% endfor %}
                     {% else %}
-                        <p>No contiene incluidos el detalles de reportes aun</p>
+                        <p>No contiene incluido el detalles de reportes aún</p>
                     {% endif %}
                     <!-- reportes -->
 
                 {% endfor %}
                 {% else %}
-                    <p>No contiene items aun</p>
+                    <p>No contiene items aún</p>
                 {% endif %}
 
                 <!-- ejecutado -->
@@ -841,10 +841,10 @@
                     <table>
                         <tr>
                             <th>
-                                Descripcion
+                                Descripción
                             </th>
                             <th>
-                                Total planificacion
+                                Total planificación
                             </th>
                             <th>
                                 Ejecutado
@@ -956,7 +956,7 @@
                         </tr>
                         <tr>
                             <th>
-                                Descripcion
+                                Descripción
                             </th>
                             <th>
                                 Total

@@ -63,13 +63,13 @@
 <body>
     
     <div class="tittle_report">
-        <h1>Reporte de Almacen</h1>
+        <h1>Reporte de Almacén</h1>
         <h1>{{ res.ciudad }}.</h1>
     </div>
 
     {% block content %}
         <!-- general -->
-        <h3><b>1. Informacion General.-</b></h3>
+        <h3><b>1. Información General.-</b></h3>
         <div class="general">
             <table>
                 <tr>
@@ -82,7 +82,7 @@
                 </tr>
                 <tr>
                     <th>
-                        Direccion:
+                        Dirección:
                     </th>
                     <td>
                         {{ res.direccion }}
@@ -90,7 +90,7 @@
                 </tr>
                 <tr>
                     <th>
-                        Telefono:
+                        Teléfono:
                     </th>
                     <td>
                         {{ res.telefono }}
@@ -141,7 +141,7 @@
                 </table>
             </div>
         {% else %}
-            <p>No se encuntra materiales en el amacen aun</p>
+            <p>No se encuentran materiales en el almacén aún</p>
         {% endif %}
         <!-- mateliales stock -->
 
@@ -177,7 +177,7 @@
                 </table>
             </div>
         {% else %}
-            <p>No se encuntra insumos en el amacen aun</p>
+            <p>No se encuentran insumos en el almacén aún</p>
         {% endif %}
         <!-- insumos stock -->
 
@@ -219,7 +219,7 @@
                 </table>
             </div>
         {% else %}
-            <p>No se encuntra herramientas en el amacen aun</p>
+            <p>No se encuentran herramientas en el almacén aún</p>
         {% endif %}
         <!-- herramientas stock -->
 
@@ -230,7 +230,7 @@
                 <table border="1">
                     <tr>
                         <th>
-                            Descripcion
+                            Descripción
                         </th>
                         <th>
                             Stock
@@ -261,17 +261,17 @@
                 </table>
             </div>
         {% else %}
-            <p>No se encuntra maquinaria/equipo en el amacen aun</p>
+            <p>No se encuentran maquinaria/equipo en el almacén aún</p>
         {% endif %}
         <!-- herramientas stock -->
 
-        <h3><b>2. Informacion por item .-</b></h3>
+        <h3><b>2. Información por item .-</b></h3>
 
         
 
         {% if res.items %}
             {% for it  in res.items %}
-                <h3><b>2. Informacion de item {{ it }} .-</b></h3>
+                <h3><b>2. Información de item {{ it }} .-</b></h3>
 
 
                     <!-- item material stock -->
@@ -327,7 +327,7 @@
                         </table>
                     </div>
                     {% else %}
-                        <p>No se encuntra ingresos de material al item aun</p>
+                        <p>No se encuentran ingresos de material al item aún</p>
                     {% endif %}
 
 
@@ -342,7 +342,7 @@
                                     Material
                                 </th>
                                 <th>
-                                    Conf. Recepcion
+                                    Conf. Recepción
                                 </th>
                                 <th>
                                     Fecha
@@ -374,7 +374,7 @@
                         </table>
                     </div>
                     {% else %}
-                        <p>No se encuntra ingresos de material al item aun</p>
+                        <p>No se encuentran ingresos de material al item aún</p>
                     {% endif %}
                     <!-- item material stock -->
 
@@ -432,7 +432,7 @@
                         </table>
                     </div>
                     {% else %}
-                        <p>No se encuntra ingresos de insumo al item aun</p>
+                        <p>No se encuentran ingresos de insumo al item aún</p>
                     {% endif %}
 
 
@@ -447,7 +447,7 @@
                                     Insumo
                                 </th>
                                 <th>
-                                    Conf. Recepcion
+                                    Conf. Recepción
                                 </th>
                                 <th>
                                     Fecha
@@ -479,7 +479,7 @@
                         </table>
                     </div>
                     {% else %}
-                        <p>No se encuntra ingresos de insumo al item aun</p>
+                        <p>No se encuentran ingresos de insumo al item aún</p>
                     {% endif %}
                     <!-- item insumo stock -->
 
@@ -493,7 +493,7 @@
                         <table border="1">
                             <tr>
                                 <th>
-                                    Descripcion
+                                    Descripción
                                 </th>
                                 <th>
                                     Fecha
@@ -502,7 +502,7 @@
                                     Cantidad
                                 </th>
                                 <th>
-                                    Debuelto
+                                    Devuelto
                                 </th>
                             </tr>
                             {% for ing in it.salidaherramientas_set.all %}
@@ -528,7 +528,7 @@
                         </table>
                     </div>
                     {% else %}
-                        <p>No se encuntra ingresos de herramientas al item aun</p>
+                        <p>No se encuentran ingresos de herramientas al item aún</p>
                     {% endif %}
                     <!-- item herramientas stock -->
 
@@ -542,7 +542,7 @@
                         <table border="1">
                             <tr>
                                 <th>
-                                    Descripcion
+                                    Descripción
                                 </th>
                                 <th>
                                     Fecha
@@ -551,7 +551,7 @@
                                     Cantidad
                                 </th>
                                 <th>
-                                    Debuelto
+                                    Devuelto
                                 </th>
                             </tr>
                             {% for ing in it.salidamaquinaria_equipo_set.all %}
@@ -577,13 +577,13 @@
                         </table>
                     </div>
                     {% else %}
-                        <p>No se encuntra ingresos de maquinaria/equipo al item aun</p>
+                        <p>No se encuentran ingresos de maquinaria/equipo al item aún</p>
                     {% endif %}
                     <!-- item maquinaria/equipo stock -->
 
             {% endfor %}
         {% else %}
-            <p>No se encuntra items aun</p>
+            <p>No se encuentran items aún</p>
         {% endif %}
        
 

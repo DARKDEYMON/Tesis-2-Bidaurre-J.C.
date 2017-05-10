@@ -54,14 +54,26 @@
 							      	<td>{{ cargo.id }}</td>
 							      	<td>{{ cargo.nombre_cargo }}</td>
 							      	<td>{{ cargo.salario }}</td>
-							    	<td>{{ cargo.encargado_de_reportes_avance }}</td>
+							    	<td>
+								    	{% if cargo.encargado_de_reportes_avance %}
+								    		Si
+								    	{% else %}
+								    		No								    	    								    	
+								    	{% endif %}
+							    	</td>
 							     
 							{% else %}
 								<tr class="success">
 							      	<td>{{ cargo.id }}</td>
 							      	<td>{{ cargo.nombre_cargo }}</td>
 							      	<td>{{ cargo.salario }}</td>
-							    	<td>{{ cargo.encargado_de_reportes_avance }}</td>
+							    	<td>
+								    	{% if cargo.encargado_de_reportes_avance %}
+								    		Si
+								    	{% else %}
+								    		No								    	    								    	
+								    	{% endif %}
+							    	</td>
 							     
 				  			{% endif %}
 				  					<td>

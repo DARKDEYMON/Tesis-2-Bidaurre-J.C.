@@ -33,6 +33,7 @@ class crearUsuarioKardexForm(ModelForm):
 		}
 		labels = {
 			'ci':'C.I.',
+			#'profesion':'Profesión'
 		}
 CHOICES = (('1', 'ID'),('2', 'Nombre'),)
 class searchForm(forms.Form):
