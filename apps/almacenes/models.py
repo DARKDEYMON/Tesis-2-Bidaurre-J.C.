@@ -198,6 +198,9 @@ class insumos(models.Model):
 		null=True,
 		blank=True,
 	)
+	def clean(self):
+		aux = re.sub(' +',' ',self.decripcion)
+		self.decripcion = aux.capitalize()
 	def __str__(self):
 		return self.decripcion
 class insumosAlmacen(models.Model):
@@ -290,6 +293,9 @@ class herramientas(models.Model):
 		null=True,
 		blank=True,
 	)
+	def clean(self):
+		aux = re.sub(' +',' ',self.decripcion)
+		self.decripcion = aux.capitalize()
 	def __str__(self):
 		return self.decripcion
 
@@ -382,6 +388,9 @@ class maquinaria_equipo(models.Model):
 		null=True,
 		blank=True,
 	)
+	def clean(self):
+		aux = re.sub(' +',' ',self.decripcion)
+		self.decripcion = aux.capitalize()
 	def __str__(self):
 		return self.decripcion
 
@@ -462,6 +471,9 @@ class tipoActivo(models.Model):
 		blank=True,
 		null=True
 	)
+	def clean(self):
+		aux = re.sub(' +',' ',self.tipo)
+		self.tipo = aux.capitalize()
 	def __str__(self):
 		return self.tipo
 
