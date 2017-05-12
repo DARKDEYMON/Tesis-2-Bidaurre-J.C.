@@ -19,17 +19,41 @@ class proyecto(models.Model):
 	objeto_de_la_contratacion = models.CharField(
 		max_length=100,
 		blank=False, 
-		null=False
+		null=False,
+		validators=[
+			# validadores de filas
+			RegexValidator(
+				regex=r'^(([a-zA-Z0-9]{2,} )||([a-zA-Z0-9]{2,}))+$',
+				message='El objeto de la contratacion del proyecto no es valido',
+				code='Numero Invalido'
+			)
+		]
 	)
 	modalidad_de_contratacion = models.CharField(
 		max_length=100,
 		blank=False,
-		null=False
+		null=False,
+		validators=[
+			# validadores de filas
+			RegexValidator(
+				regex=r'^[a-zA-Z]{2,}$',
+				message='El tipo de modalidad no es valido',
+				code='Numero Invalido'
+			)
+		]
 	)
 	entidad_contratante = models.CharField(
 		max_length=100,
 		blank=False,
-		null=False
+		null=False,
+		validators=[
+			# validadores de filas
+			RegexValidator(
+				regex=r'^(([a-zA-Z0-9]{2,} )||([a-zA-Z0-9]{2,}))+$',
+				message='El nombre de la entidad no es valido',
+				code='Numero Invalido'
+			)
+		]
 	)
 	ec_telefono = models.PositiveIntegerField(
 		null=False, 
@@ -191,7 +215,15 @@ class item(models.Model):
 	descripcion = models.CharField(
 		null=False,
 		blank=False,
-		max_length=120
+		max_length=120,
+		validators=[
+			# validadores de filas
+			RegexValidator(
+				regex=r'^(([a-zA-Z0-9]{2,} )||([a-zA-Z0-9]{2,}))+$',
+				message='La descripcion del item no es valido',
+				code='Numero Invalido'
+			)
+		]
 	)
 	fecha_inicio = models.DateField(
 		null=False,
@@ -403,7 +435,15 @@ class requerimiento_maq_he(models.Model):
 	nombre_maq_he = models.CharField(
 		max_length=60,
 		blank=False,
-		null=False
+		null=False,
+		validators=[
+			# validadores de filas
+			RegexValidator(
+				regex=r'^(([a-zA-Z0-9]{2,} )||([a-zA-Z0-9]{2,}))+$',
+				message='La descripcion de la maquinaria/equipo no es valida',
+				code='Numero Invalido'
+			)
+		]
 	)
 	cantidad = models.PositiveIntegerField(
 		null=False,
@@ -440,7 +480,15 @@ class materiales_locales(models.Model):
 	descripcion = models.CharField(
 		max_length=60,
 		blank=False,
-		null=False
+		null=False,
+		validators=[
+			# validadores de filas
+			RegexValidator(
+				regex=r'^(([a-zA-Z0-9]{2,} )||([a-zA-Z0-9]{2,}))+$',
+				message='La descripcion del material no es valida',
+				code='Numero Invalido'
+			)
+		]
 	)
 	cantidad = models.PositiveIntegerField(
 		blank=False,
@@ -450,7 +498,15 @@ class materiales_locales(models.Model):
 	unidad =models.CharField(
 		max_length=10,
 		blank=False,
-		null=False
+		null=False,
+		validators=[
+			# validadores de filas
+			RegexValidator(
+				regex=r'^[a-zA-Z]{2,}$',
+				message='El tipo de unidad no es valido',
+				code='Numero Invalido'
+			)
+		]
 	)
 	planificacion = models.BooleanField(
 		blank=False,
@@ -591,8 +647,8 @@ class reporte_fotografico(models.Model):
 	fotos_reporte = models.FileField(
 		upload_to='reporte_fotos/', 
 		validators=[validate_file_extension],
-		null=True,
-		blank=True
+		null=False,
+		blank=False
 	)
 	def __str__(self):
 		return (self.reportes_avance.item.descripcion)

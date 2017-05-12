@@ -42,7 +42,7 @@ class kardex(models.Model):
 		validators=[
 			# validadores de filas
 			RegexValidator(
-				regex=r'[a-zA-Z]+',
+				regex=r'^[a-zA-Z]{3,}$',
 				message='La profecion deve contener solo letras', 
 				code='Numero Invalido'
 			)
@@ -95,7 +95,15 @@ class cargo(models.Model):
 	nombre_cargo = models.CharField(
 		max_length=60,
 		null=False,
-		blank=False
+		blank=False,
+		validators=[
+			# validadores de filas
+			RegexValidator(
+				regex=r'^(([a-zA-Z]{2,} )||([a-zA-Z]{2,}))+$',
+				message='El cargo deve contener solo letras y un minimo de dos caracteres',
+				code='Numero Invalido'
+			)
+		]
 	)
 	salario = models.FloatField(
 		null=False,
