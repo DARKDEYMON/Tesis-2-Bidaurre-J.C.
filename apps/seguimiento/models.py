@@ -102,6 +102,16 @@ class proyecto(models.Model):
 	def __str__(self):
 		return (self.objeto_de_la_contratacion)
 
+	def porcentaje_real(self):
+		import math
+		res = self.item_set.all()
+		sumt=0
+		for a in res:
+			sumt=sumt + a.pocentaje_real()
+		if len(res)==0:
+			return 0
+		return math.ceil(sumt/len(res))
+
 	def tMaterialPla(self):
 		try:
 			r = self.item_set.all()[0].peticion_materiales_set.all()[0].total()
@@ -139,7 +149,7 @@ class proyecto(models.Model):
 		except:
 			return 0
 	def tPersonalEjec(self):
-		return self.tPersonalPla() * (self.pocentaje_avance/100)
+		return self.tPersonalPla() * (self.porcentaje_real()/100)
 	def resPersonalEjec(self):
 		return (self.tPersonalPla() -self.tPersonalEjec())
 
@@ -150,7 +160,7 @@ class proyecto(models.Model):
 		except:
 			return 0
 	def tMaqEqEjec(self):
-		return self.tMaqEqPla() * (self.pocentaje_avance/100)
+		return self.tMaqEqPla() * (self.porcentaje_real()/100)
 	def resMaqEqEjec(self):
 		return (self.tMaqEqPla() -self.tMaqEqEjec())
 
@@ -162,7 +172,7 @@ class proyecto(models.Model):
 		except:
 			return 0
 	def tMatLocEjec(self):
-		return self.tMatLocPla() * (self.pocentaje_avance/100)
+		return self.tMatLocPla() * (self.porcentaje_real()/100)
 	def resMatLocEjec(self):
 		return (self.tMatLocPla() -self.tMatLocEjec())
 
@@ -175,7 +185,7 @@ class proyecto(models.Model):
 		res = cargo.objects.filter(id__in=designacion.objects.filter(proyecto=proyecto.objects.get(id=self.id))).aggregate(sueldos=Sum('salario'))
 		return (0 if res['sueldos'] == None else res['sueldos']) * (n+1)
 	def tSueldoEjec(self):
-		return self.tSueldoPLa() * (self.pocentaje_avance/100)
+		return self.tSueldoPLa() * (self.porcentaje_real()/100)
 	def resSueldoEjec(self):
 		return (self.tSueldoPLa() -self.tSueldoEjec())
 
@@ -200,7 +210,7 @@ class proyecto(models.Model):
 	def enTiempo(self):
 		import datetime
 		n = datetime.datetime.now().date()
-		if (self.fecha_inicio <= n <= self.plazo_previsto) or (self.pocentaje_avance>=100):
+		if (self.fecha_inicio <= n <= self.plazo_previsto) or (self.porcentaje_real()>=100):
 			return True
 		else:
 			return False
@@ -249,6 +259,19 @@ class item(models.Model):
 		blank=False,
 		default=0
 	)
+	def pocentaje_real(self):
+		import math
+		res = 0
+		if(self.unidad=='Gbl'):
+			res = self.reportes_avance_set.all().aggregate(res=Sum('alto'))['res']
+		if(self.unidad=='m2'):
+			res = self.reportes_avance_set.all().aggregate(res=Sum(F('alto')*F('largo')))['res']
+		if(self.unidad=='m3'):
+			res = self.reportes_avance_set.all().aggregate(res=Sum(F('alto')*F('largo')*F('ancho')))['res']
+		if res == None:
+			return 0
+		res = (res/self.cantidad)*100
+		return 100 if res > 100 else math.ceil(res)
 	def __str__(self):
 		return (self.proyecto.objeto_de_la_contratacion+':'+self.descripcion)
 	def clean(self):
@@ -260,7 +283,7 @@ class item(models.Model):
 	def enTiempo(self):
 		import datetime
 		n = datetime.datetime.now().date()
-		if (self.fecha_inicio <= n <= self.plazo_finalizacion) or (self.pocentaje_avance>=100):
+		if (self.fecha_inicio <= n <= self.plazo_finalizacion) or (self.pocentaje_real()>=100):
 			return True
 		else:
 			return False

@@ -160,7 +160,7 @@
                                 Porcentaje de avance:
                             </th>
                             <td>
-                                {{ res.pocentaje_avance }}%
+                                {{ res.porcentaje_real }}%
                             </td>
                         </tr> 
                         <tr>
@@ -229,7 +229,7 @@
                                     Porcenteja de avance:
                                 </th>
                                 <td>
-                                    {{ i.pocentaje_avance }}%
+                                    {{ i.pocentaje_real }}%
                                 </td>
                             </tr>
                             <tr>
@@ -237,7 +237,11 @@
                                     En tiempo:
                                 </th>
                                 <td>
-                                    {{ i.enTiempo }}
+                                    {% if i.enTiempo %}
+                                        Si
+                                    {% else %}
+                                        No
+                                    {% endif %}
                                 </td>
                             </tr>
                         </table>
