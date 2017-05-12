@@ -123,7 +123,8 @@ class ingresoMaterial(models.Model):
 	material = models.ForeignKey(material)
 	proveedor = models.ForeignKey(proveedor)
 	item = models.ForeignKey('seguimiento.item')
-	no_factura = models.PositiveIntegerField(
+	no_factura = models.CharField(
+		max_length=50,
 		null=False,
 		blank=False,
 		validators=[
@@ -218,7 +219,8 @@ class ingresoInsumos(models.Model):
 	insumos = models.ForeignKey(insumos)
 	proveedor = models.ForeignKey(proveedor)
 	item = models.ForeignKey('seguimiento.item')
-	no_factura = models.PositiveIntegerField(
+	no_factura = models.CharField(
+		max_length=50,
 		null=False,
 		blank=False,
 		validators=[
@@ -316,7 +318,8 @@ class ingresoHerramientas(models.Model):
 	almacen = models.ForeignKey(almacen)
 	herramientas = models.ForeignKey(herramientas)
 	proveedor = models.ForeignKey(proveedor)
-	no_factura = models.PositiveIntegerField(
+	no_factura = models.CharField(
+		max_length=50,
 		null=False,
 		blank=False,
 		validators=[
