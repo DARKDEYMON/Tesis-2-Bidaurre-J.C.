@@ -75,12 +75,10 @@
         <h1>Boleta de envio de insumos</h1>
     </div>
 
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    <h4><b>EMPRESA CONSTRUCTORA VIDAURRE J.C.</b></h4>
+    <h4><b>Unidad Administrativa y Financiera Área de Almacén</b></h4>
+    <p>“Nota: Al firmar esta boleta, El encargado de envió garantiza que las cantidad que se indica es enviada,
+    por otra parte el recepcionista debe verificar todo lo enviado antes firmar”</p>
     <table>
         <tr>
             <th>
@@ -119,7 +117,15 @@
                 Cantidad del envio:
             </th>
             <td>
-                {{ res.cantidad }} {{ res.material.unidad }}
+                {{ res.cantidad }} {{ res.insumos.unidad }}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Fecha de Salida:
+            </th>
+            <td>
+                {{ res.fecha }}
             </td>
         </tr>
     </table>

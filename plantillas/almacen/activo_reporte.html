@@ -95,8 +95,8 @@
                         Depreciación
                     </th>
                 </tr>
-                <tr>
-                    {% for i in res %}
+                {% for i in res %}
+                    <tr>
                         <td>
                             {{ i.id }}
                         </td>
@@ -121,8 +121,8 @@
                         <td>
                             {{ i.depreciasion }} Bs
                         </td>
-                    {% endfor %}
-                </tr>
+                    </tr>
+                {% endfor %}
             </table>
         </div>
     {% endblock content %}

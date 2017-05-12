@@ -892,7 +892,7 @@ class listaConfirmacionHerramientas(CreateView,ListView):
 class debolucionHerramientas(UpdateView):
 	model = salidaHerramientas
 	form_class = crearDebolucionHerramientas
-	template_name = 'almacen/nuevaherramienta.html'
+	template_name = 'almacen/nuevaherramienta_dev.html'
 	success_url = 'almacenes:listaconfirmacionherramientas'
 	def post(self, request, *args, **kwargs):
 		self.object = self.get_object	
@@ -960,7 +960,7 @@ class listaConfirmacionMaquinariaHequipo(CreateView,ListView):
 class debolucionMaquinariaHequipo(UpdateView):
 	model = salidaMaquinaria_equipo
 	form_class = crearDebolucionMaquinariaEquipo
-	template_name = 'almacen/nuevaherramienta.html'
+	template_name = 'almacen/nuevamaquinaria_dev.html'
 	success_url = 'almacenes:listaconfirmacionmaquinariahequipo'
 	def post(self, request, *args, **kwargs):
 		self.object = self.get_object	
