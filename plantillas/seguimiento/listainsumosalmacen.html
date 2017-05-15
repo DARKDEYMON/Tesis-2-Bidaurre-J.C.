@@ -48,7 +48,13 @@
 							      	<td>{{ pet.insumos.decripcion }}</td>
 							      	<td>{{ pet.cantidad }}</td>
 							      	<td>{{ pet.precio_estimado_total }}</td>
-							      	<td>{{ pet.petion_de_planificacion }}</td>
+							      	<td>
+								      	{% if pet.petion_de_planificacion %}
+								      		Si
+								      	{% else %}
+								      	    No
+								      	{% endif %}
+							      	</td>
 							     
 							{% else %}
 								<tr class="success">
@@ -56,7 +62,13 @@
 							      	<td>{{ pet.insumos.decripcion }}</td>
 							      	<td>{{ pet.cantidad }}</td>
 							      	<td>{{ pet.precio_estimado_total }}</td>
-							      	<td>{{ pet.petion_de_planificacion }}</td>
+							      	<td>
+								      	{% if pet.petion_de_planificacion %}
+								      		Si
+								      	{% else %}
+								      	    No
+								      	{% endif %}
+							      	</td>
 							     
 				  			{% endif %}
 				  					<td>

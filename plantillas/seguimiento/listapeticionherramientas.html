@@ -45,17 +45,25 @@
 							      	<td>{{ pet.id }}</td>
 							      	<td>{{ pet.herramientas.decripcion }}</td>
 							      	<td>{{ pet.cantidad }}</td>
-							      	<td>{{ pet.petion_de_planificacion }}</td>
-							      	
-							     
+							      	<td>
+								      	{% if pet.petion_de_planificacion %}
+								      		Si
+								      	{% else %}
+								      	    No
+								      	{% endif %}
+							      	</td>
 							{% else %}
 								<tr class="success">
 							      	<td>{{ pet.id }}</td>
 							      	<td>{{ pet.herramientas.decripcion }}</td>
 							      	<td>{{ pet.cantidad }}</td>
-							      	<td>{{ pet.petion_de_planificacion }}</td>
-							      	
-							     
+							      	<td>
+								      	{% if pet.petion_de_planificacion %}
+								      		Si
+								      	{% else %}
+								      	    No
+								      	{% endif %}
+							      	</td>
 				  			{% endif %}
 				  					<td>
 				  						<div class="btn-group">

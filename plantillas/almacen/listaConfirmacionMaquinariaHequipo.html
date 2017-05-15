@@ -51,7 +51,13 @@
 							      	<td>{{ pet.almacen.ciudad }}</td>
 							      	<td>{{ pet.maquinaria_equipo.decripcion }}</td>
 							      	<td>{{ pet.item.descripcion }}</td>
-							      	<td>{{ pet.debuelto }}</td>
+							      	<td>
+								      	{% if pet.debuelto %}
+								      		Si
+								      	{% else %}
+								      	    No
+								      	{% endif %}
+							      	</td>
 							      	<td>{{ pet.fecha }}</td>
 							      	<td>{{ pet.cantidad }}</td>
 							     
@@ -61,7 +67,13 @@
 							      	<td>{{ pet.almacen.ciudad }}</td>
 							      	<td>{{ pet.maquinaria_equipo.decripcion }}</td>
 							      	<td>{{ pet.item.descripcion }}</td>
-							      	<td>{{ pet.debuelto }}</td>
+							      	<td>
+								      	{% if pet.debuelto %}
+								      		Si
+								      	{% else %}
+								      	    No
+								      	{% endif %}
+							      	</td>
 							      	<td>{{ pet.fecha }}</td>
 							      	<td>{{ pet.cantidad }}</td>
 							     

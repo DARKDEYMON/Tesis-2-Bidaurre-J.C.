@@ -48,7 +48,13 @@
 							      	<td>{{ pet.nombre_maq_he }}</td>
 							      	<td>{{ pet.cantidad }}</td>
 							      	<td>{{ pet.precio_total }}</td>
-							      	<td>{{ pet.planificacion }}</td>
+							      	<td>
+								      	{% if pet.planificacion %}
+								      		Si
+								      	{% else %}
+								      	    No
+								      	{% endif %}
+							      	</td>
 							     
 							{% else %}
 								<tr class="success">
@@ -56,7 +62,13 @@
 							      	<td>{{ pet.nombre_maq_he }}</td>
 							      	<td>{{ pet.cantidad }}</td>
 							      	<td>{{ pet.precio_total }}</td>
-							      	<td>{{ pet.planificacion }}</td>
+							      	<td>
+								      	{% if pet.planificacion %}
+								      		Si
+								      	{% else %}
+								      	    No
+								      	{% endif %}
+							      	</td>
 							     
 				  			{% endif %}
 				  					<td>

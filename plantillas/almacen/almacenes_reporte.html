@@ -265,13 +265,101 @@
         {% endif %}
         <!-- herramientas stock -->
 
-        <h3><b>2. Información por item .-</b></h3>
+        <h3><b>3. Ingresos .-</b></h3>
+        <ul>
+            <h3><b><li>Herramientas</li></b></h3>
+        </ul>
+        {% if res.ingresoherramientas_set.all %}
+            <div class="lineal">
+                <table border="1">
+                    <tr>
+                        <th>
+                            Descripción
+                        </th>
+                        <th>
+                            Proveedor
+                        </th>
+                        <th>
+                            N° Factura
+                        </th>
+                        <th>
+                            Cantidad
+                        </th>
+                        <th>
+                            Costo T.
+                        </th>
+                    </tr>
+                    {% for me  in res.ingresoherramientas_set.all %}
+                    <tr>
+                        <td>
+                            {{ me.herramientas }}
+                        </td>
+                        <td>
+                            {{ me.proveedor }}
+                        </td>
+                        <td>
+                            {{ me.no_factura }}
+                        </td>
+                        <td>
+                            {{ me.cantidad }} 
+                        </td>
+                        <td>
+                            {{ me.costo_total }}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        {% else %}
+            <p>No se encuentran ingresos de herramientas aún</p>
+        {% endif %}
+        <ul>
+            <h3><b><li>Maquinaria/equipo</li></b></h3>
+        </ul>
+        {% if res.ingresomaquinaria_equipo_set.all %}
+            <div class="lineal">
+                <table border="1">
+                    <tr>
+                        <th>
+                            Descripción
+                        </th>
+                        <th>
+                            Proveedor
+                        </th>
+                        <th>
+                            Cantidad
+                        </th>
+                        <th>
+                            Costo T.
+                        </th>
+                    </tr>
+                    {% for me  in res.ingresomaquinaria_equipo_set.all %}
+                    <tr>
+                        <td>
+                            {{ me.maquinaria_equipo }}
+                        </td>
+                        <td>
+                            {{ me.proveedor }}
+                        </td>
+                        <td>
+                            {{ me.cantidad }} 
+                        </td>
+                        <td>
+                            {{ me.costo_total }}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        {% else %}
+            <p>No se encuentran ingresos de maquinaria/equipo aún</p>
+        {% endif %}
 
-        
+        <h3><b>4. Información por item .-</b></h3>
 
         {% if res.items %}
             {% for it  in res.items %}
-                <h3><b>2. Información de item {{ it }} .-</b></h3>
+                <h3><b>4.{{ forloop.counter }} Información de item {{ it }} .-</b></h3>
 
 
                     <!-- item material stock -->
