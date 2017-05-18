@@ -165,7 +165,10 @@ urlpatterns = [
         login_required(calendar_proyecto), 
         name='calendar'
     ),
-    
+    url(r'^repestpro/$',
+        login_required(reporteProyectosEstado.as_view()), 
+        name='repestpro'
+    ),
     #url(r'^json_calendar/(?P<pk>\d+)/$',
     #    login_required(json_calendar), 
     #    name='json_calendar'

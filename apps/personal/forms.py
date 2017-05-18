@@ -126,6 +126,11 @@ class designacionForm(ModelForm):
 	class Meta:
 		model = designacion
 		exclude =['user']
+
+class minimonacionalForm(ModelForm):
+	class Meta:
+		model = minnacional
+		exclude =['']
 """class designacion_cargoForm(ModelForm):
 	class Meta:
 		model = designacion_proyecto

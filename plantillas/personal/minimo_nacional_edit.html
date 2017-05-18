@@ -1,0 +1,48 @@
+{% extends "base/baseform.html" %}	
+
+	{% block tituloform %}
+		Editar Minimo Nacional
+	{% endblock tituloform %}
+
+	{% block iddanger %}
+	    id="danger"
+	{% endblock iddanger %}
+	
+	{% block formulario %}
+
+		<div class="alert alert-danger" role="alert">
+		<strong>Atencion!!!! </strong>Solo use el check de <strong>Actualisar sueldos</strong> <span class="glyphicon glyphicon-check"></span>,
+		si realmente quiere actualizar los sueldos de los empledos 
+		que no esten con el minimo sueldo nacional al modificar, si no es el caso deje el check en blanco <span class="glyphicon glyphicon-unchecked"></span>
+		</div>
+		{% csrf_token %}
+		{% comment %}
+		{% for field in form %}
+		    <div class="fieldWrapper">
+		        {{ field.errors }}
+		        {{ field.label_tag }} 
+		        {{ field }}
+		    </div>
+		{% endfor %}
+		{% endcomment %}
+		{% load bootstrap3 %}
+		{% bootstrap_form form %}
+
+		{% buttons %}
+	        <button type="submit" class="btn btn-primary center-block">
+	            {% bootstrap_icon "glyphicon glyphicon-ok" %} Enviar
+	        </button>
+	    {% endbuttons %}
+		<!--
+		<div class="row">
+			<div class="col-lg-6">	
+				<button type="reset" class="btn btn-default center-block">Reset</button>
+			</div>
+			<div class="col-lg-6">
+				<button type="submit" value="login" class="btn btn-primary center-block">Submit</button>
+			</div>
+		</div>
+		-->
+		
+	
+	{% endblock formulario %}

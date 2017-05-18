@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.apps import apps
 
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
@@ -19,6 +20,30 @@ def validate_file_extension(value):
 	if not ext in valid_extensions:
 		raise ValidationError(u'Tipo de Archibo no Soportado!')
 
+class minnacional(models.Model):
+	minimo_nacional = models.PositiveIntegerField(
+		null=False,
+		blank=False,
+		validators=[MinValueValidator(1000,"El salario minimo en el pais actualmente no es por debajo de los 1000 Bs")]
+	)
+	actualisar_sueldos = models.BooleanField(
+		null=False,
+		blank=False,
+		default=False
+	)
+	def save(self, *args, **kwargs):
+		super(minnacional, self).save(*args, **kwargs)
+		a = apps.get_model('personal', 'cargo')
+		res = a.objects.all()
+		mi = minnacional.objects.get(id=1)
+		if mi.actualisar_sueldos:
+			for b in res:
+				if b.salario < mi.minimo_nacional:
+					print('aqui')
+					b.salario = mi.minimo_nacional
+					b.save()
+	def __str__(self):
+		return str(self.minimo_nacional)
 class kardex(models.Model):
 	user = models.OneToOneField(User)
 	ci = models.CharField(
@@ -65,7 +90,7 @@ class kardex(models.Model):
 		validators=[
 			RegexValidator(
 				regex=r'^[0-9]{8}$',
-				message='El celular tiene un maximo de 8 dijitos', 
+				message='El celular tiene 8 dijitos',
 				code='Numero Invalido'
 			)
 		]
@@ -108,13 +133,16 @@ class cargo(models.Model):
 	salario = models.FloatField(
 		null=False,
 		blank=False,
-		validators=[MinValueValidator(1800,"El salario minimo nacional es 1800")]
+		#validators=[MinValueValidator(minnacional.objects.get(id=1).minimo_nacional,"El salario minimo nacional es "+str(minnacional.objects.get(id=1)))]
 	)
 	encargado_de_reportes_avance = models.BooleanField(
 		null=False,
 		blank=False,
 		default=False
 	)
+	def clean(self):
+		if(self.salario<minnacional.objects.get(id=1).minimo_nacional):
+			raise ValidationError("El salario minimo nacional es "+str(minnacional.objects.get(id=1)))
 	def __str__(self):
 		#return '{}{}'.format(self.nombre_cargo)
 		return (self.nombre_cargo)

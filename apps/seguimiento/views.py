@@ -737,6 +737,16 @@ class reporteProyecto(PDFTemplateView):
 		except:
 			raise Http404
 		return context
+class reporteProyectosEstado(PDFTemplateView):
+	template_name = "seguimiento/rep_estadodeproyectos.html"
+	def get_context_data(self, **kwargs):
+		context = super(reporteProyectosEstado, self).get_context_data(**kwargs)
+		#print(pk)
+		try:
+			context['res'] = proyecto.objects.all()
+		except:
+			raise Http404
+		return context
 """
 def reporteProyecto(request,pk):
 	#consultas

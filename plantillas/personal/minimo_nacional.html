@@ -1,0 +1,39 @@
+{% extends "base/baseform.html" %}	
+
+
+	<h2 style="text-align: center;">
+		{% block tituloform %}
+			Sueldo Minimo Nacional 
+		{% endblock tituloform %}
+	</h2>
+	{% block formulario %}
+
+	
+		{% csrf_token %}
+		{% comment %}
+		{% for field in form %}
+		    <div class="fieldWrapper">
+		        {{ field.errors }}
+		        {{ field.label_tag }} 
+		        {{ field }}
+		    </div>
+		{% endfor %}
+		{% endcomment %}
+		{% if object_list %}
+			<div class="alert alert-danger" role="alert"><strong>El minimo nacional es de: </strong> {{ object_list.0.minimo_nacional }} Bs	</div>
+			<a class="btn btn-primary center-block" type="submit"  href="{% url 'personal:updateminacional' object_list.0.id %}">Editar </a>
+		{% endif %}
+
+		<!--
+		<div class="row">
+			<div class="col-lg-6">	
+				<button type="reset" class="btn btn-default center-block">Reset</button>
+			</div>
+			<div class="col-lg-6">
+				<button type="submit" value="login" class="btn btn-primary center-block">Submit</button>
+			</div>
+		</div>
+		-->
+		
+	
+	{% endblock formulario %}

@@ -106,4 +106,12 @@ urlpatterns = [
         permission_required('auth.view_personal') (login_required(updateCargo.as_view())), 
         name='updatecargo'
     ),
+    url(r'^minnac/$', 
+        permission_required('auth.view_personal') (login_required(minNacional.as_view())), 
+        name='minnac'
+    ),
+    url(r'^updateminacional/(?P<pk>\d+)/$', 
+        permission_required('auth.view_personal') (login_required(updateMinNacional.as_view())), 
+        name='updateminacional'
+    ),
 ]

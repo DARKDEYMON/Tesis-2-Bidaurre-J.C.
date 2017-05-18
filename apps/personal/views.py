@@ -209,7 +209,7 @@ class listaUsuario(CreateView, ListView):
 class crearCargo(CreateView):
 	form_class = cargoForm
 	template_name = 'personal/nuevocargo.html'
-	success_url = '/'
+	success_url = reverse_lazy('personal:listacargo')
 
 class listaCargo(CreateView,ListView):
 	model = cargo
@@ -375,3 +375,18 @@ class updateCargo(UpdateView):
 	form_class = cargoForm
 	template_name = 'personal/nuevocargo.html'
 	success_url = reverse_lazy('personal:listacargo')
+
+class minNacional(ListView):
+	model = minnacional
+	template_name = 'personal/minimo_nacional.html'
+	def get_context_data(self, **kwargs):
+		context = super (minNacional, self).get_context_data(**kwargs)
+		#print ('paso 1')
+		if len(minnacional.objects.all())==0:
+			minnacional.objects.create(minimo_nacional=1800)
+		return context
+class updateMinNacional(UpdateView):
+	model = minnacional
+	form_class = minimonacionalForm
+	template_name = 'personal/minimo_nacional_edit.html'
+	success_url = reverse_lazy('personal:minnac')
