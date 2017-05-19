@@ -59,7 +59,7 @@ class updateUsuario(UpdateView):
 	second_model = kardex
 	form_class = updateUsuarioUserForm
 	second_form_class = crearUsuarioKardexForm
-	template_name = 'personal/nuevousuario.html'
+	template_name = 'personal/nuevousuario_edit.html'
 	succes_url = reverse_lazy('personal:listausuario')
 	def get_context_data(self, **kwargs):
 		context = super(updateUsuario, self).get_context_data(**kwargs)
@@ -116,8 +116,16 @@ class updateUsuarioFronUser(UpdateView):
 class updateDarBaja(UpdateView):
 	model = User
 	form_class = darBajaForm
-	template_name = 'personal/updatefromuser.html'
+	template_name = 'personal/baja.html'
 	success_url = reverse_lazy('personal:listausuario')
+	def get_context_data(self, **kwargs):
+		context = super(updateDarBaja, self).get_context_data(**kwargs)
+		pk = self.kwargs.get('pk',0)
+		user = self.model.objects.get(id=pk)
+		if 'form' and 'user' not in context :
+			context['form'] = self.form_class()
+			context['user'] = user
+		return context
 
 #añade o quita permisos de acceso a los diferentes modulos a un usuario en espesifico por el id
 class añadirPermisos(FormView):
@@ -137,6 +145,7 @@ class añadirPermisos(FormView):
 		#print(form)
 		if 'form' in context :
 			context['form'] = form
+			context['user'] = user
 		return context
 	def post(self, request, *args, **kwargs):
 		#self.object = self.get_object	
@@ -257,6 +266,17 @@ class crearDesignacion(CreateView):
 	template_name = 'personal/designacion.html'
 	succes_url = reverse_lazy('personal:listausuario')
 
+	#cambio
+	def get_context_data(self, **kwargs):
+		context = super (crearDesignacion, self).get_context_data(**kwargs)
+		pk = self.kwargs.get('pk',0)
+		self.model
+		if 'form' and 'user' not in context:
+			context['form'] = self.form_class()
+			context['user'] = self.model.objects.get(id=pk)
+		return context
+	#cambio
+
 	def post(self, request, *args, **kwargs):
 		self.object = self.get_object	
 		form = self.form_class(request.POST)
@@ -292,8 +312,10 @@ class listaDesignaciones(CreateView, ListView):
 	# aun sin saber si cirve
 	def get_context_data(self, **kwargs):
 		context = super (listaDesignaciones, self).get_context_data(**kwargs)
-		if 'form' not in context:
+		pk=self.kwargs['pk']
+		if 'form' and 'usera' not in context:
 			context['form'] = self.form_class()
+			context['user'] = User.objects.get(id=pk)
 		return context
 
 	def get(self, request, *args, **kwargs):
@@ -373,7 +395,7 @@ class borrarDesignacion(DeleteView):
 class updateCargo(UpdateView):
 	model = cargo
 	form_class = cargoForm
-	template_name = 'personal/nuevocargo.html'
+	template_name = 'personal/nuevocargo_edit.html'
 	success_url = reverse_lazy('personal:listacargo')
 
 class minNacional(ListView):

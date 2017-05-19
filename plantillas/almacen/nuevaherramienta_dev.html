@@ -8,7 +8,11 @@
 	
 	{% block formulario %}
 
-	
+		<div class="alert alert-danger" role="alert">
+		<strong>Atencion!!!! </strong>Solo use el check de <strong>Debuelto</strong> <span class="glyphicon glyphicon-check"></span>,
+		si realmente quiere confimar la debolucion actual de la o las herramientas actuales 
+		si no es el caso deje el check en blanco <span class="glyphicon glyphicon-unchecked"></span>
+		</div>	
 		{% csrf_token %}
 		{% comment %}
 		{% for field in form %}

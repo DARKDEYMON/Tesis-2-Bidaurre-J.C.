@@ -1,12 +1,8 @@
 {% extends "base/baseform.html" %}	
 
 	{% block tituloform %}
-		Requerimiento de Maquinaria/Equipo del Item: {{ item.descripcion }}
+		Dar Baja Usuario: {{ user.first_name }}
 	{% endblock tituloform %}
-	
-	{% block iddanger %}
-	    id="danger"
-	{% endblock iddanger %}
 	
 	{% block formulario %}
 
@@ -23,6 +19,13 @@
 		{% endcomment %}
 		{% load bootstrap3 %}
 		{% bootstrap_form form %}
+		{% if uss.curriculum %}
+			<div class="form-group">
+			<label class="control-label">Curriculum Actual</label>
+			<a class="form-control" href="{{ uss.curriculum.url }}" "email me">{{ uss.curriculum.name }}</a>
+		</div>
+		{% endif %}
+		
 
 		{% buttons %}
 	        <button type="submit" class="btn btn-primary center-block">

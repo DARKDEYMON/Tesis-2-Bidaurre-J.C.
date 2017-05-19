@@ -129,7 +129,7 @@ class ingresoMaterial(models.Model):
 		blank=False,
 		validators=[
 			RegexValidator(
-				regex=r'^[0-9]{5,20}$', 
+				regex=r'^[0-9]{1,20}$', 
 				message='El numero de factura tiene de 5 a 20 cifras', 
 				code='Numero Invalido'
 			)
@@ -225,7 +225,7 @@ class ingresoInsumos(models.Model):
 		blank=False,
 		validators=[
 			RegexValidator(
-				regex=r'^[0-9]{5,20}$', 
+				regex=r'^[0-9]{1,20}$', 
 				message='El numero de factura tiene de 5 a 20 cifras', 
 				code='Numero Invalido'
 			)
@@ -324,7 +324,7 @@ class ingresoHerramientas(models.Model):
 		blank=False,
 		validators=[
 			RegexValidator(
-				regex=r'^[0-9]{5,20}$', 
+				regex=r'^[0-9]{1,20}$', 
 				message='El numero de factura tiene de 5 a 20 cifras', 
 				code='Numero Invalido'
 			)

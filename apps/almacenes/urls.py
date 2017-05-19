@@ -200,6 +200,10 @@ urlpatterns = [
         login_required(crearActivo.as_view()), 
         name='crearactivo'
     ),
+    url(r'^updateactivo/(?P<pk>\d+)/$',
+        login_required(updateActivo.as_view()), 
+        name='updateactivo'
+    ),
     url(r'^reportealmacen/(?P<ct>\w+)/$',
         login_required(reporteAlmacen.as_view()), 
         name='reportealmacen'

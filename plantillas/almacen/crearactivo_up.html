@@ -1,13 +1,15 @@
 {% extends "base/baseform.html" %}	
 
-	{% block tituloform %}
-		Requerimiento de Maquinaria/Equipo del Item: {{ item.descripcion }}
-	{% endblock tituloform %}
+	<h2 style="text-align: center;">
+		{% block tituloform %}
+			Editar Activo
+		{% endblock tituloform %}
+	</h2>
 	
 	{% block iddanger %}
 	    id="danger"
 	{% endblock iddanger %}
-	
+
 	{% block formulario %}
 
 	

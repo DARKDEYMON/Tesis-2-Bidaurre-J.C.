@@ -44,6 +44,7 @@
 				      <th>Correo electrónico</th>
 				      <th>Curriculum </th>
 				      <th>Confiabilidad </th>
+				      <th>Activo</th>
 				      <th>Opciones </th>
 				    </tr>
 				  </thead>
@@ -64,6 +65,13 @@
 							    		{% endif %}
 							    	</td>
 							    	<td>{{ user.kardex.nivel_de_confiabilidad }}</td>
+							    	<td>
+								    	{% if user.is_active %}
+								    		Si
+								    	{% else %}
+								    	   	No					    	
+								    	{% endif %}
+							    	</td>
 							     
 							{% else %}
 								<tr class="success">
@@ -77,6 +85,13 @@
 							    		{% endif %}
 							    	</td>	
 							     	<td>{{ user.kardex.nivel_de_confiabilidad }}</td>
+							     	<td>
+								    	{% if user.is_active %}
+								    		Si
+								    	{% else %}
+								    	   	No					    	
+								    	{% endif %}
+							    	</td>
 				  			{% endif %}
 				  					<td>
 				  						<div class="btn-group">

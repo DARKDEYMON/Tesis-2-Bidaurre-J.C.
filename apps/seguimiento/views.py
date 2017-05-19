@@ -80,6 +80,16 @@ class crearItem(CreateView):
 	form_class = crearItemsForm
 	template_name = 'seguimiento/nuevoitem.html'
 	success_url = 'seguimiento:listaitems'
+
+	def get_context_data(self, **kwargs):
+		context = super (crearItem, self).get_context_data(**kwargs)
+		pk1=self.kwargs['pk']
+		if 'form' and 'pro' not in context:
+			context['form'] = self.form_class()
+			context['pk1'] = pk1
+			context['pro'] = proyecto.objects.get(id=pk1)
+		return context
+
 	def post(self, request, *args, **kwargs):
 		self.object = self.get_object	
 		form = self.form_class(request.POST)
@@ -132,9 +142,10 @@ class listaItems(CreateView,ListView):
 	def get_context_data(self, **kwargs):
 		context = super (listaItems, self).get_context_data(**kwargs)
 		pk1=self.kwargs['pk']
-		if 'form' in context:
+		if 'form' and 'pro' not in context:
 			context['form'] = self.form_class()
 			context['pk1'] = pk1
+			context['pro'] = proyecto.objects.get(id=pk1)
 		return context
 	def get(self, request, *args, **kwargs):
 		self.object = self.get_object
@@ -169,8 +180,10 @@ class listaPersonalProyecto(CreateView,ListView):
 	paginate_by = 10
 	def get_context_data(self, **kwargs):
 		context = super (listaPersonalProyecto, self).get_context_data(**kwargs)
-		if 'form' in context:
+		pk1=self.kwargs['pk']
+		if 'form' and 'pro' not in context:
 			context['form'] = self.form_class()
+			context['pro'] = proyecto.objects.get(id=pk1)
 		return context
 	def get(self, request, *args, **kwargs):
 		self.object = self.get_object
@@ -203,6 +216,13 @@ class peticionMaterial(CreateView):
 	form_class = crearPeticionMaterialForm
 	template_name = 'seguimiento/peticionmaterial.html'
 	success_url = 'seguimiento:listaitems'
+	def get_context_data(self, **kwargs):
+		context = super (peticionMaterial, self).get_context_data(**kwargs)
+		pk1=self.kwargs['pk']
+		if 'form' and 'item' not in context:
+			context['form'] = self.form_class()
+			context['item'] = item.objects.get(id=pk1)
+		return context
 	def post(self, request, *args, **kwargs):
 		self.object = self.get_object	
 		form = self.form_class(request.POST)
@@ -221,13 +241,15 @@ class updatePeticionMaterial(UpdateView):
 	form_class = crearPeticionMaterialForm
 	template_name = 'seguimiento/peticionmaterial.html'
 	success_url = reverse_lazy('seguimiento:listaproyectos')
+
 	def get_context_data(self, **kwargs):
 		context = super (updatePeticionMaterial, self).get_context_data(**kwargs)
 		pk1=self.kwargs['pk']
-		if 'form' in context:
+		if 'form' and 'item' not in context:
 			ins = self.model.objects.get(pk=pk1)
 			#print(datetime.datetime.strptime(str(ins.fecha_inicio), '%Y-%m-%d').strftime('%d-%m-%Y'))
 			context['form'] = self.form_class(instance=ins)
+			context['item'] = item.objects.get(id=pk1)
 		return context
 
 class listaPeticionMaterial(CreateView,ListView):
@@ -237,8 +259,10 @@ class listaPeticionMaterial(CreateView,ListView):
 	paginate_by = 10
 	def get_context_data(self, **kwargs):
 		context = super (listaPeticionMaterial, self).get_context_data(**kwargs)
-		if 'form' in context:
+		pk1=self.kwargs['pk']
+		if 'form' and 'item' not in context:
 			context['form'] = self.form_class()
+			context['item'] = item.objects.get(id=pk1)
 		return context
 	def get(self, request, *args, **kwargs):
 		self.object = self.get_object
@@ -271,6 +295,13 @@ class peticionInsumos(CreateView):
 	form_class = crearPeticionInsumosForm
 	template_name = 'seguimiento/peticioninsumos.html'
 	success_url = 'seguimiento:listaitems'
+	def get_context_data(self, **kwargs):
+		context = super (peticionInsumos, self).get_context_data(**kwargs)
+		pk1=self.kwargs['pk']
+		if 'form' and 'item' not in context:
+			context['form'] = self.form_class()
+			context['item'] = item.objects.get(id=pk1)
+		return context
 	def post(self, request, *args, **kwargs):
 		self.object = self.get_object	
 		form = self.form_class(request.POST)
@@ -292,10 +323,11 @@ class updatePeticionInsumos(UpdateView):
 	def get_context_data(self, **kwargs):
 		context = super (updatePeticionInsumos, self).get_context_data(**kwargs)
 		pk1=self.kwargs['pk']
-		if 'form' in context:
+		if 'form' and 'item' not in context:
 			ins = self.model.objects.get(pk=pk1)
 			#print(datetime.datetime.strptime(str(ins.fecha_inicio), '%Y-%m-%d').strftime('%d-%m-%Y'))
 			context['form'] = self.form_class(instance=ins)
+			context['item'] = item.objects.get(id=pk1)
 		return context
 
 class listaPeticionInsumos(CreateView,ListView):
@@ -305,8 +337,10 @@ class listaPeticionInsumos(CreateView,ListView):
 	paginate_by = 10
 	def get_context_data(self, **kwargs):
 		context = super (listaPeticionInsumos, self).get_context_data(**kwargs)
-		if 'form' in context:
+		pk1=self.kwargs['pk']
+		if 'form' and 'item' not in context:
 			context['form'] = self.form_class()
+			context['item'] = item.objects.get(id=pk1)
 		return context
 	def get(self, request, *args, **kwargs):
 		self.object = self.get_object
@@ -339,6 +373,13 @@ class requerimientoPersonal(CreateView):
 	form_class = crearRequerimientoPersonalForm
 	template_name = 'seguimiento/requerimientopersonal.html'
 	success_url = 'seguimiento:listaitems'
+	def get_context_data(self, **kwargs):
+		context = super (requerimientoPersonal, self).get_context_data(**kwargs)
+		pk1=self.kwargs['pk']
+		if 'form' and 'item' not in context:
+			context['form'] = self.form_class()
+			context['item'] = item.objects.get(id=pk1)
+		return context
 	def post(self, request, *args, **kwargs):
 		self.object = self.get_object	
 		form = self.form_class(request.POST)
@@ -360,10 +401,11 @@ class updateRequerimientoPersonal(UpdateView):
 	def get_context_data(self, **kwargs):
 		context = super (updateRequerimientoPersonal, self).get_context_data(**kwargs)
 		pk1=self.kwargs['pk']
-		if 'form' in context:
+		if 'form' and 'item' not in context:
 			ins = self.model.objects.get(pk=pk1)
 			#print(datetime.datetime.strptime(str(ins.fecha_inicio), '%Y-%m-%d').strftime('%d-%m-%Y'))
 			context['form'] = self.form_class(instance=ins)
+			context['item'] = item.objects.get(id=pk1)
 		return context
 
 class listaRequerimientoPersonal(CreateView,ListView):
@@ -373,8 +415,10 @@ class listaRequerimientoPersonal(CreateView,ListView):
 	paginate_by = 10
 	def get_context_data(self, **kwargs):
 		context = super (listaRequerimientoPersonal, self).get_context_data(**kwargs)
-		if 'form' in context:
+		pk1=self.kwargs['pk']
+		if 'form' and 'item' not in context:
 			context['form'] = self.form_class()
+			context['item'] = item.objects.get(id=pk1)
 		return context
 	def get(self, request, *args, **kwargs):
 		self.object = self.get_object
@@ -407,6 +451,13 @@ class requerimientoMaHe(CreateView):
 	form_class = crearRequerimientoMaHeForm
 	template_name = 'seguimiento/requerimientomahe.html'
 	success_url = 'seguimiento:listaitems'
+	def get_context_data(self, **kwargs):
+		context = super (requerimientoMaHe, self).get_context_data(**kwargs)
+		pk1=self.kwargs['pk']
+		if 'form' and 'item' not in context:
+			context['form'] = self.form_class()
+			context['item'] = item.objects.get(id=pk1)
+		return context
 	def post(self, request, *args, **kwargs):
 		self.object = self.get_object	
 		form = self.form_class(request.POST)
@@ -428,10 +479,11 @@ class updateRequerimientoMaHe(UpdateView):
 	def get_context_data(self, **kwargs):
 		context = super (updateRequerimientoMaHe, self).get_context_data(**kwargs)
 		pk1=self.kwargs['pk']
-		if 'form' in context:
+		if 'form' and 'item' not in context:
 			ins = self.model.objects.get(pk=pk1)
 			#print(datetime.datetime.strptime(str(ins.fecha_inicio), '%Y-%m-%d').strftime('%d-%m-%Y'))
 			context['form'] = self.form_class(instance=ins)
+			context['item'] = item.objects.get(id=pk1)
 		return context
 
 class listaRequerimientoMaHe(CreateView,ListView):
@@ -441,8 +493,10 @@ class listaRequerimientoMaHe(CreateView,ListView):
 	paginate_by = 10
 	def get_context_data(self, **kwargs):
 		context = super (listaRequerimientoMaHe, self).get_context_data(**kwargs)
-		if 'form' in context:
+		pk1=self.kwargs['pk']
+		if 'form' and 'item' not in context:
 			context['form'] = self.form_class()
+			context['item'] = item.objects.get(id=pk1)
 		return context
 	def get(self, request, *args, **kwargs):
 		self.object = self.get_object
@@ -475,6 +529,13 @@ class requerimientoMaterialesLocales(CreateView):
 	form_class = crearRequerimientoMaterialLocalForm
 	template_name = 'seguimiento/requerimientomaterlocal.html'
 	success_url = 'seguimiento:listaitems'
+	def get_context_data(self, **kwargs):
+		context = super (requerimientoMaterialesLocales, self).get_context_data(**kwargs)
+		pk1=self.kwargs['pk']
+		if 'form' and 'item' not in context:
+			context['form'] = self.form_class()
+			context['item'] = item.objects.get(id=pk1)
+		return context
 	def post(self, request, *args, **kwargs):
 		self.object = self.get_object	
 		form = self.form_class(request.POST)
@@ -496,10 +557,11 @@ class updateRequerimientoMaterialesLocales(UpdateView):
 	def get_context_data(self, **kwargs):
 		context = super (updateRequerimientoMaterialesLocales, self).get_context_data(**kwargs)
 		pk1=self.kwargs['pk']
-		if 'form' in context:
+		if 'form' and 'item' not in context:
 			ins = self.model.objects.get(pk=pk1)
 			#print(datetime.datetime.strptime(str(ins.fecha_inicio), '%Y-%m-%d').strftime('%d-%m-%Y'))
 			context['form'] = self.form_class(instance=ins)
+			context['item'] = item.objects.get(id=pk1)
 		return context
 
 class listaRequerimientoMaterialeLocales(CreateView,ListView):
@@ -509,8 +571,10 @@ class listaRequerimientoMaterialeLocales(CreateView,ListView):
 	paginate_by = 10
 	def get_context_data(self, **kwargs):
 		context = super (listaRequerimientoMaterialeLocales, self).get_context_data(**kwargs)
-		if 'form' in context:
+		pk1=self.kwargs['pk']
+		if 'form' and 'item' not in context:
 			context['form'] = self.form_class()
+			context['item'] = item.objects.get(id=pk1)
 		return context
 	def get(self, request, *args, **kwargs):
 		self.object = self.get_object
@@ -544,6 +608,13 @@ class requerimientoHerramientas(CreateView):
 	form_class = crearPeticionHerramientas
 	template_name = 'seguimiento/requerimientoherramientas.html'
 	success_url = 'seguimiento:listaitems'
+	def get_context_data(self, **kwargs):
+		context = super (requerimientoHerramientas, self).get_context_data(**kwargs)
+		pk1=self.kwargs['pk']
+		if 'form' and 'item' not in context:
+			context['form'] = self.form_class()
+			context['item'] = item.objects.get(id=pk1)
+		return context
 	def post(self, request, *args, **kwargs):
 		self.object = self.get_object	
 		form = self.form_class(request.POST)
@@ -565,10 +636,11 @@ class updatePeticionHerramientas(UpdateView):
 	def get_context_data(self, **kwargs):
 		context = super (updatePeticionHerramientas, self).get_context_data(**kwargs)
 		pk1=self.kwargs['pk']
-		if 'form' in context:
+		if 'form' and 'item' not in context:
 			ins = self.model.objects.get(pk=pk1)
 			#print(datetime.datetime.strptime(str(ins.fecha_inicio), '%Y-%m-%d').strftime('%d-%m-%Y'))
 			context['form'] = self.form_class(instance=ins)
+			context['item'] = item.objects.get(id=pk1)
 		return context
 
 class listaRequerimientoHerramientas(CreateView,ListView):
@@ -578,8 +650,10 @@ class listaRequerimientoHerramientas(CreateView,ListView):
 	paginate_by = 10
 	def get_context_data(self, **kwargs):
 		context = super (listaRequerimientoHerramientas, self).get_context_data(**kwargs)
-		if 'form' in context:
+		pk1=self.kwargs['pk']
+		if 'form' and 'item' not in context:
 			context['form'] = self.form_class()
+			context['item'] = item.objects.get(id=pk1)
 		return context
 	def get(self, request, *args, **kwargs):
 		self.object = self.get_object
@@ -612,6 +686,13 @@ class crearInforme(CreateView):
 	form_class = crearReportesAvanceForm
 	template_name = 'seguimiento/crearinforme.html'
 	success_url = 'seguimiento:informefotografico'
+	def get_context_data(self, **kwargs):
+		context = super (crearInforme, self).get_context_data(**kwargs)
+		pk1=self.kwargs['pk']
+		if 'form' and 'item' not in context:
+			context['form'] = self.form_class()
+			context['item'] = item.objects.get(id=pk1)
+		return context
 	def post(self, request, *args, **kwargs):
 		self.object = self.get_object
 		form = self.form_class(request.POST)
@@ -631,13 +712,15 @@ class updateCrearInforme(UpdateView):
 	form_class = crearReportesAvanceForm
 	template_name = 'seguimiento/crearinforme.html'
 	success_url = reverse_lazy('seguimiento:listaproyectos')
+
 	def get_context_data(self, **kwargs):
 		context = super (updateCrearInforme, self).get_context_data(**kwargs)
 		pk1=self.kwargs['pk']
-		if 'form' in context:
+		if 'form' and 'item' not in context:
 			ins = self.model.objects.get(pk=pk1)
 			#print(datetime.datetime.strptime(str(ins.fecha_inicio), '%Y-%m-%d').strftime('%d-%m-%Y'))
 			context['form'] = self.form_class(instance=ins)
+			context['item'] = item.objects.get(id=pk1)
 		return context
 
 class crearInformeFotografico(CreateView):
@@ -665,8 +748,10 @@ class listaInformes(CreateView,ListView):
 	paginate_by = 10
 	def get_context_data(self, **kwargs):
 		context = super (listaInformes, self).get_context_data(**kwargs)
-		if 'form' in context:
+		pk1=self.kwargs['pk']
+		if 'form' and 'item' not in context:
 			context['form'] = self.form_class()
+			context['item'] = item.objects.get(id=pk1)
 		return context
 	def get(self, request, *args, **kwargs):
 		self.object = self.get_object

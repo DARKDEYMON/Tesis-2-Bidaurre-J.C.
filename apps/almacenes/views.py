@@ -339,6 +339,15 @@ class ingresoInsumoItem(CreateView):
 	form_class = crearIngresoInsumoForm
 	template_name = 'almacen/crearingresoinsumo.html'
 	success_url = 'almacenes:listaingresoinsumo'
+
+	def get_context_data(self, **kwargs):
+		context = super (ingresoInsumoItem, self).get_context_data(**kwargs)
+		pk1=self.kwargs['pk']
+		if 'form' and 'item' not in context:
+			context['form'] = self.form_class()
+			context['item'] = item.objects.get(id=pk1)
+		return context
+
 	def post(self, request, *args, **kwargs):
 		self.object = self.get_object	
 		form = self.form_class(request.POST)
@@ -365,8 +374,10 @@ class listaIngresoInsumoItem(CreateView,ListView):
 	paginate_by = 10
 	def get_context_data(self, **kwargs):
 		context = super (listaIngresoInsumoItem, self).get_context_data(**kwargs)
-		if 'form' in context:
+		pk1=self.kwargs['pk']
+		if 'form' and 'item' not in context:
 			context['form'] = self.form_class()
+			context['item'] = item.objects.get(id=pk1)
 		return context
 	def get(self, request, *args, **kwargs):
 		self.object = self.get_object
@@ -399,6 +410,14 @@ class salidaInsumoItem(CreateView):
 	form_class = crearSalidaInsumoForm
 	template_name = 'almacen/salidainsumo.html'
 	success_url = 'almacenes:listasalidainsumo'
+
+	def get_context_data(self, **kwargs):
+		context = super (salidaInsumoItem, self).get_context_data(**kwargs)
+		pk1=self.kwargs['pk']
+		if 'form' and 'item' not in context:
+			context['form'] = self.form_class()
+			context['item'] = item.objects.get(id=pk1)
+		return context
 
 	def post(self, request, *args, **kwargs):
 		self.object = self.get_object	
@@ -446,11 +465,15 @@ class listaSalidaInsumo(CreateView,ListView):
 	form_class = searchForm
 	template_name = 'almacen/listasalidainsumo.html'
 	paginate_by = 10
+
 	def get_context_data(self, **kwargs):
 		context = super (listaSalidaInsumo, self).get_context_data(**kwargs)
+		pk1=self.kwargs['pk']
 		if 'form' in context:
 			context['form'] = self.form_class()
+			context['item'] = item.objects.get(id=pk1)
 		return context
+
 	def get(self, request, *args, **kwargs):
 		self.object = self.get_object
 		form = self.form_class()
@@ -482,6 +505,15 @@ class ingresoMaterialItem(CreateView):
 	form_class = crearIngresoMaterialForm
 	template_name = 'almacen/crearingresomaterial.html'
 	success_url = 'almacenes:listaingresomaterial'
+
+	def get_context_data(self, **kwargs):
+		context = super (ingresoMaterialItem, self).get_context_data(**kwargs)
+		pk1=self.kwargs['pk']
+		if 'form' and 'item' not in context:
+			context['form'] = self.form_class()
+			context['item'] = item.objects.get(id=pk1)
+		return context
+
 	def post(self, request, *args, **kwargs):
 		self.object = self.get_object	
 		form = self.form_class(request.POST)
@@ -508,8 +540,10 @@ class listaIngresoMaterialItem(CreateView,ListView):
 	paginate_by = 10
 	def get_context_data(self, **kwargs):
 		context = super (listaIngresoMaterialItem, self).get_context_data(**kwargs)
-		if 'form' in context:
+		pk1=self.kwargs['pk']
+		if 'form' and 'item' not in context:
 			context['form'] = self.form_class()
+			context['item'] = item.objects.get(id=pk1)
 		return context
 	def get(self, request, *args, **kwargs):
 		self.object = self.get_object
@@ -542,6 +576,14 @@ class salidaMaterialItem(CreateView):
 	form_class = crearSalidaMaterialForm
 	template_name = 'almacen/salidamaterial.html'
 	success_url = 'almacenes:listasalidamaterial'
+
+	def get_context_data(self, **kwargs):
+		context = super (salidaMaterialItem, self).get_context_data(**kwargs)
+		pk1=self.kwargs['pk']
+		if 'form' and 'item' not in context:
+			context['form'] = self.form_class()
+			context['item'] = item.objects.get(id=pk1)
+		return context
 
 	def post(self, request, *args, **kwargs):
 		self.object = self.get_object	
@@ -591,11 +633,15 @@ class listaSalidaMaterial(CreateView,ListView):
 	form_class = searchForm
 	template_name = 'almacen/listasalidamaterial.html'
 	paginate_by = 10
+
 	def get_context_data(self, **kwargs):
 		context = super (listaSalidaMaterial, self).get_context_data(**kwargs)
-		if 'form' in context:
+		pk1=self.kwargs['pk']
+		if 'form' and 'item' not in context:
 			context['form'] = self.form_class()
+			context['item'] = item.objects.get(id=pk1)
 		return context
+
 	def get(self, request, *args, **kwargs):
 		self.object = self.get_object
 		form = self.form_class()
@@ -627,6 +673,15 @@ class ingresoHerramientasView(CreateView):
 	form_class = crearIngresoHerramientasForm
 	template_name = 'almacen/ingresoherramientas.html'
 	success_url = reverse_lazy('almacenes:listaalmacenes')
+
+	def get_context_data(self, **kwargs):
+		context = super (ingresoHerramientasView, self).get_context_data(**kwargs)
+		ct = self.kwargs['ct']
+		if 'form' and 'ct' not in context:
+			context['form'] = self.form_class()
+			context['ct'] = almacen.objects.get(ciudad=ct)
+		return context
+
 	def post(self, request, *args, **kwargs):
 		self.object = self.get_object	
 		form = self.form_class(request.POST)
@@ -652,6 +707,14 @@ class salidaHerramientasView(CreateView):
 	form_class = crearSalidaHerramientasForm
 	template_name = 'almacen/salidaherramientas.html'
 	success_url = 'almacenes:listasalidaherramientas'
+
+	def get_context_data(self, **kwargs):
+		context = super (salidaHerramientasView, self).get_context_data(**kwargs)
+		pk1=self.kwargs['pk']
+		if 'form' and 'item' not in context:
+			context['form'] = self.form_class()
+			context['item'] = item.objects.get(id=pk1)
+		return context
 
 	def post(self, request, *args, **kwargs):
 		self.object = self.get_object	
@@ -706,11 +769,15 @@ class listaSalidaHerramientas(CreateView,ListView):
 	form_class = searchForm
 	template_name = 'almacen/listasalidaherramientas.html'
 	paginate_by = 10
+
 	def get_context_data(self, **kwargs):
 		context = super (listaSalidaHerramientas, self).get_context_data(**kwargs)
-		if 'form' in context:
+		pk1=self.kwargs['pk']
+		if 'form' and 'item' not in context:
 			context['form'] = self.form_class()
+			context['item'] = item.objects.get(id=pk1)
 		return context
+
 	def get(self, request, *args, **kwargs):
 		self.object = self.get_object
 		form = self.form_class()
@@ -742,6 +809,15 @@ class ingresoMaquinariaEquipo(CreateView):
 	form_class = crearIngresoMaquinariaEquipoForm
 	template_name = 'almacen/ingresomaquinariaequipo.html'
 	success_url = reverse_lazy('almacenes:listaalmacenes')
+
+	def get_context_data(self, **kwargs):
+		context = super (ingresoMaquinariaEquipo, self).get_context_data(**kwargs)
+		ct = self.kwargs['ct']
+		if 'form' and 'ct' not in context:
+			context['form'] = self.form_class()
+			context['ct'] = almacen.objects.get(ciudad=ct)
+		return context
+
 	def post(self, request, *args, **kwargs):
 		self.object = self.get_object	
 		form = self.form_class(request.POST)
@@ -767,6 +843,14 @@ class salidaMaquinariaEquipo(CreateView):
 	form_class = crearSalidaMaquinariaEquipoForm
 	template_name = 'almacen/salidamaquinariaequipo.html'
 	success_url = 'almacenes:listasalidamaquinariaequipo'
+
+	def get_context_data(self, **kwargs):
+		context = super (salidaMaquinariaEquipo, self).get_context_data(**kwargs)
+		pk1=self.kwargs['pk']
+		if 'form' and 'item' not in context:
+			context['form'] = self.form_class()
+			context['item'] = item.objects.get(id=pk1)
+		return context
 
 	def post(self, request, *args, **kwargs):
 		self.object = self.get_object	
@@ -822,11 +906,15 @@ class listaSalidaMaquinariaEquipo(CreateView,ListView):
 	form_class = searchForm
 	template_name = 'almacen/listasalidamaquinariaequipo.html'
 	paginate_by = 10
+
 	def get_context_data(self, **kwargs):
 		context = super (listaSalidaMaquinariaEquipo, self).get_context_data(**kwargs)
-		if 'form' in context:
+		pk1=self.kwargs['pk']
+		if 'form' and 'item' not in context:
 			context['form'] = self.form_class()
+			context['item'] = item.objects.get(id=pk1)
 		return context
+
 	def get(self, request, *args, **kwargs):
 		self.object = self.get_object
 		form = self.form_class()
@@ -858,11 +946,15 @@ class listaConfirmacionHerramientas(CreateView,ListView):
 	form_class = searchForm
 	template_name = 'almacen/listaConfirmacionHerramientas.html'
 	paginate_by = 10
+
 	def get_context_data(self, **kwargs):
 		context = super (listaConfirmacionHerramientas, self).get_context_data(**kwargs)
-		if 'form' in context:
+		ct = self.kwargs['ct']
+		if 'form' and 'ct' not in context:
 			context['form'] = self.form_class()
+			context['ct'] = almacen.objects.get(ciudad=ct)
 		return context
+
 	def get(self, request, *args, **kwargs):
 		self.object = self.get_object
 		form = self.form_class()
@@ -926,11 +1018,15 @@ class listaConfirmacionMaquinariaHequipo(CreateView,ListView):
 	form_class = searchForm
 	template_name = 'almacen/listaConfirmacionMaquinariaHequipo.html'
 	paginate_by = 10
+
 	def get_context_data(self, **kwargs):
 		context = super (listaConfirmacionMaquinariaHequipo, self).get_context_data(**kwargs)
-		if 'form' in context:
+		ct = self.kwargs['ct']
+		if 'form' and 'ct' not in context:
 			context['form'] = self.form_class()
+			context['ct'] = almacen.objects.get(ciudad=ct)
 		return context
+
 	def get(self, request, *args, **kwargs):
 		self.object = self.get_object
 		form = self.form_class()
@@ -972,11 +1068,11 @@ class debolucionMaquinariaHequipo(UpdateView):
 		if form.is_valid():
 			print (form)
 			form =form.save(commit=False)
+			
+
+			a = maquinaria_equipoAlmacen.objects.get(almacen=form.almacen,maquinaria_equipo=form.maquinaria_equipo)
+			ct = a.almacen.ciudad
 			if(form.debuelto):
-
-				a = maquinaria_equipoAlmacen.objects.get(almacen=form.almacen,maquinaria_equipo=form.maquinaria_equipo)
-				ct = a.almacen.ciudad
-
 				a.cantidad = a.cantidad + form.cantidad
 				a.save()
 				form.save()
@@ -996,6 +1092,12 @@ class crearTipoActivo(CreateView):
 class crearActivo(CreateView):
 	form_class = crearActivoForm
 	template_name ='almacen/crearactivo.html'
+	success_url = reverse_lazy('almacenes:listacrearactivo')
+
+class updateActivo(UpdateView):
+	model = activo
+	form_class = crearActivoForm
+	template_name ='almacen/crearactivo_up.html'
 	success_url = reverse_lazy('almacenes:listacrearactivo')
 
 class listaCrearActivo(CreateView,ListView):
