@@ -54,6 +54,19 @@ class proveedor(models.Model):
 		null=False,
 		unique=True
 	)
+	nit = models.CharField(
+		max_length=50,
+		unique=True,
+		blank=False,
+		null=False,
+		validators=[
+			RegexValidator(
+				regex=r'^[0-9]{7,12}$', 
+				message='El telefono tiene un maximo de 8 dijitos', 
+				code='Numero Invalido'
+			)
+		]
+	)
 	telefono = models.PositiveIntegerField(
 		null=False, 
 		blank=False, 
@@ -130,7 +143,19 @@ class ingresoMaterial(models.Model):
 		validators=[
 			RegexValidator(
 				regex=r'^[0-9]{1,20}$', 
-				message='El numero de factura tiene de 5 a 20 cifras', 
+				message='El numero de factura tiene de 1 a 20 cifras', 
+				code='Numero Invalido'
+			)
+		]
+	)
+	no_autorizacion = models.CharField(
+		max_length=50,
+		null=False,
+		blank=False,
+		validators=[
+			RegexValidator(
+				regex=r'^[0-9]{5,20}$', 
+				message='El numero de autorizacion tiene de 5 a 20 cifras', 
 				code='Numero Invalido'
 			)
 		]
@@ -226,7 +251,19 @@ class ingresoInsumos(models.Model):
 		validators=[
 			RegexValidator(
 				regex=r'^[0-9]{1,20}$', 
-				message='El numero de factura tiene de 5 a 20 cifras', 
+				message='El numero de factura tiene de 1 a 20 cifras', 
+				code='Numero Invalido'
+			)
+		]
+	)
+	no_autorizacion = models.CharField(
+		max_length=50,
+		null=False,
+		blank=False,
+		validators=[
+			RegexValidator(
+				regex=r'^[0-9]{5,20}$', 
+				message='El numero de autorizacion tiene de 5 a 20 cifras', 
 				code='Numero Invalido'
 			)
 		]

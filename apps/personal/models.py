@@ -67,7 +67,7 @@ class kardex(models.Model):
 		validators=[
 			# validadores de filas
 			RegexValidator(
-				regex=r'^[a-zA-Z]{3,}$',
+				regex=r'^[a-zA-ZñÑáéíóúÁÉÍÓÚ]{3,}$',
 				message='La profecion deve contener solo letras', 
 				code='Numero Invalido'
 			)
@@ -124,7 +124,7 @@ class cargo(models.Model):
 		validators=[
 			# validadores de filas
 			RegexValidator(
-				regex=r'^(([a-zA-Z]{2,} )||([a-zA-Z]{2,}))+$',
+				regex=r'^(([a-zA-ZñÑáéíóúÁÉÍÓÚ]{2,} )||([a-zA-ZñÑáéíóúÁÉÍÓÚ]{2,}))+$',
 				message='El cargo deve contener solo letras y un minimo de dos caracteres',
 				code='Numero Invalido'
 			)

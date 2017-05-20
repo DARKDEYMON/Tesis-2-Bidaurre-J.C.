@@ -19,6 +19,9 @@ class crearProveedorForm(ModelForm):
 	class Meta:
 		model = proveedor
 		exclude = ['']
+		labels = {
+			'rason_social':'Razon social' 
+		}
 
 #material
 class crearMaterialForm(ModelForm):
@@ -27,6 +30,7 @@ class crearMaterialForm(ModelForm):
 		exclude = ['']
 		labels = {
 			'tipo_item':'Tipo de Item',
+			'decripcion':'Descripcion'
 		}
 
 class crearIngresoMaterialForm(ModelForm):
@@ -44,6 +48,9 @@ class crearInsumoForm(ModelForm):
 	class Meta:
 		model = insumos
 		exclude = ['']
+		labels = {
+			'decripcion':'Descripcion'
+		}
 
 class crearIngresoInsumoForm(ModelForm):
 	class Meta:
@@ -59,6 +66,9 @@ class crearHerramientasForm(ModelForm):
 	class Meta:
 		model = herramientas
 		exclude = ['']
+		labels = {
+			'decripcion':'Descripcion'
+		}
 
 class crearIngresoHerramientasForm(ModelForm):
 	class Meta:
@@ -69,6 +79,9 @@ class crearSalidaHerramientasForm(ModelForm):
 	class Meta:
 		model = salidaHerramientas
 		exclude = ['almacen','item','debuelto']
+		labels = {
+			'debuelto':'Devuelto'
+		}
 
 class crearMaquinariaEquipoForm(ModelForm):
 	class Meta:
@@ -84,6 +97,9 @@ class crearSalidaMaquinariaEquipoForm(ModelForm):
 	class Meta:
 		model = salidaMaquinaria_equipo
 		exclude = ['almacen','item','debuelto']
+		labels = {
+			'debuelto':'Devuelto'
+		}
 
 CHOICES = (('1', 'ID'),('2', 'Nombre'),)
 class searchForm(forms.Form):
@@ -94,11 +110,17 @@ class crearDebolucionHerramientas(ModelForm):
 	class Meta:
 		model = salidaHerramientas
 		fields = ['debuelto']
+		labels = {
+			'debuelto':'Devuelto'
+		}
 
 class crearDebolucionMaquinariaEquipo(ModelForm):
 	class Meta:
 		model = salidaMaquinaria_equipo
 		fields = ['debuelto']
+		labels = {
+			'debuelto':'Devuelto'
+		}
 
 class crearTipoActivoForm(ModelForm):
 	class Meta:

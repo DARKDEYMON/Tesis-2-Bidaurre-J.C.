@@ -23,7 +23,7 @@ class proyecto(models.Model):
 		validators=[
 			# validadores de filas
 			RegexValidator(
-				regex=r'^(([a-zA-Z0-9]{2,} )||([a-zA-Z0-9]{2,}))+$',
+				regex=r'^(([a-zA-Z0-9ZñÑáéíóúÁÉÍÓÚ]{2,} )||([a-zA-Z0-9ZñÑáéíóúÁÉÍÓÚ]{2,}))+$',
 				message='El objeto de la contratacion del proyecto no es valido',
 				code='Numero Invalido'
 			)
@@ -36,7 +36,7 @@ class proyecto(models.Model):
 		validators=[
 			# validadores de filas
 			RegexValidator(
-				regex=r'^[a-zA-Z]{2,}$',
+				regex=r'^[a-zA-ZñÑáéíóúÁÉÍÓÚ]{2,}$',
 				message='El tipo de modalidad no es valido',
 				code='Numero Invalido'
 			)
@@ -49,7 +49,7 @@ class proyecto(models.Model):
 		validators=[
 			# validadores de filas
 			RegexValidator(
-				regex=r'^(([a-zA-Z0-9]{2,} )||([a-zA-Z0-9]{2,}))+$',
+				regex=r'^(([a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ]{2,} )||([a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ]{2,}))+$',
 				message='El nombre de la entidad no es valido',
 				code='Numero Invalido'
 			)
@@ -229,7 +229,7 @@ class item(models.Model):
 		validators=[
 			# validadores de filas
 			RegexValidator(
-				regex=r'^(([a-zA-Z0-9]{2,} )||([a-zA-Z0-9]{2,}))+$',
+				regex=r'^(([a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ]{2,} )||([a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ]{2,}))+$',
 				message='La descripcion del item no es valido',
 				code='Numero Invalido'
 			)
@@ -462,7 +462,7 @@ class requerimiento_maq_he(models.Model):
 		validators=[
 			# validadores de filas
 			RegexValidator(
-				regex=r'^(([a-zA-Z0-9]{2,} )||([a-zA-Z0-9]{2,}))+$',
+				regex=r'^(([a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ]{2,} )||([a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ]{2,}))+$',
 				message='La descripcion de la maquinaria/equipo no es valida',
 				code='Numero Invalido'
 			)
@@ -507,7 +507,7 @@ class materiales_locales(models.Model):
 		validators=[
 			# validadores de filas
 			RegexValidator(
-				regex=r'^(([a-zA-Z0-9]{2,} )||([a-zA-Z0-9]{2,}))+$',
+				regex=r'^(([a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ]{2,} )||([a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ]{2,}))+$',
 				message='La descripcion del material no es valida',
 				code='Numero Invalido'
 			)
