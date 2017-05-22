@@ -229,7 +229,7 @@ class item(models.Model):
 		validators=[
 			# validadores de filas
 			RegexValidator(
-				regex=r'^(([a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ]{2,} )||([a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ]{2,}))+$',
+				regex=r'^(([a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ]{2,} )||([a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ]{1,}))+$',
 				message='La descripcion del item no es valido',
 				code='Numero Invalido'
 			)

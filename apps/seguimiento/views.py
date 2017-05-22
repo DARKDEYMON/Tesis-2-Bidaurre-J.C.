@@ -130,8 +130,54 @@ class updateItem(UpdateView):
 	form_class = crearItemsForm
 	template_name = 'seguimiento/nuevoitem.html'
 	success_url = 'seguimiento:listaitems'
+
+	def get_context_data(self, **kwargs):
+		context = super (updateItem, self).get_context_data(**kwargs)
+		pk1=self.kwargs['pk']
+		if 'pro' not in context:
+			context['pk1'] = pk1
+			context['pro'] = self.model.objects.get(id=pk1).proyecto
+		return context
+
 	def get_success_url(self):
 		return reverse_lazy(self.success_url, kwargs = {'pk': self.get_object().proyecto.pk})
+
+	def post(self, request, *args, **kwargs):
+		self.object = self.get_object	
+		form = self.form_class(request.POST)
+		#pk1=self.kwargs['pk']
+		#proyectoval = self.model_pk.objects.get(id=pk1)
+		if form.is_valid():
+			pk1=self.kwargs['pk']
+
+			dat = self.model.objects.get(id=pk1).proyecto
+			ini = form.cleaned_data['fecha_inicio']
+			fin = form.cleaned_data['plazo_finalizacion']
+			inip = dat.fecha_inicio
+			finp = dat.plazo_previsto
+
+			"""
+			print(ini)
+			print(fin)
+			print(inip)
+			print(finp)
+			print(inip <= ini <= finp)
+			print(inip <= fin <= finp)
+			print(not((inip <= ini <= finp) and (inip <= fin <= finp)))
+			#return
+			"""
+			if (not((inip <= ini <= finp) and (inip <= fin <= finp))):
+				return self.render_to_response(self.get_context_data(form=form,error='Las fechas no estas entre los plasos del proyecto'))
+
+			#pk1=self.kwargs['pk']
+			#form =form.save(commit=False)
+			#form.proyecto = self.model.objects.get(id=pk1).proyecto
+			form = self.form_class(request.POST,instance=self.model.objects.get(id=pk1))
+			form.save()
+			return  HttpResponseRedirect(reverse_lazy(self.success_url, kwargs = {'pk': dat.pk}))
+		else:
+			#print ("paso2")
+			return self.render_to_response(self.get_context_data(form=form))
 
 # lista los items de un proyecto en espesifico
 class listaItems(CreateView,ListView):
