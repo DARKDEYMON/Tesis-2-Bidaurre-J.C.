@@ -4,7 +4,7 @@
 	{% endblock nav %}
 	
 	{% block legend %}
-		<legend>Login</legend>
+		<legend class="text-center">Login</legend>
 	{% endblock legend %}	
 			
 	{% block errores %}
@@ -45,10 +45,10 @@
 
 			<input type="hidden" name="next" value="{{ next }}" />
 					
-				  <div class="col-lg-10 col-lg-offset-2">
-				   <a href="">Perdio su contraseña?</a>
-				      <button type="reset" class="btn btn-default">Reset</button>
-				      <button type="submit" value="login" class="btn btn-primary">Login</button>
+				  <div class="col-lg-10 col-lg-offset-2 text-center" >
+				   		<!--<a href="">Perdio su contraseña?</a>-->
+				      	<button type="reset" class="btn btn-default">Reset</button>
+				      	<button type="submit" value="login" class="btn btn-primary">Login</button>
 				  </div>
 		</fieldset>	
 	{% endblock formulario %}		

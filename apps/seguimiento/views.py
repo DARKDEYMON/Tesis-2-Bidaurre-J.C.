@@ -832,6 +832,61 @@ class reporteProyectosEstado(PDFTemplateView):
 		except:
 			raise Http404
 		return context
+
+class boletaAutMaterial(PDFTemplateView):
+	template_name = "seguimiento/boleta_aut_material.html"
+	def get_context_data(self, **kwargs):
+		context = super(boletaAutMaterial, self).get_context_data(**kwargs)
+		pk = self.kwargs.get('pk')
+		try:
+			context['res'] = peticion_materiales.objects.get(id=pk)
+		except:
+			raise Http404
+		return context
+
+class boletaAutInsumo(PDFTemplateView):
+	template_name = "seguimiento/boleta_aut_insumo.html"
+	def get_context_data(self, **kwargs):
+		context = super(boletaAutInsumo, self).get_context_data(**kwargs)
+		pk = self.kwargs.get('pk')
+		try:
+			context['res'] = peticion_insumos.objects.get(id=pk)
+		except:
+			raise Http404
+		return context
+
+class boletaAutHerra(PDFTemplateView):
+	template_name = "seguimiento/boleta_aut_herramientas.html"
+	def get_context_data(self, **kwargs):
+		context = super(boletaAutHerra, self).get_context_data(**kwargs)
+		pk = self.kwargs.get('pk')
+		try:
+			context['res'] = peticion_Herramientas.objects.get(id=pk)
+		except:
+			raise Http404
+		return context
+
+class boletaAutManObra(PDFTemplateView):
+	template_name = "seguimiento/boleta_aut_manobra.html"
+	def get_context_data(self, **kwargs):
+		context = super(boletaAutManObra, self).get_context_data(**kwargs)
+		pk = self.kwargs.get('pk')
+		try:
+			context['res'] = requerimiento_personal.objects.get(id=pk)
+		except:
+			raise Http404
+		return context
+
+class boletaAutMaEq(PDFTemplateView):
+	template_name = "seguimiento/boleta_aut_maeq.html"
+	def get_context_data(self, **kwargs):
+		context = super(boletaAutMaEq, self).get_context_data(**kwargs)
+		pk = self.kwargs.get('pk')
+		try:
+			context['res'] = requerimiento_maq_he.objects.get(id=pk)
+		except:
+			raise Http404
+		return context
 """
 def reporteProyecto(request,pk):
 	#consultas

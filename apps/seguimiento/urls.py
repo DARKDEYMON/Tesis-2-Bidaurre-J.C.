@@ -169,6 +169,26 @@ urlpatterns = [
         login_required(reporteProyectosEstado.as_view()), 
         name='repestpro'
     ),
+    url(r'^boletaamaterial/(?P<pk>\d+)/$',
+        login_required(boletaAutMaterial.as_view()), 
+        name='boletaamaterial'
+    ),
+    url(r'^boletainsumo/(?P<pk>\d+)/$',
+        login_required(boletaAutInsumo.as_view()), 
+        name='boletainsumo'
+    ),
+    url(r'^boletaherra/(?P<pk>\d+)/$',
+        login_required(boletaAutHerra.as_view()), 
+        name='boletaherra'
+    ),
+    url(r'^boletamanobra/(?P<pk>\d+)/$',
+        login_required(boletaAutManObra.as_view()), 
+        name='boletamanobra'
+    ),
+    url(r'^boletaautmaeq/(?P<pk>\d+)/$',
+        login_required(boletaAutMaEq.as_view()), 
+        name='boletaautmaeq'
+    ),
     #url(r'^json_calendar/(?P<pk>\d+)/$',
     #    login_required(json_calendar), 
     #    name='json_calendar'

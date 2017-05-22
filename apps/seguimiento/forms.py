@@ -70,6 +70,11 @@ class crearPeticionHerramientas(ModelForm):
 			'petion_de_planificacion':'Peticion de planificacion',
 		}
 
+class crearPeticionMaqHeq(ModelForm):
+	class Meta:
+		model = peticion_maquinaria_equipo
+		exclude = ['item']
+
 class crearRequerimientoPersonalForm(ModelForm):
 	class Meta:
 		model = requerimiento_personal
