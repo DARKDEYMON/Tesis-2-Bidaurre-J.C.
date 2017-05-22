@@ -84,8 +84,9 @@ class crearItem(CreateView):
 	def get_context_data(self, **kwargs):
 		context = super (crearItem, self).get_context_data(**kwargs)
 		pk1=self.kwargs['pk']
-		if 'form' and 'pro' not in context:
-			context['form'] = self.form_class()
+
+		if 'form' and 'pro' in context:
+			#context['form'] = self.form_class()
 			context['pk1'] = pk1
 			context['pro'] = proyecto.objects.get(id=pk1)
 		return context
@@ -95,6 +96,7 @@ class crearItem(CreateView):
 		form = self.form_class(request.POST)
 		#pk1=self.kwargs['pk']
 		#proyectoval = self.model_pk.objects.get(id=pk1)
+		print(form.is_valid())
 		if form.is_valid():
 			pk1=self.kwargs['pk']
 
@@ -103,6 +105,7 @@ class crearItem(CreateView):
 			fin = form.cleaned_data['plazo_finalizacion']
 			inip = dat.fecha_inicio
 			finp = dat.plazo_previsto
+
 			"""
 			print(ini)
 			print(fin)
@@ -122,6 +125,7 @@ class crearItem(CreateView):
 			form.save()
 			return  HttpResponseRedirect(reverse_lazy(self.success_url, kwargs = {'pk': pk1}))
 		else:
+			#print(form)
 			#print ("paso2")
 			return self.render_to_response(self.get_context_data(form=form))
 
