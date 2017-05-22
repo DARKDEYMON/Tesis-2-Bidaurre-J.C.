@@ -76,9 +76,9 @@
     </div>
 
     <h4><b>EMPRESA CONSTRUCTORA VIDAURRE J.C.</b></h4>
-    <h4><b>Unidad Administrativa y Financiera Área de Almacén</b></h4>
-    <p>La presente tiene por objeto dar autorización para el evio de los siguientes requerimientos, a continuación, dados.
-    Nota: Para su valides debe contar con la firma del jefe(a) de la Unidad Administrativa y Financiera del Área de Almacén y el director del proyecto. 
+    <h4><b>Unidad Administrativa y Financiera</b></h4>
+    <p>La presente tiene por objeto dar autorización para el desembolso del dinero para la compra de los siguientes requerimientos, a continuación, dados.
+    Nota: Para su valides debe contar con la firma del jefe(a) de la Unidad Administrativa y Financiera y el director del proyecto. 
     </p>
     <table>
         <tr>
@@ -99,10 +99,18 @@
         </tr>
         <tr>
             <th>
-                Descripcion de Herramienta:
+                Del item:
             </th>
             <td>
-                {{ res.herramientas }}
+                {{ res.item.descripcion }}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Descripcion del material (local):
+            </th>
+            <td>
+                {{ res.descripcion }}
             </td>
         </tr>
         <tr>
@@ -110,7 +118,15 @@
                 Cantidad:
             </th>
             <td>
-                {{ res.cantidad }}
+                {{ res.cantidad }} {{ res.unidad }}
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Precio estimado total:
+            </th>
+            <td>
+                {{ res.precio_estimado_total }} Bs
             </td>
         </tr>
     </table>
@@ -124,7 +140,7 @@
         <tr>
             <th>
                 Firma del jefe de la unidad<br>
-                Unidad Administrativa y Financiera Area de Almacén
+                Unidad Administrativa y Financiera
             </th>
             <th>
                 Firma del director de obra

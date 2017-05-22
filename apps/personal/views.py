@@ -231,7 +231,6 @@ class listaCargo(CreateView,ListView):
 		if 'form' not in context:
 			context['form'] = self.form_class()
 		return context
-
 	def get(self, request, *args, **kwargs):
 		self.object = self.get_object
 		form = self.form_class()

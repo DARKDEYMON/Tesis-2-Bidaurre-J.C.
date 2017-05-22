@@ -937,6 +937,17 @@ class boletaAutMaEq(PDFTemplateView):
 		except:
 			raise Http404
 		return context
+
+class boletaAutMaLo(PDFTemplateView):
+	template_name = "seguimiento/boleta_aut_materiallocal.html"
+	def get_context_data(self, **kwargs):
+		context = super(boletaAutMaLo, self).get_context_data(**kwargs)
+		pk = self.kwargs.get('pk')
+		try:
+			context['res'] = materiales_locales.objects.get(id=pk)
+		except:
+			raise Http404
+		return context
 """
 def reporteProyecto(request,pk):
 	#consultas

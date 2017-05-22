@@ -189,6 +189,10 @@ urlpatterns = [
         login_required(boletaAutMaEq.as_view()), 
         name='boletaautmaeq'
     ),
+    url(r'^boletamalo/(?P<pk>\d+)/$',
+        login_required(boletaAutMaLo.as_view()), 
+        name='boletamalo'
+    ),
     #url(r'^json_calendar/(?P<pk>\d+)/$',
     #    login_required(json_calendar), 
     #    name='json_calendar'
