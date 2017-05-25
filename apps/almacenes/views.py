@@ -214,7 +214,7 @@ class crearProveedor(CreateView):
 class updateProveedor(UpdateView):
 	model = proveedor
 	form_class = crearProveedorForm
-	template_name = 'almacen/nuevaherramienta.html'
+	template_name = 'almacen/nuevoproveedor.html'
 	success_url = reverse_lazy('almacenes:listaproveedor')
 
 class listaProveedor(CreateView,ListView):

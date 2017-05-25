@@ -134,3 +134,6 @@ class crearActivoForm(ModelForm):
 		widgets = {
 			'fecha_ingreso':Html5DateInput(format=('%Y-%m-%d')),
 		}
+		labels = {
+			'tipoActivo':'Tipo de Activo'
+		}
